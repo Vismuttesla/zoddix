@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix_password
+      POSTGRES_DB: zabbix
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - zabbix-network
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:alpine-7.0-latest
+    environment:
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix_password
+      POSTGRES_DB: zabbix
+    depends_on:
+      - postgres
+    networks:
+      - zabbix-network
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-7.0-latest
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      DB_SERVER_HOST: postgres
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix_password
+      POSTGRES_DB: zabbix
+    ports:
+      - "8098:8080"
+    depends_on:
+      - zabbix-server
+      - postgres
+    volumes:
+      - ./ui/locale/uz_UZ:/usr/share/zabbix/locale/uz_UZ:ro
+      - ./ui/conf/zabbix.conf.php:/etc/zabbix/conf/zabbix.conf.php:ro
+      - ./ui/include/locales.inc.php:/usr/share/zabbix/include/locales.inc.php:ro
+      - ./ui/locale/uz/LC_MESSAGES/frontend.mo:/usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo:ro
+    networks:
+      - zabbix-network
+
+volumes:
+  postgres-data:
+
+networks:
+  zabbix-network:
+    driver: bridge
