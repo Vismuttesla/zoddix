@@ -6,6 +6,8 @@ COPY ui/zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
 COPY ui/include/locales.inc.php /usr/share/zabbix/include/locales.inc.php
 COPY ui/locale/uz_UZ.po /usr/share/zabbix/locale/uz_UZ.po
 
+COPY /css/stylesheets/sass/dark-theme.css /usr/share/zabbix/assets/styles/dark-theme.css
+
 # gettext o'rnatish (po faylini mo ga kompilyatsiya qilish uchun)
 RUN apk add --no-cache gettext
 

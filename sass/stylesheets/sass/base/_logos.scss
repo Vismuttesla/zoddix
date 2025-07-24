@@ -11,6 +11,7 @@ div.zabbix-logo {
 div.zabbix-logo-sidebar {
 	width: 91px;
 	height: 24px;
+	//background: url("data:image/svg+xml;base64,#{$zabbix-logo}") no-repeat;
 	background: url("data:image/svg+xml;base64,#{$zabbix-logo}") no-repeat;
 	background-size: contain;
 }
