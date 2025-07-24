@@ -42,6 +42,7 @@ services:
       - ./ui/conf/zabbix.conf.php:/etc/zabbix/conf/zabbix.conf.php:ro
       - ./ui/include/locales.inc.php:/usr/share/zabbix/include/locales.inc.php:ro
       - ./ui/locale/uz/LC_MESSAGES/frontend.mo:/usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo:ro
+      - ./css:/usr/share/zabbix/css:ro
     networks:
       - zabbix-network
 
