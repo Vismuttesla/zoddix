@@ -43,6 +43,8 @@ services:
       - ./ui/include/locales.inc.php:/usr/share/zabbix/include/locales.inc.php:ro
       - ./ui/locale/uz/LC_MESSAGES/frontend.mo:/usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo:ro
       - ./css:/usr/share/zabbix/css:ro
+      - ./sass:/usr/share/zabbix/sass:ro
+      - ./ui/favicon.ico:/usr/share/zabbix/favicon.ico:ro
     networks:
       - zabbix-network
 
