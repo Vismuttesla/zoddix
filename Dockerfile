@@ -25,12 +25,6 @@ RUN install -d -o root -g root /usr/share/zabbix/ui/local/conf /usr/share/zabbix
 COPY ui/locale/uz/LC_MESSAGES/frontend.po /tmp/frontend.po
 # Copy branding config and logos (served via /usr/share/zabbix/ui)
 COPY ui/local/conf/brand.conf.php /usr/share/zabbix/ui/local/conf/brand.conf.php
-# Ensure UI assets img directory exists
-RUN install -d -o root -g root /usr/share/zabbix/ui/assets/img
-COPY assets/logo.svg /usr/share/zabbix/ui/assets/img/logo.svg
-COPY assets/logo.svg /usr/share/zabbix/ui/assets/img/logo-sidebar.svg
-COPY assets/logo.svg /usr/share/zabbix/ui/assets/img/logo-compact.svg
-RUN chmod 0644 /usr/share/zabbix/ui/assets/img/logo.svg /usr/share/zabbix/ui/assets/img/logo-sidebar.svg /usr/share/zabbix/ui/assets/img/logo-compact.svg
 
 # PO dan MO yig'amiz (uz va uz_UZ uchun)
 RUN msgfmt /tmp/frontend.po -o /usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo \
@@ -43,21 +37,23 @@ COPY assets/logo.svg /usr/share/zabbix/ui/assets/img/logo.svg
 COPY assets/logo.svg /usr/share/zabbix/assets/img/logo.svg
 COPY assets/logo.svg /usr/share/zabbix/ui/assets/img/logo-sidebar.svg
 COPY assets/logo.svg /usr/share/zabbix/ui/assets/img/logo-compact.svg
-COPY ui/favicon.ico  /usr/share/zabbix/ui/favicon.ico
+COPY assets/favicon.ico  /usr/share/zabbix/ui/favicon.ico
 
-# CSS oxiriga override — CSS ichidagi base64 logo'ni bosib ketish
+# CSS oxiriga override — CSS ichidagi base64 logo'ni bosib ketish va yangi logoni qo'yish
 RUN set -eux; \
-  for css in /usr/share/zabbix/ui/assets/styles/blue-theme.css \
-             /usr/share/zabbix/ui/assets/styles/dark-theme.css \
-             /usr/share/zabbix/ui/assets/styles/hc-light.css \
-             /usr/share/zabbix/ui/assets/styles/hc-dark.css; do \
+  for css in /usr/share/zabbix/assets/styles/blue-theme.css \
+             /usr/share/zabbix/assets/styles/dark-theme.css \
+             /usr/share/zabbix/assets/styles/hc-light.css \
+             /usr/share/zabbix/assets/styles/hc-dark.css; do \
     if [ -f "$css" ]; then \
       { \
         echo ''; \
-        echo '/* custom logo override */'; \
-        echo 'div.zabbix-logo{background:url("/assets/img/logo.svg") no-repeat;background-size:contain;}'; \
-        echo 'div.zabbix-logo-sidebar{background:url("/assets/img/logo-sidebar.svg") no-repeat;background-size:contain;}'; \
-        echo 'div.zabbix-logo-sidebar-compact{background:url("/assets/img/logo-compact.svg") no-repeat;background-size:contain;}'; \
+        echo '/* Custom logo override - replace all default Zabbix logos */'; \
+        echo 'div.zabbix-logo{background:url("../ui/assets/img/logo.svg") no-repeat !important;background-size:contain !important;width:auto !important;height:auto !important;}'; \
+        echo 'div.zabbix-logo-sidebar{background:url("../ui/assets/img/logo-sidebar.svg") no-repeat !important;background-size:contain !important;width:auto !important;height:auto !important;}'; \
+        echo 'div.zabbix-logo-sidebar-compact{background:url("../ui/assets/img/logo-compact.svg") no-repeat !important;background-size:contain !important;width:auto !important;height:auto !important;}'; \
+        echo '.zabbix-logo, .zabbix-logo-sidebar, .zabbix-logo-sidebar-compact {background-image:url("../ui/assets/img/logo.svg") !important;}'; \
+        echo '.signin-logo .zabbix-logo {background:url("../ui/assets/img/logo.svg") no-repeat center !important;background-size:contain !important;min-height:60px !important;}'; \
       } >> "$css"; \
     fi; \
   done
