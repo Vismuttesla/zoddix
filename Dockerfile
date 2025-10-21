@@ -42,6 +42,7 @@ COPY ui/local/img/favicon.ico /usr/share/zabbix/favicon.ico
 COPY ui/local/img/logo.svg /usr/share/zabbix/ui/local/img/logo.svg
 COPY ui/local/img/logo-compact.svg /usr/share/zabbix/ui/local/img/logo-compact.svg
 COPY ui/local/img/logo-sidebar.svg /usr/share/zabbix/ui/local/img/logo-sidebar.svg
+COPY ui/assets/styles/ /usr/share/zabbix/assets/styles/
 
 # CSS oxiriga override — CSS ichidagi base64 logo'ni bosib ketish va yangi logoni qo'yish
 RUN set -eux; \
