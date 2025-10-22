@@ -665,6 +665,7 @@ a:active {
 a img {
   border: 0;
   vertical-align: top;
+  width: 100px !important;
 }
 a.disabled:active, a.disabled:focus, a.disabled:hover {
   cursor: default !important;
@@ -1191,6 +1192,9 @@ footer {
   padding: 2px;
   overflow: hidden;
   justify-content: space-between;
+}
+.sidebar .sidebar-header a > img {
+  width: 100px !important;
 }
 .sidebar .sidebar-header-buttons {
   display: flex;

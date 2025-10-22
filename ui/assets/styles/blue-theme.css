@@ -665,6 +665,8 @@ a:active {
 a img {
   border: 0;
   vertical-align: top;
+  width: 100px !important;
+  height: 38px !important;
 }
 a.disabled:active, a.disabled:focus, a.disabled:hover {
   cursor: default !important;
