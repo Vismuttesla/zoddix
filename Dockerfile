@@ -14,15 +14,36 @@ RUN install -d -o root -g root /etc/zabbix/conf \
 # Konfiguratsiya fayllari (to'g'ri yo'l: /etc/zabbix/conf/)
 COPY ui/conf/zabbix.conf.php /etc/zabbix/conf/zabbix.conf.php
 COPY ui/include/locales.inc.php /usr/share/zabbix/include/locales.inc.php
+COPY ui/include/gettextwrapper.inc.php /usr/share/zabbix/include/gettextwrapper.inc.php
 
 # gettext (PO -> MO uchun)
 RUN apk add --no-cache gettext
+RUN apk add --no-cache musl-locales musl-locales-lang
 
-# PO fayl (senda shu yo'lda)
+# Alpine Linux uchun locale sozlash
+ENV LANG=uz_UZ.UTF-8
+ENV LC_ALL=uz_UZ.UTF-8
+ENV LC_MESSAGES=uz_UZ.UTF-8
+# uz_UZ locale alias yaratish
+RUN echo "uz_UZ uz_UZ.UTF-8" >> /etc/locale.alias
+RUN ln -sf uz_UZ /usr/share/locale/uz_UZ.UTF-8
+
+# uz_UZ locale fayl yaratish (Alpine da manual)
+RUN mkdir -p /usr/share/locale/uz_UZ/LC_MESSAGES
+COPY ui/locale/uz_UZ/LC_MESSAGES/frontend.po /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.po
+COPY ui/locale/uz_UZ/LC_MESSAGES/frontend.mo /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.mo
+
+RUN cp /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.mo /usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo
 # Create branding directories
 RUN install -d -o root -g root /usr/share/zabbix/ui/local/conf /usr/share/zabbix/local/conf
 
-COPY ui/locale/uz/LC_MESSAGES/frontend.po /tmp/frontend.po
+COPY ui/locale/uz_UZ/LC_MESSAGES/frontend.po /tmp/frontend.po
+RUN msgfmt /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.po \
+    -o /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.mo \
+ && cp /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.mo \
+        /usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo
+
+
 # Copy branding config and logos (served via /usr/share/zabbix/ui)
 COPY ui/local/conf/brand.conf.php /usr/share/zabbix/local/conf/brand.conf.php
 
@@ -61,6 +82,8 @@ RUN set -eux; \
       } >> "$css"; \
     fi; \
   done
+
+RUN sed -i 's/en_US/uz_UZ/' /usr/share/zabbix/include/defines.inc.php
 
 # Ish muhitini sozlash va default userga qaytish
 WORKDIR /usr/share/zabbix

@@ -217,7 +217,7 @@ function setupLocale(string $language, ?string &$error = null): bool {
 	setlocale(LC_ALL, 'C');
 
 	if (function_exists('bindtextdomain')) {
-		bindtextdomain('frontend', 'locale');
+        bindtextdomain('frontend', '/usr/share/zabbix/locale');
 		bind_textdomain_codeset('frontend', 'UTF-8');
 		textdomain('frontend');
 	}

@@ -348,8 +348,8 @@ ui/assets/img/logo.png             # PNG backup (agar SVG ishlamasa)
 
 /* TAA Corporate ranglar */
 :root {
-  --taa-primary: #1f4e79;      /* TAA asosiy rang */
-  --taa-secondary: #2e75b6;    /* TAA ikkinchi rang */
+  --taa-primary: #41eaf0;      /* TAA asosiy rang */
+  --taa-secondary: #8cf0f5;    /* TAA ikkinchi rang */
   --taa-accent: #ffc72c;       /* TAA accent rang */
   --taa-success: #28a745;      /* Muvaffaqiyat rangi */
   --taa-danger: #dc3545;       /* Xato rangi */

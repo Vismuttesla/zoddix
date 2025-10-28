@@ -13872,49 +13872,49 @@ msgid "Your database is not working properly. Please wait a few minutes and try 
 msgstr "Sizning ma'lumotlar bazangiz to'g'ri ishlamayapti. Iltimos, bir necha daqiqa kuting va ushbu amalni takrorlashni sinab ko'ring. Agar muammo davom etsa, iltimos, tizim administratoriga murojaat qiling. Muammo, ehtimol, uzoq davom etayotgan tranzaksiya yoki ma'lumotlar bazasi boshqaruv tizimingiz tomonidan amalga oshirilgan satr darajasidagi blokirovka sababli yuzaga kelgan bo'lishi mumkin."
 
 msgid "Zabbix"
-msgstr "Zabbix"
+msgstr "TAA"
 
 msgid "Zabbix Integrations"
-msgstr "Zabbix Integratsiyalari"
+msgstr "TAA Integratsiyalari"
 
 msgid "Zabbix Streaming Protocol v1.0"
-msgstr "Zabbix Streaming Protokol v1.0"
+msgstr "TAA Streaming Protokol v1.0"
 
 msgid "Zabbix Technical Support"
-msgstr "Zabbix Texnik Yordam"
+msgstr "TAA Texnik Yordam"
 
 msgid "Zabbix agent"
-msgstr "Zabbix agenti"
+msgstr "TAA agenti"
 
 msgid "Zabbix agent (active checks)"
-msgstr "Zabbix agenti (faol tekshiruvlar)"
+msgstr "TAA agenti (faol tekshiruvlar)"
 
 msgid "Zabbix agent (active)"
-msgstr "Zabbix agenti (faol)"
+msgstr "TAA agenti (faol)"
 
 msgid "Zabbix agent (passive checks)"
-msgstr "Zabbix agenti (passiv tekshiruvlar)"
+msgstr "TAA agenti (passiv tekshiruvlar)"
 
 msgid "Zabbix frontend version"
-msgstr "Zabbix frontend versiyasi"
+msgstr "TAA frontend versiyasi"
 
 msgid "Zabbix has received an incorrect request."
-msgstr "Zabbix noto'g'ri so'rovni oldi."
+msgstr "TAA noto'g'ri so'rovni oldi."
 
 msgid "Zabbix internal"
-msgstr "Zabbix ichki"
+msgstr "TAA ichki"
 
 msgid "Zabbix internal authentication"
-msgstr "Zabbix ichki autentifikatsiya"
+msgstr "TAA ichki autentifikatsiya"
 
 msgid "Zabbix login form"
-msgstr "Zabbix tizimga kirish shakli"
+msgstr "TAA tizimga kirish shakli"
 
 msgid "Zabbix proxy or server"
-msgstr "Zabbix proksi yoki server"
+msgstr "TAA proksi yoki server"
 
 msgid "Zabbix server"
-msgstr "Zabbix serveri"
+msgstr "TAA serveri"
 
 #, c-format
 msgid ""
@@ -13927,19 +13927,16 @@ msgstr ""
 "2. Noto'g'ri tarmoq konfiguratsiyasi.\n"
 
 msgid "Zabbix server (proxy)"
-msgstr "Zabbix serveri (proksi)"
+msgstr "TAA serveri (proksi)"
 
 msgid "Zabbix server is not running: the information displayed may not be current."
-msgstr "Zabbix serveri ishlamayapti: ko'rsatilgan ma'lumotlar yangilangan bo'lmasligi mumkin."
-
-msgid "Zabbix server is running"
-msgstr "Zabbix serveri ishlamoqda"
+msgstr "TAA serveri ishlamayapti: ko'rsatilgan ma'lumotlar yangilangan bo'lmasligi mumkin."
 
 msgid "Zabbix server name"
-msgstr "Zabbix serveri nomi"
+msgstr "TAA serveri nomi"
 
 msgid "Zabbix server version"
-msgstr "Zabbix serveri versiyasi"
+msgstr "TAA serveri versiyasi"
 
 msgid "Zabbix trapper"
 msgstr "Zabbix trapper"
@@ -15478,3 +15475,106 @@ msgstr "y"
 #, c-format
 msgid "zoom level must be between \"%1$s\" and \"%2$s\""
 msgstr "masshtab darajasi \"%1$s\" va \"%2$s\" orasida bo'lishi kerak"
+
+# ============================================
+# NEW TRANSLATIONS ADDED FROM uz_UZ_frontend_translations.po
+# ============================================
+
+msgid "Zabbix server is running"
+msgstr "TAA server ishlayapti"
+
+msgid "TAA server version"
+msgstr "TAA server versiyasi"
+
+msgid "TAA frontend version"
+msgstr "TAA frontend versiyasi"
+
+msgid "Database"
+msgstr "Ma'lumotlar bazasi"
+
+msgid "Database version"
+msgstr "Ma'lumotlar bazasi versiyasi"
+
+msgid "Database size"
+msgstr "Ma'lumotlar bazasi hajmi"
+
+msgid "Server name"
+msgstr "Server nomi"
+
+msgid "Fail-over delay"
+msgstr "Xatolik kechikishi"
+
+msgid "Running"
+msgstr "Ishlayapti"
+
+msgid "Not running"
+msgstr "Ishlamayapti"
+
+msgid "Disconnected"
+msgstr "Uzilib qolgan"
+
+msgid "Global scripts on TAA server"
+msgstr "TAA serverdagi global skriptlar"
+
+msgid "Create"
+msgstr "Yaratish"
+
+msgid "Clear"
+msgstr "Tozalash"
+
+msgid "Access denied."
+msgstr "Kirish rad etildi."
+
+msgid "Data saved"
+msgstr "Ma'lumotlar saqlandi"
+
+msgid "Data deleted"
+msgstr "Ma'lumotlar o'chirildi"
+
+msgid "Operation completed successfully"
+msgstr "Amal muvaffaqiyatli bajarildi"
+
+msgid "Error occurred"
+msgstr "Xatolik yuz berdi"
+
+msgid "Connection failed"
+msgstr "Ulanish muvaffaqiyatsiz"
+
+msgid "Required field"
+msgstr "Majburiy maydon"
+
+msgid "TAA server details"
+msgstr "TAA server tafsilotlari"
+
+msgid "TAA server port"
+msgstr "TAA server porti"
+
+msgid "TAA server name"
+msgstr "TAA server nomi"
+
+msgid "Congratulations! You have successfully installed TAA frontend."
+msgstr "Tabriklaymiz! Siz TAA frontendni muvaffaqiyatli o'rnatdingiz."
+
+msgid "Powered by Zabbix"
+msgstr "TAA Monitor Tizimi"
+
+msgid "Zabbix SIA"
+msgstr "TAA Jamoasi"
+
+msgid "TAA Monitoring System"
+msgstr "TAA Monitor Tizimi"
+
+msgid "Monitoring System"
+msgstr "Monitor Tizimi"
+
+msgid "Tools"
+msgstr "Vositalar"
+
+msgid "About"
+msgstr "Haqida"
+
+msgid "Top hosts by CPU utilization"
+msgstr "CPU ishlatishini bo'liman topish"
+
+msgid "Global views"
+msgstr "Umumiy tahlillar"
