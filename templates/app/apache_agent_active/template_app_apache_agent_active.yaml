@@ -1,12 +1,12 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: aa3286a824464020863ead141e8f0afc
-      template: 'Apache by Zabbix agent active'
-      name: 'Apache by Zabbix agent active'
+      template: 'Apache by TAA agent active'
+      name: 'Apache by TAA agent active'
       description: |
         Get metrics from mod_status module using HTTP agent.
         https://httpd.apache.org/docs/current/mod/mod_status.html
@@ -18,8 +18,8 @@ zabbix_export:
       readme: |
         ## Overview
         
-        This template is designed for the effortless deployment of Apache monitoring by Zabbix via Zabbix agent and doesn't require any external scripts.
-        The template `Apache by Zabbix agent` - collects metrics by polling [mod_status](https://httpd.apache.org/docs/current/mod/mod_status.html) locally with Zabbix agent:
+        This template is designed for the effortless deployment of Apache monitoring by Zabbix via TAA agent and doesn't require any external scripts.
+        The template `Apache by TAA agent` - collects metrics by polling [mod_status](https://httpd.apache.org/docs/current/mod/mod_status.html) locally with TAA agent:
           
         ```text
         127.0.0.1
@@ -62,7 +62,7 @@ zabbix_export:
         
         ```
           
-        It also uses Zabbix agent to collect `Apache` Linux process statistics such as CPU usage, memory usage, and whether the process is running or not.
+        It also uses TAA agent to collect `Apache` Linux process statistics such as CPU usage, memory usage, and whether the process is running or not.
         
         ## Setup
         
@@ -176,7 +176,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 2f9e1d5e188f4f6190088986f6fc3f70
-              expression: 'last(/Apache by Zabbix agent active/apache.uptime)<10m'
+              expression: 'last(/Apache by TAA agent active/apache.uptime)<10m'
               name: 'Apache: Service has been restarted'
               event_name: 'Apache: Service has been restarted (uptime < 10m)'
               priority: INFO
@@ -205,7 +205,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 80d8c27a060347a4a852c3f6481244c3
-              expression: 'last(/Apache by Zabbix agent active/apache.version,#1)<>last(/Apache by Zabbix agent active/apache.version,#2) and length(last(/Apache by Zabbix agent active/apache.version))>0'
+              expression: 'last(/Apache by TAA agent active/apache.version,#1)<>last(/Apache by TAA agent active/apache.version,#2) and length(last(/Apache by TAA agent active/apache.version))>0'
               name: 'Apache: Version has changed'
               event_name: 'Apache: Version has changed (new version: {ITEM.VALUE})'
               priority: INFO
@@ -584,23 +584,23 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Apache by Zabbix agent active'
+                    host: 'Apache by TAA agent active'
                     key: 'apache.connections[async_closing{#SINGLETON}]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'Apache by Zabbix agent active'
+                    host: 'Apache by TAA agent active'
                     key: 'apache.connections[async_keep_alive{#SINGLETON}]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'Apache by Zabbix agent active'
+                    host: 'Apache by TAA agent active'
                     key: 'apache.connections[async_writing{#SINGLETON}]'
                 - sortorder: '3'
                   drawtype: BOLD_LINE
                   color: F7941D
                   item:
-                    host: 'Apache by Zabbix agent active'
+                    host: 'Apache by TAA agent active'
                     key: 'apache.connections[total{#SINGLETON}]'
             - uuid: 1ab50e84f1d94ea98bb7e5c9d0cf159c
               name: 'Apache: Current async processes{#SINGLETON}'
@@ -608,7 +608,7 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 199C0D
                   item:
-                    host: 'Apache by Zabbix agent active'
+                    host: 'Apache by TAA agent active'
                     key: 'apache.process[num{#SINGLETON}]'
           master_item:
             key: 'web.page.get["{$APACHE.STATUS.SCHEME}://{$APACHE.STATUS.HOST}:{$APACHE.STATUS.PORT}/{$APACHE.STATUS.PATH}"]'
@@ -671,7 +671,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: 653a0f021ece4993aaaef441172366b3
-                  expression: 'last(/Apache by Zabbix agent active/apache.proc.num[{#APACHE.NAME}])=0'
+                  expression: 'last(/Apache by TAA agent active/apache.proc.num[{#APACHE.NAME}])=0'
                   name: 'Apache: Process is not running'
                   priority: HIGH
                   tags:
@@ -738,7 +738,7 @@ zabbix_export:
                   value: cpu
           trigger_prototypes:
             - uuid: c848c1449cef42bd90af13e6767bd2c9
-              expression: 'nodata(/Apache by Zabbix agent active/web.page.get["{$APACHE.STATUS.SCHEME}://{$APACHE.STATUS.HOST}:{$APACHE.STATUS.PORT}/{$APACHE.STATUS.PATH}"],30m)=1 and last(/Apache by Zabbix agent active/apache.proc.num[{#APACHE.NAME}])>0'
+              expression: 'nodata(/Apache by TAA agent active/web.page.get["{$APACHE.STATUS.SCHEME}://{$APACHE.STATUS.HOST}:{$APACHE.STATUS.PORT}/{$APACHE.STATUS.PATH}"],30m)=1 and last(/Apache by TAA agent active/apache.proc.num[{#APACHE.NAME}])>0'
               name: 'Apache: Failed to fetch status page'
               event_name: 'Apache: Failed to fetch status page (or no data for 30m)'
               priority: WARNING
@@ -746,12 +746,12 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Apache: Service is down'
-                  expression: 'last(/Apache by Zabbix agent active/net.tcp.service[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"])=0 and last(/Apache by Zabbix agent active/apache.proc.num[{#APACHE.NAME}])>0'
+                  expression: 'last(/Apache by TAA agent active/net.tcp.service[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"])=0 and last(/Apache by TAA agent active/apache.proc.num[{#APACHE.NAME}])>0'
               tags:
                 - tag: scope
                   value: availability
             - uuid: 4b460b835cb14513b5aace3275827c79
-              expression: 'last(/Apache by Zabbix agent active/net.tcp.service[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"])=0 and last(/Apache by Zabbix agent active/apache.proc.num[{#APACHE.NAME}])>0'
+              expression: 'last(/Apache by TAA agent active/net.tcp.service[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"])=0 and last(/Apache by TAA agent active/apache.proc.num[{#APACHE.NAME}])>0'
               name: 'Apache: Service is down'
               priority: AVERAGE
               manual_close: 'YES'
@@ -759,14 +759,14 @@ zabbix_export:
                 - tag: scope
                   value: availability
             - uuid: 93157365ee90446fa8191dfc5d623874
-              expression: 'min(/Apache by Zabbix agent active/net.tcp.service.perf[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"],5m)>{$APACHE.RESPONSE_TIME.MAX.WARN} and last(/Apache by Zabbix agent active/apache.proc.num[{#APACHE.NAME}])>0'
+              expression: 'min(/Apache by TAA agent active/net.tcp.service.perf[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"],5m)>{$APACHE.RESPONSE_TIME.MAX.WARN} and last(/Apache by TAA agent active/apache.proc.num[{#APACHE.NAME}])>0'
               name: 'Apache: Service response time is too high'
               event_name: 'Apache: Service response time is too high (over {$APACHE.RESPONSE_TIME.MAX.WARN}s for 5m)'
               priority: WARNING
               manual_close: 'YES'
               dependencies:
                 - name: 'Apache: Service is down'
-                  expression: 'last(/Apache by Zabbix agent active/net.tcp.service[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"])=0 and last(/Apache by Zabbix agent active/apache.proc.num[{#APACHE.NAME}])>0'
+                  expression: 'last(/Apache by TAA agent active/net.tcp.service[http,"{$APACHE.STATUS.HOST}","{$APACHE.STATUS.PORT}"])=0 and last(/Apache by TAA agent active/apache.proc.num[{#APACHE.NAME}])>0'
               tags:
                 - tag: scope
                   value: performance
@@ -777,13 +777,13 @@ zabbix_export:
                 - drawtype: BOLD_LINE
                   color: 199C0D
                   item:
-                    host: 'Apache by Zabbix agent active'
+                    host: 'Apache by TAA agent active'
                     key: 'apache.proc.vmem[{#APACHE.NAME}]'
                 - sortorder: '1'
                   drawtype: BOLD_LINE
                   color: F63100
                   item:
-                    host: 'Apache by Zabbix agent active'
+                    host: 'Apache by TAA agent active'
                     key: 'apache.proc.rss[{#APACHE.NAME}]'
           master_item:
             key: 'proc.get[{$APACHE.PROCESS.NAME.PARAMETER},,,summary]'
@@ -879,7 +879,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Apache by Zabbix agent active'
+                        host: 'Apache by TAA agent active'
                         name: 'Apache: Worker states'
                     - type: STRING
                       name: reference
@@ -892,7 +892,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Apache by Zabbix agent active'
+                        host: 'Apache by TAA agent active'
                         name: 'Apache: Requests per second'
                     - type: STRING
                       name: reference
@@ -908,7 +908,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Apache by Zabbix agent active'
+                        host: 'Apache by TAA agent active'
                         name: 'Apache: Current async connections{#SINGLETON}'
                     - type: STRING
                       name: reference
@@ -922,7 +922,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Apache by Zabbix agent active'
+                        host: 'Apache by TAA agent active'
                         name: 'Apache: Workers total'
                     - type: STRING
                       name: reference
@@ -939,7 +939,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Apache by Zabbix agent active'
+                        host: 'Apache by TAA agent active'
                         name: 'Apache: Current async processes{#SINGLETON}'
                     - type: STRING
                       name: reference
@@ -959,64 +959,64 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.requests.rate
     - uuid: 0183d7d9c05843b19db5b4ba94f99350
       name: 'Apache: Worker states'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.dnslookup
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.cleanup
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.logging
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.reading
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.sending
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.starting
         - sortorder: '6'
           color: C7A72D
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.closing
         - sortorder: '7'
           color: BA2A5D
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.finishing
         - sortorder: '8'
           color: F230E0
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.keepalive
         - sortorder: '9'
           color: 5CCD18
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.slot
         - sortorder: '10'
           color: BB2A02
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers.waiting
     - uuid: c82c849b07564ca29e58df3b984c1da9
       name: 'Apache: Workers total'
@@ -1024,10 +1024,10 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers_total.busy
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Apache by Zabbix agent active'
+            host: 'Apache by TAA agent active'
             key: apache.workers_total.idle

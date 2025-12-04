@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: 0f6889282f6048e2b1370e569e578985
-      template: 'OS processes by Zabbix agent'
-      name: 'OS processes by Zabbix agent'
+      template: 'OS processes by TAA agent'
+      name: 'OS processes by TAA agent'
       description: |
-        Get processes metrics using item proc.get by Zabbix agent.
+        Get processes metrics using item proc.get by TAA agent.
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback
         
@@ -108,7 +108,7 @@ zabbix_export:
                   value: '{#NAME}'
               trigger_prototypes:
                 - uuid: 66294f983a134a1e81165878f30d3ebc
-                  expression: 'last(/OS processes by Zabbix agent/custom.proc.num[{#NAME}])=0'
+                  expression: 'last(/OS processes by TAA agent/custom.proc.num[{#NAME}])=0'
                   name: 'OS: Process [{#NAME}]: Process is not running'
                   priority: HIGH
                   manual_close: 'YES'
@@ -232,13 +232,13 @@ zabbix_export:
                 - drawtype: BOLD_LINE
                   color: 199C0D
                   item:
-                    host: 'OS processes by Zabbix agent'
+                    host: 'OS processes by TAA agent'
                     key: 'custom.proc.vmem[{#NAME}]'
                 - sortorder: '1'
                   drawtype: BOLD_LINE
                   color: F63100
                   item:
-                    host: 'OS processes by Zabbix agent'
+                    host: 'OS processes by TAA agent'
                     key: 'custom.proc.rss[{#NAME}]'
           master_item:
             key: 'proc.get[,,,summary]'

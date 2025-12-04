@@ -1,4 +1,4 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
@@ -4173,10 +4173,10 @@ zabbix_export:
             - value: '1'
               newvalue: 'False'
     - uuid: 8cd15d3b39654eb7b7423e6b109037b2
-      template: 'Zabbix proxy health by Zabbix agent'
-      name: 'Zabbix proxy health by Zabbix agent'
+      template: 'Zabbix proxy health by TAA agent'
+      name: 'Zabbix proxy health by TAA agent'
       description: |
-        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the passive Zabbix agent.
+        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the passive TAA agent.
         
         Specify the address of the remote Zabbix proxy by changing the {$ZABBIX.PROXY.ADDRESS} and {$ZABBIX.PROXY.PORT} macros. Don't forget to adjust the "StatsAllowedIP" parameter in the remote proxy's configuration file to allow the collection of statistics.
         
@@ -4185,7 +4185,7 @@ zabbix_export:
       readme: |
         ## Overview
         
-        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the passive Zabbix agent.
+        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the passive TAA agent.
         
         ## Setup
         
@@ -4246,9 +4246,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 2bc7af614177457381d7dac14073b167
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"agent poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"agent poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"agent poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"agent poller"}'
               name: 'Zabbix proxy: Utilization of agent poller processes is high'
               event_name: 'Zabbix proxy: Utilization of agent poller processes over {$ZABBIX.PROXY.UTIL.MAX:"agent poller"}%'
               priority: AVERAGE
@@ -4274,9 +4274,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: b93bf2d4f9094eefa462588f4121f339
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.availability_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"availability manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.availability_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"availability manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.availability_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"availability manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.availability_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"availability manager"}'
               name: 'Zabbix proxy: Utilization of availability manager processes is high'
               event_name: 'Zabbix proxy: Utilization of availability manager processes over {$ZABBIX.PROXY.UTIL.MAX:"availability manager"}%'
               priority: AVERAGE
@@ -4304,9 +4304,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: edc46311472f4d26a08989a1cc5fc4ad
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.browser_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"browser poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.browser_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"browser poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.browser_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"browser poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.browser_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"browser poller"}'
               name: 'Zabbix proxy: Utilization of browser poller processes is high'
               event_name: 'Zabbix proxy: Utilization of browser poller processes over {$ZABBIX.PROXY.UTIL.MAX:"browser poller"}%'
               priority: AVERAGE
@@ -4334,9 +4334,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: fdbac62718014e8ba5b9663ecd2c87cf
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.configuration_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration syncer"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.configuration_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration syncer"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.configuration_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"configuration syncer"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.configuration_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"configuration syncer"}'
               name: 'Zabbix proxy: Utilization of configuration syncer processes is high'
               event_name: 'Zabbix proxy: Utilization of configuration syncer processes over {$ZABBIX.PROXY.UTIL.MAX:"configuration syncer"}%'
               priority: AVERAGE
@@ -4364,9 +4364,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 638a37f1268d4545bd037b88eb0f46b5
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.data_sender.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"data sender"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.data_sender.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"data sender"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.data_sender.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"data sender"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.data_sender.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"data sender"}'
               name: 'Zabbix proxy: Utilization of data sender processes is high'
               event_name: 'Zabbix proxy: Utilization of data sender processes over {$ZABBIX.PROXY.UTIL.MAX:"data sender"}%'
               priority: AVERAGE
@@ -4394,9 +4394,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: e4a34e7e45964602a329c04bedf0be11
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.discovery_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.discovery_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.discovery_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.discovery_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery manager"}'
               name: 'Zabbix proxy: Utilization of discovery manager processes is high'
               event_name: 'Zabbix proxy: Utilization of discovery manager processes over {$ZABBIX.PROXY.UTIL.MAX:"discovery manager"}%'
               priority: AVERAGE
@@ -4424,9 +4424,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: afd226d5a01c444bbe7ec7cc8e890385
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.discovery_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery worker"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.discovery_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery worker"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.discovery_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery worker"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.discovery_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery worker"}'
               name: 'Zabbix proxy: Utilization of discovery worker processes is high'
               event_name: 'Zabbix proxy: Utilization of discovery worker processes over {$ZABBIX.PROXY.UTIL.MAX:"discovery worker"}%'
               priority: AVERAGE
@@ -4454,9 +4454,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: edc13a63baa94f898c5b90cffd568725
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.history_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history syncer"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.history_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history syncer"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.history_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"history syncer"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.history_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"history syncer"}'
               name: 'Zabbix proxy: Utilization of history syncer processes is high'
               event_name: 'Zabbix proxy: Utilization of history syncer processes over {$ZABBIX.PROXY.UTIL.MAX:"history syncer"}%'
               priority: AVERAGE
@@ -4484,9 +4484,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 6db57127f7b74e3293be2942442665a5
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.housekeeper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"housekeeper"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.housekeeper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"housekeeper"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.housekeeper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"housekeeper"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.housekeeper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"housekeeper"}'
               name: 'Zabbix proxy: Utilization of housekeeper processes is high'
               event_name: 'Zabbix proxy: Utilization of housekeeper processes over {$ZABBIX.PROXY.UTIL.MAX:"housekeeper"}%'
               priority: AVERAGE
@@ -4514,9 +4514,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 2e968911946b437da198218d0c9c53d7
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.http_agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http agent poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.http_agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http agent poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.http_agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http agent poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.http_agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http agent poller"}'
               name: 'Zabbix proxy: Utilization of http agent poller processes is high'
               event_name: 'Zabbix proxy: Utilization of http agent poller processes over {$ZABBIX.PROXY.UTIL.MAX:"http agent poller"}%'
               priority: AVERAGE
@@ -4544,9 +4544,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: a968792590324fd88c887619859b6aaa
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.http_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.http_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.http_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.http_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http poller"}'
               name: 'Zabbix proxy: Utilization of http poller processes is high'
               event_name: 'Zabbix proxy: Utilization of http poller processes over {$ZABBIX.PROXY.UTIL.MAX:"http poller"}%'
               priority: AVERAGE
@@ -4574,9 +4574,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 4accc46c86674786a09962d2ba865fad
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.icmp_pinger.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"icmp pinger"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.icmp_pinger.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"icmp pinger"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.icmp_pinger.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"icmp pinger"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.icmp_pinger.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"icmp pinger"}'
               name: 'Zabbix proxy: Utilization of icmp pinger processes is high'
               event_name: 'Zabbix proxy: Utilization of icmp pinger processes over {$ZABBIX.PROXY.UTIL.MAX:"icmp pinger"}%'
               priority: AVERAGE
@@ -4604,9 +4604,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: eb18c6abd7244d1b9addd5c0c411eef4
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.internal_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"internal poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.internal_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"internal poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.internal_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"internal poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.internal_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"internal poller"}'
               name: 'Zabbix proxy: Utilization of internal poller processes is high'
               event_name: 'Zabbix proxy: Utilization of internal poller processes over {$ZABBIX.PROXY.UTIL.MAX:"internal poller"}%'
               priority: AVERAGE
@@ -4634,9 +4634,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 8b7ba23a9571419985996aaa5545c093
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.ipmi_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.ipmi_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.ipmi_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.ipmi_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi manager"}'
               name: 'Zabbix proxy: Utilization of ipmi manager processes is high'
               event_name: 'Zabbix proxy: Utilization of ipmi manager processes over {$ZABBIX.PROXY.UTIL.MAX:"ipmi manager"}%'
               priority: AVERAGE
@@ -4664,9 +4664,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: f108f03ff3174bf0be5bab5f8dd3edd9
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.ipmi_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.ipmi_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.ipmi_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.ipmi_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi poller"}'
               name: 'Zabbix proxy: Utilization of ipmi poller processes is high'
               event_name: 'Zabbix proxy: Utilization of ipmi poller processes over {$ZABBIX.PROXY.UTIL.MAX:"ipmi poller"}%'
               priority: AVERAGE
@@ -4694,9 +4694,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 6e21610d53534d17a46e82ba77d94839
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.java_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"java poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.java_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"java poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.java_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"java poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.java_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"java poller"}'
               name: 'Zabbix proxy: Utilization of java poller processes is high'
               event_name: 'Zabbix proxy: Utilization of java poller processes over {$ZABBIX.PROXY.UTIL.MAX:"java poller"}%'
               priority: AVERAGE
@@ -4722,9 +4722,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: f792aff9eafc495e82717b11e15c61eb
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.odbc_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ODBC poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.odbc_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ODBC poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.odbc_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ODBC poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.odbc_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ODBC poller"}'
               name: 'Zabbix proxy: Utilization of ODBC poller processes is high'
               event_name: 'Zabbix proxy: Utilization of ODBC poller processes over {$ZABBIX.PROXY.UTIL.MAX:"ODBC poller"}%'
               priority: AVERAGE
@@ -4752,9 +4752,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: b0e501fd7ee44bfb8e4b76b8ed3f7bcf
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"poller"}'
               name: 'Zabbix proxy: Utilization of poller processes is high'
               event_name: 'Zabbix proxy: Utilization of poller processes over {$ZABBIX.PROXY.UTIL.MAX:"poller"}%'
               priority: AVERAGE
@@ -4782,9 +4782,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 16d99a3deb574313ac1c9d3514b2174e
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.preprocessing_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.preprocessing_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.preprocessing_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.preprocessing_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing manager"}'
               name: 'Zabbix proxy: Utilization of preprocessing manager processes is high'
               event_name: 'Zabbix proxy: Utilization of preprocessing manager processes over {$ZABBIX.PROXY.UTIL.MAX:"preprocessing manager"}%'
               priority: AVERAGE
@@ -4812,9 +4812,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 44b4036596a648249665be9bdaf99001
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.preprocessing_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing worker"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.preprocessing_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing worker"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.preprocessing_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing worker"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.preprocessing_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing worker"}'
               name: 'Zabbix proxy: Utilization of preprocessing worker processes is high'
               event_name: 'Zabbix proxy: Utilization of preprocessing worker processes over {$ZABBIX.PROXY.UTIL.MAX:"preprocessing worker"}%'
               priority: AVERAGE
@@ -4842,9 +4842,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: bf4a1a0d24da4929afd8ef77cc8e0aee
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.self-monitoring.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"self-monitoring"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.self-monitoring.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"self-monitoring"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.self-monitoring.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"self-monitoring"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.self-monitoring.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"self-monitoring"}'
               name: 'Zabbix proxy: Utilization of self-monitoring processes is high'
               event_name: 'Zabbix proxy: Utilization of self-monitoring processes over {$ZABBIX.PROXY.UTIL.MAX:"self-monitoring"}%'
               priority: AVERAGE
@@ -4872,9 +4872,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 3fab2971d5eb46d8953bc34af262eef7
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.snmp_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.snmp_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.snmp_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.snmp_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp poller"}'
               name: 'Zabbix proxy: Utilization of snmp poller processes is high'
               event_name: 'Zabbix proxy: Utilization of snmp poller processes over {$ZABBIX.PROXY.UTIL.MAX:"snmp poller"}%'
               priority: AVERAGE
@@ -4902,9 +4902,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: c67d6cf7bb414ba5bf5e295323ceca3e
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.snmp_trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp trapper"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.snmp_trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp trapper"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.snmp_trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp trapper"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.snmp_trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp trapper"}'
               name: 'Zabbix proxy: Utilization of snmp trapper processes is high'
               event_name: 'Zabbix proxy: Utilization of snmp trapper processes over {$ZABBIX.PROXY.UTIL.MAX:"snmp trapper"}%'
               priority: AVERAGE
@@ -4932,9 +4932,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: fbba9326edf24178b4ef43de4c545fcc
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.task_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"task manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.task_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"task manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.task_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"task manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.task_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"task manager"}'
               name: 'Zabbix proxy: Utilization of task manager processes is high'
               event_name: 'Zabbix proxy: Utilization of task manager processes over {$ZABBIX.PROXY.UTIL.MAX:"task manager"}%'
               priority: AVERAGE
@@ -4962,9 +4962,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 7ab1c8f1b661480da56f12d7e9df525d
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"trapper"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"trapper"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"trapper"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"trapper"}'
               name: 'Zabbix proxy: Utilization of trapper processes is high'
               event_name: 'Zabbix proxy: Utilization of trapper processes over {$ZABBIX.PROXY.UTIL.MAX:"trapper"}%'
               priority: AVERAGE
@@ -4992,9 +4992,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 0dd4fe44dd7c45a589b95af7410e44e1
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.unreachable_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"unreachable poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.unreachable_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"unreachable poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.unreachable_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"unreachable poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.unreachable_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"unreachable poller"}'
               name: 'Zabbix proxy: Utilization of unreachable poller processes is high'
               event_name: 'Zabbix proxy: Utilization of unreachable poller processes over {$ZABBIX.PROXY.UTIL.MAX:"unreachable poller"}%'
               priority: AVERAGE
@@ -5022,9 +5022,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: e4c5051b01aa4c3bbad9237e7c593308
-              expression: 'avg(/Zabbix proxy health by Zabbix agent/process.vmware_collector.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware collector"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent/process.vmware_collector.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware collector"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent/process.vmware_collector.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"vmware collector"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent/process.vmware_collector.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"vmware collector"}'
               name: 'Zabbix proxy: Utilization of vmware collector processes is high'
               event_name: 'Zabbix proxy: Utilization of vmware collector processes over {$ZABBIX.PROXY.UTIL.MAX:"vmware collector"}%'
               priority: AVERAGE
@@ -5054,7 +5054,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: c784f7f231c34461a63d0a5cb2ce4a45
-              expression: 'max(/Zabbix proxy health by Zabbix agent/proxy_buffer.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"proxy buffer"}'
+              expression: 'max(/Zabbix proxy health by TAA agent/proxy_buffer.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"proxy buffer"}'
               name: 'Zabbix proxy: Excessive proxy memory buffer usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"proxy buffer"}% used in the proxy memory buffer'
               priority: AVERAGE
@@ -5138,7 +5138,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 315fc2009a02420cbe059ac199171d6d
-              expression: 'last(/Zabbix proxy health by Zabbix agent/proxy_check)=1'
+              expression: 'last(/Zabbix proxy health by TAA agent/proxy_check)=1'
               name: 'Zabbix proxy: Wrong template assigned'
               event_name: 'Zabbix proxy: Zabbix proxy template is assigned to Zabbix server'
               priority: DISASTER
@@ -5165,7 +5165,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 523f092b9f8b41f9b652eeb7fdafe40c
-              expression: 'max(/Zabbix proxy health by Zabbix agent/rcache.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent/rcache.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration cache"}'
               name: 'Zabbix proxy: Excessive configuration cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"configuration cache"}% used in the configuration cache'
               priority: AVERAGE
@@ -5176,7 +5176,7 @@ zabbix_export:
                 - tag: scope
                   value: performance
             - uuid: 013a980007284540964d72be2de27a0d
-              expression: 'nodata(/Zabbix proxy health by Zabbix agent/rcache.buffer.pused,{$ZABBIX.PROXY.NODATA_TIMEOUT})=1'
+              expression: 'nodata(/Zabbix proxy health by TAA agent/rcache.buffer.pused,{$ZABBIX.PROXY.NODATA_TIMEOUT})=1'
               name: 'Zabbix proxy: Failed to fetch stats data'
               event_name: 'Zabbix proxy: Failed to fetch stats data (or no data for {$ZABBIX.PROXY.NODATA_TIMEOUT})'
               priority: WARNING
@@ -5220,7 +5220,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 187bc575a0a14bbc84ad86225ddbcb61
-              expression: 'last(/Zabbix proxy health by Zabbix agent/uptime)<10m'
+              expression: 'last(/Zabbix proxy health by TAA agent/uptime)<10m'
               name: 'Zabbix proxy: {HOST.NAME} has been restarted'
               event_name: 'Zabbix proxy: {HOST.NAME} has been restarted (uptime < 10m)'
               priority: INFO
@@ -5249,7 +5249,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 0a95e8c307074bc4ba9f55d9f172ff0a
-              expression: 'last(/Zabbix proxy health by Zabbix agent/version,#1)<>last(/Zabbix proxy health by Zabbix agent/version,#2) and length(last(/Zabbix proxy health by Zabbix agent/version))>0'
+              expression: 'last(/Zabbix proxy health by TAA agent/version,#1)<>last(/Zabbix proxy health by TAA agent/version,#2) and length(last(/Zabbix proxy health by TAA agent/version))>0'
               name: 'Zabbix proxy: Version has changed'
               event_name: 'Zabbix proxy: Version has changed (new version: {ITEM.VALUE})'
               priority: INFO
@@ -5278,7 +5278,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 04c4161b994046fe9d657da0a5a1c3db
-              expression: 'max(/Zabbix proxy health by Zabbix agent/vmware.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent/vmware.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware cache"}'
               name: 'Zabbix proxy: Excessive vmware cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"vmware cache"}% used in the vmware cache'
               priority: AVERAGE
@@ -5308,7 +5308,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 042eaacf59f74383b29c0a8130ae4b16
-              expression: 'max(/Zabbix proxy health by Zabbix agent/wcache.history.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent/wcache.history.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history cache"}'
               name: 'Zabbix proxy: Excessive history cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"history cache"}% used in the history cache'
               priority: AVERAGE
@@ -5338,7 +5338,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: fa7be5e77ff04e728db5ee0369708dde
-              expression: 'max(/Zabbix proxy health by Zabbix agent/wcache.index.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"index cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent/wcache.index.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"index cache"}'
               name: 'Zabbix proxy: Excessive history index cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"index cache"}% used in the history index cache'
               priority: AVERAGE
@@ -5508,7 +5508,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 73460db4082c4feaac254b6ed790045a
-              expression: 'min(/Zabbix proxy health by Zabbix agent/zabbix.stats[{$ZABBIX.PROXY.ADDRESS},{$ZABBIX.PROXY.PORT},queue,10m],10m)>100'
+              expression: 'min(/Zabbix proxy health by TAA agent/zabbix.stats[{$ZABBIX.PROXY.ADDRESS},{$ZABBIX.PROXY.PORT},queue,10m],10m)>100'
               name: 'Zabbix proxy: More than 100 items have been missing data for over 10 minutes'
               priority: WARNING
               description: 'Indicates potential issues with network connectivity, agent failures, or unresponsive monitored resources that require attention.'
@@ -5553,7 +5553,7 @@ zabbix_export:
             type: TEXT
             priority: '1'
             label: 'Zabbix proxy Address'
-            description: 'IP or DNS of the remote Zabbix proxy that should be monitored via the Zabbix agent.'
+            description: 'IP or DNS of the remote Zabbix proxy that should be monitored via the TAA agent.'
             required: 'YES'
         - macro: '{$ZABBIX.PROXY.NODATA_TIMEOUT}'
           value: 5m
@@ -5570,7 +5570,7 @@ zabbix_export:
             type: TEXT
             priority: '2'
             label: 'Zabbix proxy Port'
-            description: 'Port of the remote Zabbix proxy that should be monitored via the Zabbix agent. In the range from 1 to 65535 inclusive.'
+            description: 'Port of the remote Zabbix proxy that should be monitored via the TAA agent. In the range from 1 to 65535 inclusive.'
             required: 'YES'
             regex: '^-?([0-9]+|(([0-9]+)\.([0-9]+)))$'
         - macro: '{$ZABBIX.PROXY.UTIL.MAX}'
@@ -5626,27 +5626,27 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: rcache.buffer.pused
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.index.pused
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.history.pused
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: vmware.buffer.pused
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: proxy_buffer.buffer.pused
                     - type: STRING
                       name: lefty_max
@@ -5687,12 +5687,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.values
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: 'zabbix.stats[{$ZABBIX.PROXY.ADDRESS},{$ZABBIX.PROXY.PORT},queue]'
                     - type: INTEGER
                       name: legend_lines
@@ -5739,32 +5739,32 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.values.uint
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.values.float
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.values.not_supported
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.values.str
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.values.log
                     - type: ITEM
                       name: ds.0.itemids.5
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: wcache.values.text
                     - type: INTEGER
                       name: legend_lines
@@ -5799,12 +5799,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: preprocessing_queue
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: discovery_queue
                     - type: INTEGER
                       name: legend_lines
@@ -5840,12 +5840,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.discovery_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.discovery_worker.avg.busy
                     - type: INTEGER
                       name: ds.1.axisy
@@ -5859,7 +5859,7 @@ zabbix_export:
                     - type: ITEM
                       name: ds.1.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: discovery_queue
                     - type: STRING
                       name: lefty_max
@@ -5921,52 +5921,52 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.internal_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.ipmi_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.ipmi_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.http_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.5
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.java_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.6
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.vmware_collector.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.7
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.browser_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.8
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.odbc_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.9
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.icmp_pinger.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -6007,17 +6007,17 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.agent_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.http_agent_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.snmp_poller.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -6067,32 +6067,32 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.configuration_syncer.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.history_syncer.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.self-monitoring.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.task_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.data_sender.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.5
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.housekeeper.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -6130,12 +6130,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.trapper.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.snmp_trapper.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -6173,12 +6173,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.trapper.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.data_sender.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -6216,12 +6216,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.preprocessing_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.preprocessing_worker.avg.busy
                     - type: INTEGER
                       name: ds.1.axisy
@@ -6238,7 +6238,7 @@ zabbix_export:
                     - type: ITEM
                       name: ds.1.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: preprocessing_queue
                     - type: STRING
                       name: lefty_max
@@ -6277,12 +6277,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.unreachable_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: process.availability_manager.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -6315,7 +6315,7 @@ zabbix_export:
                     - type: ITEM
                       name: itemid.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: version
                     - type: INTEGER
                       name: show.0
@@ -6350,7 +6350,7 @@ zabbix_export:
                     - type: ITEM
                       name: itemid.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: uptime
                     - type: INTEGER
                       name: show.0
@@ -6385,7 +6385,7 @@ zabbix_export:
                     - type: ITEM
                       name: itemid.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent'
+                        host: 'Zabbix proxy health by TAA agent'
                         key: proxy_buffer.state.current
                     - type: INTEGER
                       name: show.0
@@ -6424,10 +6424,10 @@ zabbix_export:
             - value: '1'
               newvalue: 'False'
     - uuid: 02aac022a62c48bba810d07bbaa712cc
-      template: 'Zabbix proxy health by Zabbix agent active'
-      name: 'Zabbix proxy health by Zabbix agent active'
+      template: 'Zabbix proxy health by TAA agent active'
+      name: 'Zabbix proxy health by TAA agent active'
       description: |
-        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the active Zabbix agent.
+        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the active TAA agent.
         
         Specify the address of the remote Zabbix proxy by changing the {$ZABBIX.PROXY.ADDRESS} and {$ZABBIX.PROXY.PORT} macros. Don't forget to adjust the "StatsAllowedIP" parameter in the remote proxy's configuration file to allow the collection of statistics.
         
@@ -6436,7 +6436,7 @@ zabbix_export:
       readme: |
         ## Overview
         
-        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the active Zabbix agent.
+        This template is designed to monitor internal Zabbix metrics on the remote Zabbix proxy via the active TAA agent.
         
         ## Setup
         
@@ -6497,9 +6497,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 781f2b17fc384acebdcbb008a3f24bc1
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"agent poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"agent poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"agent poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"agent poller"}'
               name: 'Zabbix proxy: Utilization of agent poller processes is high'
               event_name: 'Zabbix proxy: Utilization of agent poller processes over {$ZABBIX.PROXY.UTIL.MAX:"agent poller"}%'
               priority: AVERAGE
@@ -6525,9 +6525,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 60c4627e26e24f5583b13ac51c652bb6
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.availability_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"availability manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.availability_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"availability manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.availability_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"availability manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.availability_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"availability manager"}'
               name: 'Zabbix proxy: Utilization of availability manager processes is high'
               event_name: 'Zabbix proxy: Utilization of availability manager processes over {$ZABBIX.PROXY.UTIL.MAX:"availability manager"}%'
               priority: AVERAGE
@@ -6555,9 +6555,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 9ceb9623900f4fd097c96be779088a1a
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.browser_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"browser poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.browser_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"browser poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.browser_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"browser poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.browser_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"browser poller"}'
               name: 'Zabbix proxy: Utilization of browser poller processes is high'
               event_name: 'Zabbix proxy: Utilization of browser poller processes over {$ZABBIX.PROXY.UTIL.MAX:"browser poller"}%'
               priority: AVERAGE
@@ -6585,9 +6585,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 4fc6ad715b6d4eea89c47e9a80cc1bd2
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.configuration_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration syncer"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.configuration_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration syncer"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.configuration_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"configuration syncer"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.configuration_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"configuration syncer"}'
               name: 'Zabbix proxy: Utilization of configuration syncer processes is high'
               event_name: 'Zabbix proxy: Utilization of configuration syncer processes over {$ZABBIX.PROXY.UTIL.MAX:"configuration syncer"}%'
               priority: AVERAGE
@@ -6615,9 +6615,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 53a13b3f8ae746a5aa698c48beeb782f
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.data_sender.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"data sender"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.data_sender.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"data sender"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.data_sender.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"data sender"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.data_sender.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"data sender"}'
               name: 'Zabbix proxy: Utilization of data sender processes is high'
               event_name: 'Zabbix proxy: Utilization of data sender processes over {$ZABBIX.PROXY.UTIL.MAX:"data sender"}%'
               priority: AVERAGE
@@ -6645,9 +6645,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: ac5583b00510498ea9f0cf75835dc8c9
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.discovery_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.discovery_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.discovery_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.discovery_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery manager"}'
               name: 'Zabbix proxy: Utilization of discovery manager processes is high'
               event_name: 'Zabbix proxy: Utilization of discovery manager processes over {$ZABBIX.PROXY.UTIL.MAX:"discovery manager"}%'
               priority: AVERAGE
@@ -6675,9 +6675,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 2368cc40dca345dc81b4e06f6c652f5a
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.discovery_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery worker"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.discovery_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"discovery worker"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.discovery_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery worker"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.discovery_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"discovery worker"}'
               name: 'Zabbix proxy: Utilization of discovery worker processes is high'
               event_name: 'Zabbix proxy: Utilization of discovery worker processes over {$ZABBIX.PROXY.UTIL.MAX:"discovery worker"}%'
               priority: AVERAGE
@@ -6705,9 +6705,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: f56becd9ed784dcf9f97fa703269b46e
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.history_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history syncer"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.history_syncer.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history syncer"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.history_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"history syncer"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.history_syncer.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"history syncer"}'
               name: 'Zabbix proxy: Utilization of history syncer processes is high'
               event_name: 'Zabbix proxy: Utilization of history syncer processes over {$ZABBIX.PROXY.UTIL.MAX:"history syncer"}%'
               priority: AVERAGE
@@ -6735,9 +6735,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: f81451219df048ce92a35b9673548358
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.housekeeper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"housekeeper"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.housekeeper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"housekeeper"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.housekeeper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"housekeeper"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.housekeeper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"housekeeper"}'
               name: 'Zabbix proxy: Utilization of housekeeper processes is high'
               event_name: 'Zabbix proxy: Utilization of housekeeper processes over {$ZABBIX.PROXY.UTIL.MAX:"housekeeper"}%'
               priority: AVERAGE
@@ -6765,9 +6765,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: b0bd0d9770fc4276be324b97150c691c
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.http_agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http agent poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.http_agent_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http agent poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.http_agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http agent poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.http_agent_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http agent poller"}'
               name: 'Zabbix proxy: Utilization of http agent poller processes is high'
               event_name: 'Zabbix proxy: Utilization of http agent poller processes over {$ZABBIX.PROXY.UTIL.MAX:"http agent poller"}%'
               priority: AVERAGE
@@ -6795,9 +6795,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 43b21d9aff8441cba1c0db97e7b193e0
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.http_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.http_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"http poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.http_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.http_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"http poller"}'
               name: 'Zabbix proxy: Utilization of http poller processes is high'
               event_name: 'Zabbix proxy: Utilization of http poller processes over {$ZABBIX.PROXY.UTIL.MAX:"http poller"}%'
               priority: AVERAGE
@@ -6825,9 +6825,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 417d421e076342e5b38ab7a925dc7ee6
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.icmp_pinger.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"icmp pinger"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.icmp_pinger.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"icmp pinger"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.icmp_pinger.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"icmp pinger"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.icmp_pinger.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"icmp pinger"}'
               name: 'Zabbix proxy: Utilization of icmp pinger processes is high'
               event_name: 'Zabbix proxy: Utilization of icmp pinger processes over {$ZABBIX.PROXY.UTIL.MAX:"icmp pinger"}%'
               priority: AVERAGE
@@ -6855,9 +6855,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 60dacadac60641789e7f8eb2a6441498
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.internal_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"internal poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.internal_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"internal poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.internal_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"internal poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.internal_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"internal poller"}'
               name: 'Zabbix proxy: Utilization of internal poller processes is high'
               event_name: 'Zabbix proxy: Utilization of internal poller processes over {$ZABBIX.PROXY.UTIL.MAX:"internal poller"}%'
               priority: AVERAGE
@@ -6885,9 +6885,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 773bcda0a0d44428bd66f619df41a94d
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.ipmi_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.ipmi_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.ipmi_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.ipmi_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi manager"}'
               name: 'Zabbix proxy: Utilization of ipmi manager processes is high'
               event_name: 'Zabbix proxy: Utilization of ipmi manager processes over {$ZABBIX.PROXY.UTIL.MAX:"ipmi manager"}%'
               priority: AVERAGE
@@ -6915,9 +6915,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 520d3b11a75c42cd911ec3e8639c7325
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.ipmi_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.ipmi_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ipmi poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.ipmi_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.ipmi_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ipmi poller"}'
               name: 'Zabbix proxy: Utilization of ipmi poller processes is high'
               event_name: 'Zabbix proxy: Utilization of ipmi poller processes over {$ZABBIX.PROXY.UTIL.MAX:"ipmi poller"}%'
               priority: AVERAGE
@@ -6945,9 +6945,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 48c63db097c94a52a13cfea9d53a5d6e
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.java_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"java poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.java_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"java poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.java_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"java poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.java_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"java poller"}'
               name: 'Zabbix proxy: Utilization of java poller processes is high'
               event_name: 'Zabbix proxy: Utilization of java poller processes over {$ZABBIX.PROXY.UTIL.MAX:"java poller"}%'
               priority: AVERAGE
@@ -6973,9 +6973,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: d3d1b01114b14de1b5a432fb574713f1
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.odbc_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ODBC poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.odbc_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"ODBC poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.odbc_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ODBC poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.odbc_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"ODBC poller"}'
               name: 'Zabbix proxy: Utilization of ODBC poller processes is high'
               event_name: 'Zabbix proxy: Utilization of ODBC poller processes over {$ZABBIX.PROXY.UTIL.MAX:"ODBC poller"}%'
               priority: AVERAGE
@@ -7003,9 +7003,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 1d7cee57cd28400790ea8fea6901d0a9
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"poller"}'
               name: 'Zabbix proxy: Utilization of poller processes is high'
               event_name: 'Zabbix proxy: Utilization of poller processes over {$ZABBIX.PROXY.UTIL.MAX:"poller"}%'
               priority: AVERAGE
@@ -7033,9 +7033,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: a3692dec8449492b8c1c0fc0ffc38ba7
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.preprocessing_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.preprocessing_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.preprocessing_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.preprocessing_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing manager"}'
               name: 'Zabbix proxy: Utilization of preprocessing manager processes is high'
               event_name: 'Zabbix proxy: Utilization of preprocessing manager processes over {$ZABBIX.PROXY.UTIL.MAX:"preprocessing manager"}%'
               priority: AVERAGE
@@ -7063,9 +7063,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: cbdfa6eab86547a9bcc15308cb24ecec
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.preprocessing_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing worker"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.preprocessing_worker.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"preprocessing worker"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.preprocessing_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing worker"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.preprocessing_worker.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"preprocessing worker"}'
               name: 'Zabbix proxy: Utilization of preprocessing worker processes is high'
               event_name: 'Zabbix proxy: Utilization of preprocessing worker processes over {$ZABBIX.PROXY.UTIL.MAX:"preprocessing worker"}%'
               priority: AVERAGE
@@ -7093,9 +7093,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 8c731df045474ff78961106f51943a2d
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.self-monitoring.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"self-monitoring"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.self-monitoring.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"self-monitoring"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.self-monitoring.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"self-monitoring"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.self-monitoring.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"self-monitoring"}'
               name: 'Zabbix proxy: Utilization of self-monitoring processes is high'
               event_name: 'Zabbix proxy: Utilization of self-monitoring processes over {$ZABBIX.PROXY.UTIL.MAX:"self-monitoring"}%'
               priority: AVERAGE
@@ -7123,9 +7123,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 37f76a103450441c91dc980877685fdf
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.snmp_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.snmp_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.snmp_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.snmp_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp poller"}'
               name: 'Zabbix proxy: Utilization of snmp poller processes is high'
               event_name: 'Zabbix proxy: Utilization of snmp poller processes over {$ZABBIX.PROXY.UTIL.MAX:"snmp poller"}%'
               priority: AVERAGE
@@ -7153,9 +7153,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 125f0015cbab441f8fb585273b1be59d
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.snmp_trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp trapper"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.snmp_trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"snmp trapper"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.snmp_trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp trapper"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.snmp_trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"snmp trapper"}'
               name: 'Zabbix proxy: Utilization of snmp trapper processes is high'
               event_name: 'Zabbix proxy: Utilization of snmp trapper processes over {$ZABBIX.PROXY.UTIL.MAX:"snmp trapper"}%'
               priority: AVERAGE
@@ -7183,9 +7183,9 @@ zabbix_export:
               value: internal-process
           triggers:
             - uuid: 639ce0f06fa4454784458426fedce080
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.task_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"task manager"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.task_manager.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"task manager"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.task_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"task manager"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.task_manager.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"task manager"}'
               name: 'Zabbix proxy: Utilization of task manager processes is high'
               event_name: 'Zabbix proxy: Utilization of task manager processes over {$ZABBIX.PROXY.UTIL.MAX:"task manager"}%'
               priority: AVERAGE
@@ -7213,9 +7213,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: dd4185cd7ff646ccaee1d7c36eba58b4
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"trapper"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.trapper.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"trapper"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"trapper"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.trapper.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"trapper"}'
               name: 'Zabbix proxy: Utilization of trapper processes is high'
               event_name: 'Zabbix proxy: Utilization of trapper processes over {$ZABBIX.PROXY.UTIL.MAX:"trapper"}%'
               priority: AVERAGE
@@ -7243,9 +7243,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 353e0603f5454b92806bc27442e4675a
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.unreachable_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"unreachable poller"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.unreachable_poller.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"unreachable poller"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.unreachable_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"unreachable poller"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.unreachable_poller.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"unreachable poller"}'
               name: 'Zabbix proxy: Utilization of unreachable poller processes is high'
               event_name: 'Zabbix proxy: Utilization of unreachable poller processes over {$ZABBIX.PROXY.UTIL.MAX:"unreachable poller"}%'
               priority: AVERAGE
@@ -7273,9 +7273,9 @@ zabbix_export:
               value: gathering-process
           triggers:
             - uuid: 19212b4c55a5412a8358486ccec73867
-              expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.vmware_collector.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware collector"}'
+              expression: 'avg(/Zabbix proxy health by TAA agent active/process.vmware_collector.avg.busy,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware collector"}'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'avg(/Zabbix proxy health by Zabbix agent active/process.vmware_collector.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"vmware collector"}'
+              recovery_expression: 'avg(/Zabbix proxy health by TAA agent active/process.vmware_collector.avg.busy,10m)<{$ZABBIX.PROXY.UTIL.MIN:"vmware collector"}'
               name: 'Zabbix proxy: Utilization of vmware collector processes is high'
               event_name: 'Zabbix proxy: Utilization of vmware collector processes over {$ZABBIX.PROXY.UTIL.MAX:"vmware collector"}%'
               priority: AVERAGE
@@ -7305,7 +7305,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 58582605c4644fffaabca8e403ae7529
-              expression: 'max(/Zabbix proxy health by Zabbix agent active/proxy_buffer.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"proxy buffer"}'
+              expression: 'max(/Zabbix proxy health by TAA agent active/proxy_buffer.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"proxy buffer"}'
               name: 'Zabbix proxy: Excessive proxy memory buffer usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"proxy buffer"}% used in the proxy memory buffer'
               priority: AVERAGE
@@ -7389,7 +7389,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 90d305b0cf7246c19aedc74b4c566148
-              expression: 'last(/Zabbix proxy health by Zabbix agent active/proxy_check)=1'
+              expression: 'last(/Zabbix proxy health by TAA agent active/proxy_check)=1'
               name: 'Zabbix proxy: Wrong template assigned'
               event_name: 'Zabbix proxy: Zabbix proxy template is assigned to Zabbix server'
               priority: DISASTER
@@ -7416,7 +7416,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 280ce16d51a04a2c98574da85639df8a
-              expression: 'max(/Zabbix proxy health by Zabbix agent active/rcache.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent active/rcache.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"configuration cache"}'
               name: 'Zabbix proxy: Excessive configuration cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"configuration cache"}% used in the configuration cache'
               priority: AVERAGE
@@ -7427,7 +7427,7 @@ zabbix_export:
                 - tag: scope
                   value: performance
             - uuid: 78ee655520bb495097142ba6b4ac30ab
-              expression: 'nodata(/Zabbix proxy health by Zabbix agent active/rcache.buffer.pused,{$ZABBIX.PROXY.NODATA_TIMEOUT})=1'
+              expression: 'nodata(/Zabbix proxy health by TAA agent active/rcache.buffer.pused,{$ZABBIX.PROXY.NODATA_TIMEOUT})=1'
               name: 'Zabbix proxy: Failed to fetch stats data'
               event_name: 'Zabbix proxy: Failed to fetch stats data (or no data for {$ZABBIX.PROXY.NODATA_TIMEOUT})'
               priority: WARNING
@@ -7471,7 +7471,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: f31a41c673c541e89fa0d4792506316a
-              expression: 'last(/Zabbix proxy health by Zabbix agent active/uptime)<10m'
+              expression: 'last(/Zabbix proxy health by TAA agent active/uptime)<10m'
               name: 'Zabbix proxy: {HOST.NAME} has been restarted'
               event_name: 'Zabbix proxy: {HOST.NAME} has been restarted (uptime < 10m)'
               priority: INFO
@@ -7500,7 +7500,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 2e0d640f83e14fd1940d195bbb133ed8
-              expression: 'last(/Zabbix proxy health by Zabbix agent active/version,#1)<>last(/Zabbix proxy health by Zabbix agent active/version,#2) and length(last(/Zabbix proxy health by Zabbix agent active/version))>0'
+              expression: 'last(/Zabbix proxy health by TAA agent active/version,#1)<>last(/Zabbix proxy health by TAA agent active/version,#2) and length(last(/Zabbix proxy health by TAA agent active/version))>0'
               name: 'Zabbix proxy: Version has changed'
               event_name: 'Zabbix proxy: Version has changed (new version: {ITEM.VALUE})'
               priority: INFO
@@ -7529,7 +7529,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: a0ed7fac6d7c4b1ea5e66e476dfdc9d1
-              expression: 'max(/Zabbix proxy health by Zabbix agent active/vmware.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent active/vmware.buffer.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"vmware cache"}'
               name: 'Zabbix proxy: Excessive vmware cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"vmware cache"}% used in the vmware cache'
               priority: AVERAGE
@@ -7559,7 +7559,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: eba5460898154090bb57db9b6f80aefb
-              expression: 'max(/Zabbix proxy health by Zabbix agent active/wcache.history.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent active/wcache.history.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"history cache"}'
               name: 'Zabbix proxy: Excessive history cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"history cache"}% used in the history cache'
               priority: AVERAGE
@@ -7589,7 +7589,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 0ed6244bfe5f405face0941e87c9233a
-              expression: 'max(/Zabbix proxy health by Zabbix agent active/wcache.index.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"index cache"}'
+              expression: 'max(/Zabbix proxy health by TAA agent active/wcache.index.pused,10m)>{$ZABBIX.PROXY.UTIL.MAX:"index cache"}'
               name: 'Zabbix proxy: Excessive history index cache usage'
               event_name: 'Zabbix proxy: More than {$ZABBIX.PROXY.UTIL.MAX:"index cache"}% used in the history index cache'
               priority: AVERAGE
@@ -7760,7 +7760,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 1bdab54e366e423aa9320baeec90f57b
-              expression: 'min(/Zabbix proxy health by Zabbix agent active/zabbix.stats[{$ZABBIX.PROXY.ADDRESS},{$ZABBIX.PROXY.PORT},queue,10m],10m)>100'
+              expression: 'min(/Zabbix proxy health by TAA agent active/zabbix.stats[{$ZABBIX.PROXY.ADDRESS},{$ZABBIX.PROXY.PORT},queue,10m],10m)>100'
               name: 'Zabbix proxy: More than 100 items have been missing data for over 10 minutes'
               priority: WARNING
               description: 'Indicates potential issues with network connectivity, agent failures, or unresponsive monitored resources that require attention.'
@@ -7807,7 +7807,7 @@ zabbix_export:
             type: TEXT
             priority: '1'
             label: 'Zabbix proxy Address'
-            description: 'IP or DNS of the remote Zabbix proxy that should be monitored via the Zabbix agent.'
+            description: 'IP or DNS of the remote Zabbix proxy that should be monitored via the TAA agent.'
             required: 'YES'
         - macro: '{$ZABBIX.PROXY.NODATA_TIMEOUT}'
           value: 5m
@@ -7824,7 +7824,7 @@ zabbix_export:
             type: TEXT
             priority: '2'
             label: 'Zabbix proxy Port'
-            description: 'Port of the remote Zabbix proxy that should be monitored via the Zabbix agent. In the range from 1 to 65535 inclusive.'
+            description: 'Port of the remote Zabbix proxy that should be monitored via the TAA agent. In the range from 1 to 65535 inclusive.'
             required: 'YES'
             regex: '^-?([0-9]+|(([0-9]+)\.([0-9]+)))$'
         - macro: '{$ZABBIX.PROXY.UTIL.MAX}'
@@ -7880,27 +7880,27 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: rcache.buffer.pused
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.index.pused
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.history.pused
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: vmware.buffer.pused
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: proxy_buffer.buffer.pused
                     - type: STRING
                       name: lefty_max
@@ -7941,12 +7941,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.values
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: 'zabbix.stats[{$ZABBIX.PROXY.ADDRESS},{$ZABBIX.PROXY.PORT},queue]'
                     - type: INTEGER
                       name: legend_lines
@@ -7993,32 +7993,32 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.values.uint
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.values.float
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.values.not_supported
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.values.str
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.values.log
                     - type: ITEM
                       name: ds.0.itemids.5
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: wcache.values.text
                     - type: INTEGER
                       name: legend_lines
@@ -8053,12 +8053,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: preprocessing_queue
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: discovery_queue
                     - type: INTEGER
                       name: legend_lines
@@ -8094,12 +8094,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.discovery_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.discovery_worker.avg.busy
                     - type: INTEGER
                       name: ds.1.axisy
@@ -8113,7 +8113,7 @@ zabbix_export:
                     - type: ITEM
                       name: ds.1.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: discovery_queue
                     - type: STRING
                       name: lefty_max
@@ -8175,52 +8175,52 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.internal_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.ipmi_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.ipmi_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.http_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.5
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.java_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.6
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.vmware_collector.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.7
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.browser_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.8
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.odbc_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.9
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.icmp_pinger.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -8261,17 +8261,17 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.agent_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.http_agent_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.snmp_poller.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -8321,32 +8321,32 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.configuration_syncer.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.history_syncer.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.2
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.self-monitoring.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.3
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.task_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.4
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.data_sender.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.5
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.housekeeper.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -8384,12 +8384,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.trapper.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.snmp_trapper.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -8427,12 +8427,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.trapper.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.data_sender.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -8470,12 +8470,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.preprocessing_manager.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.preprocessing_worker.avg.busy
                     - type: INTEGER
                       name: ds.1.axisy
@@ -8492,7 +8492,7 @@ zabbix_export:
                     - type: ITEM
                       name: ds.1.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: preprocessing_queue
                     - type: STRING
                       name: lefty_max
@@ -8531,12 +8531,12 @@ zabbix_export:
                     - type: ITEM
                       name: ds.0.itemids.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.unreachable_poller.avg.busy
                     - type: ITEM
                       name: ds.0.itemids.1
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: process.availability_manager.avg.busy
                     - type: STRING
                       name: lefty_max
@@ -8569,7 +8569,7 @@ zabbix_export:
                     - type: ITEM
                       name: itemid.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: version
                     - type: INTEGER
                       name: show.0
@@ -8604,7 +8604,7 @@ zabbix_export:
                     - type: ITEM
                       name: itemid.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: uptime
                     - type: INTEGER
                       name: show.0
@@ -8639,7 +8639,7 @@ zabbix_export:
                     - type: ITEM
                       name: itemid.0
                       value:
-                        host: 'Zabbix proxy health by Zabbix agent active'
+                        host: 'Zabbix proxy health by TAA agent active'
                         key: proxy_buffer.state.current
                     - type: INTEGER
                       name: show.0

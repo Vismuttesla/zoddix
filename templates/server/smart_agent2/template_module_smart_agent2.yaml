@@ -1,18 +1,18 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: e960332b3f6c46a1956486d4f3f99fce
       name: 'Templates/Server hardware'
   templates:
     - uuid: 7b6c6228b25f4586b42cd1bf37ff8034
-      template: 'SMART by Zabbix agent 2'
-      name: 'SMART by Zabbix agent 2'
+      template: 'SMART by TAA agent 2'
+      name: 'SMART by TAA agent 2'
       description: |
-        The template for monitoring S.M.A.R.T. attributes of physical disk that works without any external scripts. It collects metrics by Zabbix agent 2 version 5.0 and later with Smartmontools version 7.1 and later. Disk discovery LLD rule finds all HDD, SSD, NVMe disks with S.M.A.R.T. enabled. Attribute discovery LLD rule have pre-defined Vendor Specific Attributes for each disk, and will be discovered if attribute is present.
+        The template for monitoring S.M.A.R.T. attributes of physical disk that works without any external scripts. It collects metrics by TAA agent 2 version 5.0 and later with Smartmontools version 7.1 and later. Disk discovery LLD rule finds all HDD, SSD, NVMe disks with S.M.A.R.T. enabled. Attribute discovery LLD rule have pre-defined Vendor Specific Attributes for each disk, and will be discovered if attribute is present.
         
         Setup:
         
-        1. Install Zabbix agent 2 and Smartmontools 7.1 or newer.
+        1. Install TAA agent 2 and Smartmontools 7.1 or newer.
         
         2. Ensure the path to the "smartctl" executable is correctly specified. You can either provide the full path to the executable (e.g., "/usr/sbin/smartctl" on Linux or "C:\Program Files\smartctl\smartctl.exe" on Windows) in the configuration file or ensure that the folder containing the "smartctl" executable is added to the system's environment variables ("PATH"). This applies to both Linux and Windows systems.
         
@@ -22,7 +22,7 @@ zabbix_export:
         Example for Windows:
         Plugins.Smart.Path="C:\Program Files\smartctl\smartctl.exe"
         
-        3. Grant Zabbix agent 2 super/admin user privileges for the "smartctl" utility (not required for Windows). Example for Linux (add the line that grants execution of the "smartctl" utility without the password):
+        3. Grant TAA agent 2 super/admin user privileges for the "smartctl" utility (not required for Windows). Example for Linux (add the line that grants execution of the "smartctl" utility without the password):
         
         - Run the "visudo" command to edit the "sudoers" file:
         sudo visudo
@@ -345,9 +345,9 @@ zabbix_export:
               trigger_prototypes:
                 - uuid: c51b609f267c45c3bcb4a3f5f40b6d35
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),8) = 8 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),8) = 8
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),8) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),8) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),8) = 8 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),8) = 8
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),8) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),8) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Check returned "DISK FAILING"'
                   priority: HIGH
@@ -358,9 +358,9 @@ zabbix_export:
                       value: notice
                 - uuid: 12ed61dfd27c4666883c4240a5726d06
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),1) = 1 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),1) = 1
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),1) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),1) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),1) = 1 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),1) = 1
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),1) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),1) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Command line did not parse'
                   priority: HIGH
@@ -371,9 +371,9 @@ zabbix_export:
                       value: notice
                 - uuid: 9b960cb324774b3fa5e3d39aeb3141e2
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),2) = 2 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),2) = 2
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),2) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),2) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),2) = 2 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),2) = 2
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),2) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),2) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Device open failed'
                   priority: HIGH
@@ -384,9 +384,9 @@ zabbix_export:
                       value: notice
                 - uuid: ccff1b75f69a47cdbb5a04c58d201a0f
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),64) = 64 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),64) = 64
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),64) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),64) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),64) = 64 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),64) = 64
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),64) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),64) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Error log contains records'
                   priority: HIGH
@@ -397,9 +397,9 @@ zabbix_export:
                       value: notice
                 - uuid: 69fb021abcc841b7b35cc93358ef085c
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),128) = 128 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),128) = 128
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),128) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),128) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),128) = 128 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),128) = 128
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),128) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),128) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Self-test log contains records'
                   priority: HIGH
@@ -412,9 +412,9 @@ zabbix_export:
                       value: notice
                 - uuid: 4ad2fbb5b6e349f6852a489b99a2760d
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),32) = 32 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),32) = 32
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),32) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),32) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),32) = 32 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),32) = 32
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),32) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),32) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Some Attributes have been <= threshold'
                   priority: HIGH
@@ -427,9 +427,9 @@ zabbix_export:
                       value: notice
                 - uuid: 592e647842d048e3985e65726cdc838c
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),4) = 4 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),4) = 4
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),4) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),4) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),4) = 4 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),4) = 4
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),4) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),4) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Some command to the disk failed'
                   priority: HIGH
@@ -442,9 +442,9 @@ zabbix_export:
                       value: notice
                 - uuid: ec137781d51249c89d8891a35a596445
                   expression: |
-                    ( count(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),16) = 16 )
-                    or ( bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),16) = 16
-                    and bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}]),16) > bitand(last(/SMART by Zabbix agent 2/smart.disk.es[{#NAME}],#2),16) )
+                    ( count(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2) = 1 and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),16) = 16 )
+                    or ( bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),16) = 16
+                    and bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}]),16) > bitand(last(/SMART by TAA agent 2/smart.disk.es[{#NAME}],#2),16) )
                   recovery_mode: NONE
                   name: 'SMART: [{#NAME}]: Some prefail Attributes <= threshold'
                   priority: HIGH
@@ -567,7 +567,7 @@ zabbix_export:
                   value: '{#DISKTYPE}'
               trigger_prototypes:
                 - uuid: e2bc2b0e195446d7973037be8e41eb6f
-                  expression: 'last(/SMART by Zabbix agent 2/smart.disk.percentage_used[{#NAME}])>90'
+                  expression: 'last(/SMART by TAA agent 2/smart.disk.percentage_used[{#NAME}])>90'
                   name: 'SMART: [{#NAME}]: NVMe disk percentage using is over 90% of estimated endurance'
                   priority: AVERAGE
                   tags:
@@ -596,7 +596,7 @@ zabbix_export:
                   value: '{#DISKTYPE}'
               trigger_prototypes:
                 - uuid: 7257c02f398f4338ace1eb3a07cb7362
-                  expression: 'last(/SMART by Zabbix agent 2/smart.disk.sn[{#NAME}],#1)<>last(/SMART by Zabbix agent 2/smart.disk.sn[{#NAME}],#2) and length(last(/SMART by Zabbix agent 2/smart.disk.sn[{#NAME}]))>0'
+                  expression: 'last(/SMART by TAA agent 2/smart.disk.sn[{#NAME}],#1)<>last(/SMART by TAA agent 2/smart.disk.sn[{#NAME}],#2) and length(last(/SMART by TAA agent 2/smart.disk.sn[{#NAME}]))>0'
                   name: 'SMART: [{#NAME}]: Disk has been replaced'
                   event_name: 'SMART: [{#NAME}]: Disk has been replaced (new serial number received)'
                   priority: INFO
@@ -629,7 +629,7 @@ zabbix_export:
                   value: '{#DISKTYPE}'
               trigger_prototypes:
                 - uuid: cd09aebe3ca146119cdf5b977bf6b018
-                  expression: 'avg(/SMART by Zabbix agent 2/smart.disk.temperature[{#NAME}],5m)>{$SMART.TEMPERATURE.MAX.CRIT}'
+                  expression: 'avg(/SMART by TAA agent 2/smart.disk.temperature[{#NAME}],5m)>{$SMART.TEMPERATURE.MAX.CRIT}'
                   name: 'SMART: [{#NAME}]: Average disk temperature is critical'
                   event_name: 'SMART: [{#NAME}]: Average disk temperature is critical (over {$SMART.TEMPERATURE.MAX.CRIT}°C for 5m)'
                   priority: AVERAGE
@@ -637,13 +637,13 @@ zabbix_export:
                     - tag: scope
                       value: notice
                 - uuid: aaa5acb3196b481f894998c0ca5ea165
-                  expression: 'avg(/SMART by Zabbix agent 2/smart.disk.temperature[{#NAME}],5m)>{$SMART.TEMPERATURE.MAX.WARN}'
+                  expression: 'avg(/SMART by TAA agent 2/smart.disk.temperature[{#NAME}],5m)>{$SMART.TEMPERATURE.MAX.WARN}'
                   name: 'SMART: [{#NAME}]: Average disk temperature is too high'
                   event_name: 'SMART: [{#NAME}]: Average disk temperature is too high (over {$SMART.TEMPERATURE.MAX.WARN}°C for 5m)'
                   priority: WARNING
                   dependencies:
                     - name: 'SMART: [{#NAME}]: Average disk temperature is critical'
-                      expression: 'avg(/SMART by Zabbix agent 2/smart.disk.temperature[{#NAME}],5m)>{$SMART.TEMPERATURE.MAX.CRIT}'
+                      expression: 'avg(/SMART by TAA agent 2/smart.disk.temperature[{#NAME}],5m)>{$SMART.TEMPERATURE.MAX.CRIT}'
                   tags:
                     - tag: scope
                       value: notice
@@ -671,7 +671,7 @@ zabbix_export:
                   value: '{#DISKTYPE}'
               trigger_prototypes:
                 - uuid: 5fa97df4012e45279fb55724f617ef4a
-                  expression: 'last(/SMART by Zabbix agent 2/smart.disk.test[{#NAME}])="false"'
+                  expression: 'last(/SMART by TAA agent 2/smart.disk.test[{#NAME}])="false"'
                   name: 'SMART: [{#NAME}]: Disk self-test is not passed'
                   priority: HIGH
                   tags:
@@ -822,7 +822,7 @@ zabbix_export:
                     - type: ITEM_PROTOTYPE
                       name: itemid.0
                       value:
-                        host: 'SMART by Zabbix agent 2'
+                        host: 'SMART by TAA agent 2'
                         key: 'smart.disk.temperature[{#NAME}]'
                     - type: STRING
                       name: reference
@@ -842,7 +842,7 @@ zabbix_export:
                     - type: ITEM_PROTOTYPE
                       name: itemid.0
                       value:
-                        host: 'SMART by Zabbix agent 2'
+                        host: 'SMART by TAA agent 2'
                         key: 'smart.disk.hours[{#NAME}]'
                     - type: STRING
                       name: reference

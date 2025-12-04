@@ -1,4 +1,4 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
@@ -56,7 +56,7 @@ zabbix_export:
         
         Then set it to the field: `API Authorization Token`.
         
-        Set `Nodes Endpoint Name` with Zabbix agent's endpoint name. See `kubectl -n monitoring get ep`. Default: `zabbix-zabbix-helm-chrt-agent`.
+        Set `Nodes Endpoint Name` with TAA agent's endpoint name. See `kubectl -n monitoring get ep`. Default: `zabbix-zabbix-helm-chrt-agent`.
         
         Set up the fields to filter the metrics of discovered nodes and host creation based on host prototypes:
         
@@ -1282,7 +1282,7 @@ zabbix_export:
               group_prototypes:
                 - name: '{#CLUSTER_HOSTNAME}: Kubernetes/Nodes/Role: {#ROLES}'
               templates:
-                - name: 'Linux by Zabbix agent'
+                - name: 'Linux by TAA agent'
               macros:
                 - macro: '{$VFS.FS.FSNAME.NOT_MATCHES}'
                   value: ^/(dev|sys|run|proc|etc/.+|.+/shm|hostfs/root/var/lib/docker/.+)$

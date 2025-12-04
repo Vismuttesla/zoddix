@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 846977d1dfed4968bc5f8bdb363285bc
       name: 'Templates/Operating systems'
   templates:
     - uuid: 7e6bb0931a72459db9514aa924b420bc
-      template: 'AIX by Zabbix agent'
-      name: 'AIX by Zabbix agent'
+      template: 'AIX by TAA agent'
+      name: 'AIX by TAA agent'
       description: |
-        This is an official AIX template. It requires Zabbix agent 7.4 or newer.
+        This is an official AIX template. It requires TAA agent 7.4 or newer.
         
         Notes on filesystem (FS) discovery:
           - The ext4/3/2 FS reserves space for privileged usage, typically set at 5% by default.
@@ -27,7 +27,7 @@ zabbix_export:
         - name: 'Templates/Operating systems'
       items:
         - uuid: 4c80c15f5741464882aa238f27bec1bd
-          name: 'Host name of Zabbix agent running'
+          name: 'Host name of TAA agent running'
           key: agent.hostname
           delay: 1h
           value_type: CHAR
@@ -39,16 +39,16 @@ zabbix_export:
             - tag: component
               value: system
         - uuid: 05849e0fb6504d339f2aebe159427bec
-          name: 'Zabbix agent ping'
+          name: 'TAA agent ping'
           key: agent.ping
           description: 'The agent always returns "1" for this item. May be used in combination with `nodata()` for the availability check.'
           valuemap:
-            name: 'Zabbix agent ping status'
+            name: 'TAA agent ping status'
           tags:
             - tag: component
               value: system
         - uuid: fe4731720ba64eebbf125929e499209b
-          name: 'Version of Zabbix agent running'
+          name: 'Version of TAA agent running'
           key: agent.version
           delay: 1h
           value_type: CHAR
@@ -70,7 +70,7 @@ zabbix_export:
               value: processes
           triggers:
             - uuid: 458180bc0f14468386429964f877cce7
-              expression: 'avg(/AIX by Zabbix agent/proc.num[,,run],5m)>30'
+              expression: 'avg(/AIX by TAA agent/proc.num[,,run],5m)>30'
               name: 'AIX: Too many processes running'
               priority: WARNING
               tags:
@@ -87,7 +87,7 @@ zabbix_export:
               value: processes
           triggers:
             - uuid: 874ef8fe4a6445ff971800d2d9a50541
-              expression: 'avg(/AIX by Zabbix agent/proc.num[],5m)>300'
+              expression: 'avg(/AIX by TAA agent/proc.num[],5m)>300'
               name: 'AIX: Too many processes'
               priority: WARNING
               tags:
@@ -113,7 +113,7 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: fdbedf15fe474fd18c045c62cf8cc7d6
-              expression: 'avg(/AIX by Zabbix agent/system.cpu.load[percpu,avg1],5m)>5'
+              expression: 'avg(/AIX by TAA agent/system.cpu.load[percpu,avg1],5m)>5'
               name: 'AIX: Processor load is too high'
               priority: WARNING
               tags:
@@ -161,7 +161,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: d1e70b7f465447a3ab575b3fd28755a1
-              expression: 'last(/AIX by Zabbix agent/system.hostname,#1)<>last(/AIX by Zabbix agent/system.hostname,#2)'
+              expression: 'last(/AIX by TAA agent/system.hostname,#1)<>last(/AIX by TAA agent/system.hostname,#2)'
               name: 'AIX: Hostname was changed'
               priority: INFO
               tags:
@@ -239,7 +239,7 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: c030cc99975d4fe3911789e58bbd5050
-              expression: 'avg(/AIX by Zabbix agent/system.stat[cpu,wa],5m)>20'
+              expression: 'avg(/AIX by TAA agent/system.stat[cpu,wa],5m)>20'
               name: 'AIX: Disk I/O is overloaded'
               priority: WARNING
               description: 'Extended OS wait times for I/O operations may signal potential performance issues with the storage system.'
@@ -374,7 +374,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 3a736e64211744aea480a60b2c48a036
-              expression: 'last(/AIX by Zabbix agent/system.uname,#1)<>last(/AIX by Zabbix agent/system.uname,#2)'
+              expression: 'last(/AIX by TAA agent/system.uname,#1)<>last(/AIX by TAA agent/system.uname,#2)'
               name: 'AIX: Host information was changed'
               priority: INFO
               tags:
@@ -390,7 +390,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 03a2cd88b6a64d3ea4c9bb2abbc4ae2d
-              expression: 'change(/AIX by Zabbix agent/system.uptime)<0'
+              expression: 'change(/AIX by TAA agent/system.uptime)<0'
               name: 'AIX: Server has just been restarted'
               priority: INFO
               tags:
@@ -417,7 +417,7 @@ zabbix_export:
               value: security
           triggers:
             - uuid: c75ee957fd6c43b2aba9919d5e1af4a1
-              expression: 'last(/AIX by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/AIX by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
+              expression: 'last(/AIX by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/AIX by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
               name: 'AIX: /etc/passwd has been changed'
               priority: WARNING
               tags:
@@ -442,7 +442,7 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: 80b6406fb8474fa9801e9dffb2ccd368
-              expression: 'last(/AIX by Zabbix agent/vm.memory.size[available])<20M'
+              expression: 'last(/AIX by TAA agent/vm.memory.size[available])<20M'
               name: 'AIX: Lack of available memory on server'
               priority: AVERAGE
               tags:
@@ -460,7 +460,7 @@ zabbix_export:
             - tag: component
               value: memory
         - uuid: 304a3e9bb7594c83b027a32c34aeab28
-          name: 'Zabbix agent availability'
+          name: 'TAA agent availability'
           type: INTERNAL
           key: 'zabbix[host,agent,available]'
           description: 'Used for monitoring the availability status of the agent.'
@@ -471,9 +471,9 @@ zabbix_export:
               value: system
           triggers:
             - uuid: f0b9ecafede8476b94fd8dcab74cea87
-              expression: 'max(/AIX by Zabbix agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
-              name: 'AIX: Zabbix agent is not available'
-              event_name: 'AIX: Zabbix agent is not available (for {$AGENT.TIMEOUT})'
+              expression: 'max(/AIX by TAA agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
+              name: 'AIX: TAA agenti faol emas'
+              event_name: 'AIX: TAA agenti faol emas ({$AGENT.TIMEOUT} davomida)'
               priority: AVERAGE
               description: 'For passive checks only. The availability of the agent(s) and a host is used with `{$AGENT.TIMEOUT}` as the time threshold.'
               manual_close: 'YES'
@@ -525,12 +525,12 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'AIX by Zabbix agent'
+                    host: 'AIX by TAA agent'
                     key: 'net.if.in[{#IFNAME}]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'AIX by Zabbix agent'
+                    host: 'AIX by TAA agent'
                     key: 'net.if.out[{#IFNAME}]'
         - uuid: 4a0b17decdf1449d9463cf00720a843d
           name: 'Mounted filesystem discovery'
@@ -573,7 +573,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 185959350a954c35a08ab6a9bf6c1d46
-                  expression: 'min(/AIX by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/AIX by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   name: 'AIX: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'AIX: {#FSNAME}: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -585,7 +585,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: 6ce467d05e8745409a177799bed34bb3
-                  expression: 'min(/AIX by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
+                  expression: 'min(/AIX by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
                   name: 'AIX: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'AIX: FS [{#FSNAME}]: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -593,7 +593,7 @@ zabbix_export:
                   description: 'Disk writing may fail if index nodes are exhausted, leading to error messages like "No space left on device" or "Disk is full", despite available free space.'
                   dependencies:
                     - name: 'AIX: FS [{#FSNAME}]: Running out of free inodes'
-                      expression: 'min(/AIX by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/AIX by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: capacity
@@ -663,7 +663,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 6b3a81f7c4a24307a099c07fb537a8ca
-                  expression: 'min(/AIX by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/AIX by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   name: 'AIX: FS [{#FSNAME}]: Space is critically low'
                   event_name: 'AIX: FS [{#FSNAME}]: Space is critically low (used > {$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -679,7 +679,7 @@ zabbix_export:
                     - tag: scope
                       value: capacity
                 - uuid: 74a1fc62bfe24b7eabe4e244c70dc384
-                  expression: 'min(/AIX by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
+                  expression: 'min(/AIX by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
                   name: 'AIX: FS [{#FSNAME}]: Space is low'
                   event_name: 'AIX: FS [{#FSNAME}]: Space is low (used > {$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -691,7 +691,7 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'AIX: FS [{#FSNAME}]: Space is critically low'
-                      expression: 'min(/AIX by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/AIX by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: availability
@@ -761,7 +761,7 @@ zabbix_export:
               name: 'FS [{#FSNAME}]: Option: Read-only'
               type: DEPENDENT
               key: 'vfs.fs.dependent[{#FSNAME},readonly]'
-              description: 'The filesystem is mounted as read-only. It is available only for Zabbix agents 6.4 and higher.'
+              description: 'The filesystem is mounted as read-only. It is available only for TAA agents 6.4 and higher.'
               preprocessing:
                 - type: JSONPATH
                   parameters:
@@ -784,12 +784,12 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 05ec0e80333d4f7688b71a2865d0365e
-                  expression: 'last(/AIX by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly],#2)=0 and last(/AIX by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly])=1'
+                  expression: 'last(/AIX by TAA agent/vfs.fs.dependent[{#FSNAME},readonly],#2)=0 and last(/AIX by TAA agent/vfs.fs.dependent[{#FSNAME},readonly])=1'
                   recovery_mode: RECOVERY_EXPRESSION
-                  recovery_expression: 'last(/AIX by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly])=0'
+                  recovery_expression: 'last(/AIX by TAA agent/vfs.fs.dependent[{#FSNAME},readonly])=0'
                   name: 'AIX: FS [{#FSNAME}]: Filesystem has become read-only'
                   priority: AVERAGE
-                  description: 'The filesystem has become read-only, possibly due to an I/O error. Available only for Zabbix agents 6.4 and higher.'
+                  description: 'The filesystem has become read-only, possibly due to an I/O error. Available only for TAA agents 6.4 and higher.'
                   manual_close: 'YES'
                   tags:
                     - tag: scope
@@ -808,7 +808,7 @@ zabbix_export:
                   color: F63100
                   calc_fnc: ALL
                   item:
-                    host: 'AIX by Zabbix agent'
+                    host: 'AIX by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},pused]'
             - uuid: cfd16b36331145a881249d88e105c731
               name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
@@ -821,19 +821,19 @@ zabbix_export:
                   calc_fnc: LAST
                   type: GRAPH_SUM
                   item:
-                    host: 'AIX by Zabbix agent'
+                    host: 'AIX by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},total]'
                 - sortorder: '1'
                   color: F63100
                   calc_fnc: LAST
                   item:
-                    host: 'AIX by Zabbix agent'
+                    host: 'AIX by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},used]'
                 - sortorder: '2'
                   color: 199C09
                   calc_fnc: LAST
                   item:
-                    host: 'AIX by Zabbix agent'
+                    host: 'AIX by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},free]'
           master_item:
             key: vfs.fs.get
@@ -919,7 +919,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'AIX by Zabbix agent'
+                        host: 'AIX by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -935,7 +935,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'AIX by Zabbix agent'
+                        host: 'AIX by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space usage graph, in % (relative to max available)'
                     - type: STRING
                       name: reference
@@ -951,7 +951,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'AIX by Zabbix agent'
+                        host: 'AIX by TAA agent'
                         name: 'AIX: CPU load'
                     - type: STRING
                       name: reference
@@ -964,7 +964,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'AIX by Zabbix agent'
+                        host: 'AIX by TAA agent'
                         name: 'AIX: CPU utilization'
                     - type: STRING
                       name: reference
@@ -980,7 +980,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'AIX by Zabbix agent'
+                        host: 'AIX by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -993,7 +993,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'AIX by Zabbix agent'
+                        host: 'AIX by TAA agent'
                         name: 'AIX: CPU jumps'
                     - type: STRING
                       name: reference
@@ -1007,7 +1007,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'AIX by Zabbix agent'
+                        host: 'AIX by TAA agent'
                         name: 'AIX: Memory usage'
                     - type: STRING
                       name: reference
@@ -1023,7 +1023,7 @@ zabbix_export:
             - value: '2'
               newvalue: unknown
         - uuid: f2885fb5e52946f8bce8eb96a60f433a
-          name: 'Zabbix agent ping status'
+          name: 'TAA agent ping status'
           mappings:
             - value: '1'
               newvalue: Up
@@ -1033,66 +1033,66 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: system.cpu.switches
         - sortorder: '1'
           color: F63100
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: system.cpu.intr
     - uuid: 260417d4613d405986406c272f54a5aa
       name: 'AIX: CPU load'
       graph_items:
         - color: 199C0D
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.cpu.load[percpu,avg1]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.cpu.load[percpu,avg5]'
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.cpu.load[percpu,avg15]'
     - uuid: a2eeb8269edf4de7ac13b7ceb1260b75
       name: 'AIX: CPU utilization'
       graph_items:
         - color: 199C0D
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.stat[cpu,ec]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.stat[cpu,pc]'
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.stat[cpu,wa]'
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.stat[cpu,sy]'
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.stat[cpu,us]'
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'system.stat[cpu,id]'
     - uuid: 2664343cd69444e0a16850083845838f
       name: 'AIX: Memory usage'
       graph_items:
         - color: 199C0D
           item:
-            host: 'AIX by Zabbix agent'
+            host: 'AIX by TAA agent'
             key: 'vm.memory.size[available]'

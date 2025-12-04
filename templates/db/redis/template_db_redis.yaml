@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 748ad4d098d447d492bb935c907f652f
       name: Templates/Databases
   templates:
     - uuid: e111446745a1425b862f8727ae63bce4
-      template: 'Redis by Zabbix agent 2'
-      name: 'Redis by Zabbix agent 2'
+      template: 'Redis by TAA agent 2'
+      name: 'Redis by TAA agent 2'
       description: |
-        Get Redis metrics from plugin for the New Zabbix Agent (zabbix-agent2).
+        Get Redis metrics from plugin for the New TAA agent (zabbix-agent2).
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/389050-discussion-thread-for-official-zabbix-template-redis
         
@@ -144,7 +144,7 @@ zabbix_export:
               value: raw
           triggers:
             - uuid: 819b379b51c34616820f86d21c703b27
-              expression: 'last(/Redis by Zabbix agent 2/redis.config["{$REDIS.CONN.URI}"],#1)<>last(/Redis by Zabbix agent 2/redis.config["{$REDIS.CONN.URI}"],#2) and length(last(/Redis by Zabbix agent 2/redis.config["{$REDIS.CONN.URI}"]))>0'
+              expression: 'last(/Redis by TAA agent 2/redis.config["{$REDIS.CONN.URI}"],#1)<>last(/Redis by TAA agent 2/redis.config["{$REDIS.CONN.URI}"],#2) and length(last(/Redis by TAA agent 2/redis.config["{$REDIS.CONN.URI}"]))>0'
               name: 'Redis: Configuration has changed'
               priority: INFO
               description: 'Redis configuration has changed. Acknowledge to close the problem manually.'
@@ -242,7 +242,7 @@ zabbix_export:
               value: raw
           triggers:
             - uuid: 0a5176877ba24df8b5d38c8cc544f0a8
-              expression: 'nodata(/Redis by Zabbix agent 2/redis.info["{$REDIS.CONN.URI}"],30m)=1'
+              expression: 'nodata(/Redis by TAA agent 2/redis.info["{$REDIS.CONN.URI}"],30m)=1'
               name: 'Redis: Failed to fetch info data'
               event_name: 'Redis: Failed to fetch info data (or no data for 30m)'
               priority: WARNING
@@ -250,7 +250,7 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Redis: Service is down'
-                  expression: 'last(/Redis by Zabbix agent 2/redis.ping["{$REDIS.CONN.URI}"])=0'
+                  expression: 'last(/Redis by TAA agent 2/redis.ping["{$REDIS.CONN.URI}"])=0'
               tags:
                 - tag: scope
                   value: availability
@@ -294,7 +294,7 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: 629531ff1ebc4bdbb1f277848c436230
-              expression: 'min(/Redis by Zabbix agent 2/redis.memory.fragmentation_ratio,15m)>{$REDIS.MEM.FRAG_RATIO.MAX.WARN}'
+              expression: 'min(/Redis by TAA agent 2/redis.memory.fragmentation_ratio,15m)>{$REDIS.MEM.FRAG_RATIO.MAX.WARN}'
               name: 'Redis: Memory fragmentation ratio is too high'
               event_name: 'Redis: Memory fragmentation ratio is too high (over {$REDIS.MEM.FRAG_RATIO.MAX.WARN} in 15m)'
               priority: WARNING
@@ -473,7 +473,7 @@ zabbix_export:
               value: persistence
           triggers:
             - uuid: 324e0e8fac514ba99d67aea7eb0ddf7c
-              expression: 'last(/Redis by Zabbix agent 2/redis.persistence.aof_last_write_status)=0'
+              expression: 'last(/Redis by TAA agent 2/redis.persistence.aof_last_write_status)=0'
               name: 'Redis: Last AOF write operation failed'
               priority: WARNING
               description: 'Detailed information about persistence: https://redis.io/topics/persistence'
@@ -605,7 +605,7 @@ zabbix_export:
               value: persistence
           triggers:
             - uuid: 44e427ae3ce7419dbac3059be11e31ef
-              expression: 'last(/Redis by Zabbix agent 2/redis.persistence.rdb_last_bgsave_status)=0'
+              expression: 'last(/Redis by TAA agent 2/redis.persistence.rdb_last_bgsave_status)=0'
               name: 'Redis: Last RDB save operation failed'
               priority: WARNING
               description: 'Detailed information about persistence: https://redis.io/topics/persistence'
@@ -660,7 +660,7 @@ zabbix_export:
               value: health
           triggers:
             - uuid: 62353f9ed6204b70ba270827c3922244
-              expression: 'last(/Redis by Zabbix agent 2/redis.ping["{$REDIS.CONN.URI}"])=0'
+              expression: 'last(/Redis by TAA agent 2/redis.ping["{$REDIS.CONN.URI}"])=0'
               name: 'Redis: Service is down'
               priority: AVERAGE
               manual_close: 'YES'
@@ -683,7 +683,7 @@ zabbix_export:
               value: replication
           triggers:
             - uuid: 6d213088211a4bb38ff97b59113dccd9
-              expression: 'last(/Redis by Zabbix agent 2/redis.replication.connected_slaves,#1)<>last(/Redis by Zabbix agent 2/redis.replication.connected_slaves,#2)'
+              expression: 'last(/Redis by TAA agent 2/redis.replication.connected_slaves,#1)<>last(/Redis by TAA agent 2/redis.replication.connected_slaves,#2)'
               recovery_mode: NONE
               name: 'Redis: Number of slaves has changed'
               priority: INFO
@@ -805,7 +805,7 @@ zabbix_export:
               value: replication
           triggers:
             - uuid: d24f7aabefb345e791b3bb276f30ac8c
-              expression: 'last(/Redis by Zabbix agent 2/redis.replication.role,#1)<>last(/Redis by Zabbix agent 2/redis.replication.role,#2) and length(last(/Redis by Zabbix agent 2/redis.replication.role))>0'
+              expression: 'last(/Redis by TAA agent 2/redis.replication.role,#1)<>last(/Redis by TAA agent 2/redis.replication.role,#2) and length(last(/Redis by TAA agent 2/redis.replication.role))>0'
               recovery_mode: NONE
               name: 'Redis: Replication role has changed'
               event_name: 'Redis: Replication role has changed (new role: {ITEM.VALUE})'
@@ -886,7 +886,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 6e307546b26344deb83f2295c90e9a33
-              expression: 'last(/Redis by Zabbix agent 2/redis.server.redis_version,#1)<>last(/Redis by Zabbix agent 2/redis.server.redis_version,#2) and length(last(/Redis by Zabbix agent 2/redis.server.redis_version))>0'
+              expression: 'last(/Redis by TAA agent 2/redis.server.redis_version,#1)<>last(/Redis by TAA agent 2/redis.server.redis_version,#2) and length(last(/Redis by TAA agent 2/redis.server.redis_version))>0'
               name: 'Redis: Version has changed'
               event_name: 'Redis: Version has changed (new version: {ITEM.VALUE})'
               priority: INFO
@@ -929,7 +929,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 4961e91eed2a4e83899d135315748b0e
-              expression: 'last(/Redis by Zabbix agent 2/redis.server.uptime)<10m'
+              expression: 'last(/Redis by TAA agent 2/redis.server.uptime)<10m'
               name: 'Redis: Host has been restarted'
               event_name: 'Redis: {HOST.NAME} has been restarted (uptime < 10m)'
               priority: INFO
@@ -948,7 +948,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 37fb0255e49c42c8913e56fe4aaa1d14
-              expression: 'min(/Redis by Zabbix agent 2/redis.slowlog.count["{$REDIS.CONN.URI}"],5m)>{$REDIS.SLOWLOG.COUNT.MAX.WARN}'
+              expression: 'min(/Redis by TAA agent 2/redis.slowlog.count["{$REDIS.CONN.URI}"],5m)>{$REDIS.SLOWLOG.COUNT.MAX.WARN}'
               name: 'Redis: Too many entries in the slowlog'
               event_name: 'Redis: Too many entries in the slowlog (over {$REDIS.SLOWLOG.COUNT.MAX.WARN} per second in 5m)'
               priority: INFO
@@ -1155,7 +1155,7 @@ zabbix_export:
               value: connections
           triggers:
             - uuid: 5bf0680529ce496b8fe419e2732c69d1
-              expression: 'last(/Redis by Zabbix agent 2/redis.stats.rejected_connections)>0'
+              expression: 'last(/Redis by TAA agent 2/redis.stats.rejected_connections)>0'
               name: 'Redis: Connections are rejected'
               priority: HIGH
               description: |
@@ -1270,7 +1270,7 @@ zabbix_export:
           name: 'Process metrics discovery'
           key: 'proc.num["{$REDIS.LLD.PROCESS_NAME}"]'
           delay: 1h
-          description: 'Collect metrics by Zabbix agent if it exists'
+          description: 'Collect metrics by TAA agent if it exists'
           item_prototypes:
             - uuid: 376a8861723c45c3bde08573c7ab2ed9
               name: 'CPU utilization'
@@ -1305,7 +1305,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: 590bd23c52b74dd7951dcf74903ac2ed
-                  expression: 'last(/Redis by Zabbix agent 2/proc.num["{$REDIS.PROCESS_NAME}{#SINGLETON}"])=0'
+                  expression: 'last(/Redis by TAA agent 2/proc.num["{$REDIS.PROCESS_NAME}{#SINGLETON}"])=0'
                   name: 'Redis: Process is not running'
                   priority: HIGH
                   tags:
@@ -1317,12 +1317,12 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Redis by Zabbix agent 2'
+                    host: 'Redis by TAA agent 2'
                     key: 'proc.mem["{$REDIS.PROCESS_NAME}{#SINGLETON}",,,,vsize]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'Redis by Zabbix agent 2'
+                    host: 'Redis by TAA agent 2'
                     key: 'proc.mem["{$REDIS.PROCESS_NAME}{#SINGLETON}",,,,rss]'
           preprocessing:
             - type: JAVASCRIPT
@@ -1420,13 +1420,13 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 199C0D
                   item:
-                    host: 'Redis by Zabbix agent 2'
+                    host: 'Redis by TAA agent 2'
                     key: 'redis.db.keys["{#DB}"]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: F63100
                   item:
-                    host: 'Redis by Zabbix agent 2'
+                    host: 'Redis by TAA agent 2'
                     key: 'redis.db.expires["{#DB}"]'
           master_item:
             key: redis.keyspace.info_raw
@@ -1768,7 +1768,7 @@ zabbix_export:
                   value: keys
           trigger_prototypes:
             - uuid: 0c3560588d2d421c843c006ef5fa4645
-              expression: 'last(/Redis by Zabbix agent 2/redis.memory.used_memory)/min(/Redis by Zabbix agent 2/redis.memory.maxmemory[{#SINGLETON}],5m)*100>{$REDIS.MEM.PUSED.MAX.WARN}'
+              expression: 'last(/Redis by TAA agent 2/redis.memory.used_memory)/min(/Redis by TAA agent 2/redis.memory.maxmemory[{#SINGLETON}],5m)*100>{$REDIS.MEM.PUSED.MAX.WARN}'
               name: 'Redis: Memory usage is too high'
               event_name: 'Redis: Memory usage is too high (over {$REDIS.MEM.PUSED.MAX.WARN}% in 5m)'
               priority: WARNING
@@ -2194,7 +2194,7 @@ zabbix_export:
                 - drawtype: BOLD_LINE
                   color: 199C0D
                   item:
-                    host: 'Redis by Zabbix agent 2'
+                    host: 'Redis by TAA agent 2'
                     key: 'redis.replication.lag_bytes["{#SLAVE_IP}:{#SLAVE_PORT}"]'
           master_item:
             key: redis.replication.info_raw
@@ -2250,7 +2250,7 @@ zabbix_export:
                   value: replication
               trigger_prototypes:
                 - uuid: 292f477d970d4a138d2d1b2c45d965dd
-                  expression: 'min(/Redis by Zabbix agent 2/redis.replication.master_last_io_seconds_ago[{#SINGLETON}],5m)>{$REDIS.REPL.LAG.MAX.WARN}'
+                  expression: 'min(/Redis by TAA agent 2/redis.replication.master_last_io_seconds_ago[{#SINGLETON}],5m)>{$REDIS.REPL.LAG.MAX.WARN}'
                   name: 'Redis: Replication lag with master is too high'
                   event_name: 'Redis: Replication lag with master is too high (over {$REDIS.REPL.LAG.MAX.WARN} in 5m)'
                   priority: WARNING
@@ -2357,7 +2357,7 @@ zabbix_export:
                 - drawtype: BOLD_LINE
                   color: 199C0D
                   item:
-                    host: 'Redis by Zabbix agent 2'
+                    host: 'Redis by TAA agent 2'
                     key: 'redis.replication.master_last_io_seconds_ago[{#SINGLETON}]'
           master_item:
             key: redis.replication.info_raw
@@ -2416,7 +2416,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Clients'
                     - type: STRING
                       name: reference
@@ -2429,7 +2429,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Commands'
                     - type: STRING
                       name: reference
@@ -2442,7 +2442,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Persistence'
                     - type: STRING
                       name: reference
@@ -2455,7 +2455,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Slowlog'
                     - type: STRING
                       name: reference
@@ -2471,7 +2471,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Replication lag time{#SINGLETON}'
                     - type: STRING
                       name: reference
@@ -2484,7 +2484,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Keyspace'
                     - type: STRING
                       name: reference
@@ -2498,7 +2498,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Expired keys'
                     - type: STRING
                       name: reference
@@ -2512,7 +2512,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Slaves'
                     - type: STRING
                       name: reference
@@ -2526,7 +2526,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Uptime'
                     - type: STRING
                       name: reference
@@ -2542,7 +2542,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: CPU'
                     - type: STRING
                       name: reference
@@ -2555,7 +2555,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Memory'
                     - type: STRING
                       name: reference
@@ -2568,7 +2568,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Network'
                     - type: STRING
                       name: reference
@@ -2582,7 +2582,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Redis by Zabbix agent 2'
+                        host: 'Redis by TAA agent 2'
                         name: 'Redis: Memory fragmentation'
                     - type: STRING
                       name: reference
@@ -2621,7 +2621,7 @@ zabbix_export:
               newvalue: Up
   triggers:
     - uuid: 65e4652dbebe47c4b46e47bb8a17aac6
-      expression: 'min(/Redis by Zabbix agent 2/redis.clients.connected,5m)/last(/Redis by Zabbix agent 2/redis.config.maxclients)*100>{$REDIS.CLIENTS.PRC.MAX.WARN}'
+      expression: 'min(/Redis by TAA agent 2/redis.clients.connected,5m)/last(/Redis by TAA agent 2/redis.config.maxclients)*100>{$REDIS.CLIENTS.PRC.MAX.WARN}'
       name: 'Redis: Total number of connected clients is too high'
       event_name: 'Redis: Total number of connected clients is too high (over {$REDIS.CLIENTS.PRC.MAX.WARN}% in 5m)'
       priority: WARNING
@@ -2639,20 +2639,20 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.clients.connected
         - sortorder: '1'
           drawtype: GRADIENT_LINE
           color: F63100
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.clients.blocked
     - uuid: 8643a1b690dc456b8daacc4b2b0810d4
       name: 'Redis: Commands'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.stats.instantaneous_ops.rate
     - uuid: 765c0125e8d549dc88279f65f38b6ed9
       name: 'Redis: CPU'
@@ -2660,23 +2660,23 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.cpu.sys
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.cpu.sys_children
         - sortorder: '2'
           drawtype: GRADIENT_LINE
           color: 00611C
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.cpu.user
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.cpu.user_children
     - uuid: fd25ac6239064cd29dc1939cd15005de
       name: 'Redis: Expired keys'
@@ -2684,25 +2684,25 @@ zabbix_export:
         - drawtype: BOLD_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.stats.expired_keys
         - sortorder: '1'
           drawtype: BOLD_LINE
           color: F63100
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.stats.evicted_keys
     - uuid: 24cff7af388e41a8899e2916f12224d1
       name: 'Redis: Keyspace'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.stats.keyspace_hits
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.stats.keyspace_misses
     - uuid: a3ea32878f25481998e0fde7ba00a11b
       name: 'Redis: Memory'
@@ -2710,19 +2710,19 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.memory.used_memory
         - sortorder: '1'
           drawtype: BOLD_LINE
           color: F63100
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.memory.used_memory_rss
         - sortorder: '2'
           drawtype: BOLD_LINE
           color: 00611C
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.memory.used_memory_peak
     - uuid: ff8d6320a8e246a39d35ccb93220eb3a
       name: 'Redis: Memory fragmentation'
@@ -2730,7 +2730,7 @@ zabbix_export:
         - drawtype: BOLD_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.memory.fragmentation_ratio
     - uuid: b3db4cc8247647faae0d3c2389f37d80
       name: 'Redis: Network'
@@ -2738,13 +2738,13 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.stats.instantaneous_input.rate
         - sortorder: '1'
           drawtype: GRADIENT_LINE
           color: F63100
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.stats.instantaneous_output.rate
     - uuid: 81fde2046d2340119b2002da2b75df16
       name: 'Redis: Persistence'
@@ -2752,13 +2752,13 @@ zabbix_export:
         - drawtype: BOLD_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.persistence.rdb_last_bgsave_time_sec
         - sortorder: '1'
           drawtype: BOLD_LINE
           color: F63100
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.persistence.aof_last_rewrite_time_sec
     - uuid: 1ace370516b74875977788d44ab478e5
       name: 'Redis: Slaves'
@@ -2766,7 +2766,7 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.replication.connected_slaves
     - uuid: 8dd9935cb7a24004b9783c3f1a445f1b
       name: 'Redis: Slowlog'
@@ -2774,12 +2774,12 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: 'redis.slowlog.count["{$REDIS.CONN.URI}"]'
     - uuid: 32d954e849e64fe99bd8846b54aadede
       name: 'Redis: Uptime'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Redis by Zabbix agent 2'
+            host: 'Redis by TAA agent 2'
             key: redis.server.uptime

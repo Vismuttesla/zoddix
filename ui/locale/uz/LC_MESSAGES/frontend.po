@@ -15576,5 +15576,35 @@ msgstr "Haqida"
 msgid "Top hosts by CPU utilization"
 msgstr "CPU ishlatishini bo'liman topish"
 
-msgid "Global views"
-msgstr "Umumiy tahlillar"
+msgid "Global view"
+msgstr "Umumiy tahlil"
+
+msgid "Average"
+msgstr "O'rtacha"
+
+msgid "Severity"
+msgstr "Og'irlik darajasi"
+
+msgid "Weight"
+msgstr "Vazn"
+
+msgid "Zabbix agent"
+msgstr "TAA agenti"
+
+msgid "Zabbix agent (active checks)"
+msgstr "TAA agenti (faol tekshiruvlar)"
+
+msgid "Zabbix agent (active)"
+msgstr "TAA agenti (faol)"
+
+msgid "Zabbix agent (passive checks)"
+msgstr "TAA agenti (passiv tekshiruvlar)"
+
+msgid "Zabbix agent initiates connections to Zabbix server or proxy to send data. Recommended for monitoring targets behind a firewall."
+msgstr "TAA agenti ma'lumot yuborish uchun TAA server yoki proksi bilan aloqa o'rnatadi. Firewall orqasidagi ob'ektlarni monitoring qilish uchun tavsiya etiladi."
+
+msgid "Zabbix agent is not available"
+msgstr "TAA agenti faol emas"
+
+msgid "Zabbix agent is not available (for 3m)"
+msgstr "TAA agenti faol emas (3 daqiqa)"

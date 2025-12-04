@@ -1,16 +1,16 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: de38542cf4f24fafab33520677f392c4
-      template: 'Website certificate by Zabbix agent 2 active'
-      name: 'Website certificate by Zabbix agent 2 active'
+      template: 'Website certificate by TAA agent 2 active'
+      name: 'Website certificate by TAA agent 2 active'
       description: |
-        The template to monitor TLS/SSL certificate on the website by Zabbix agent 2 that works without any external scripts.
+        The template to monitor TLS/SSL certificate on the website by TAA agent 2 that works without any external scripts.
         
-        Zabbix agent 2 with the WebCertificate plugin requests certificate using the web.certificate.get key and returns JSON with certificate attributes.
+        TAA agent 2 with the WebCertificate plugin requests certificate using the web.certificate.get key and returns JSON with certificate attributes.
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/428309-discussion-thread-for-official-zabbix-template-tls-ssl-certificates-monitoring
         
@@ -156,7 +156,7 @@ zabbix_export:
               value: raw
           triggers:
             - uuid: a370fbf053634a1f96a34796e83a663a
-              expression: 'jsonpath(last(/Website certificate by Zabbix agent 2 active/cert.get.data),"$.error.code", 0) = 1'
+              expression: 'jsonpath(last(/Website certificate by TAA agent 2 active/cert.get.data),"$.error.code", 0) = 1'
               name: 'Certificate: Error parse parameters'
               event_name: 'Certificate: {?jsonpath(last(//cert.get.data),"$.error.message", "")}'
               priority: WARNING
@@ -166,7 +166,7 @@ zabbix_export:
                 - tag: scope
                   value: notice
             - uuid: b137de775df54c0a93eaa4feefadb929
-              expression: 'jsonpath(last(/Website certificate by Zabbix agent 2 active/cert.get.data),"$.error.code", 0) = 2'
+              expression: 'jsonpath(last(/Website certificate by TAA agent 2 active/cert.get.data),"$.error.code", 0) = 2'
               name: 'Certificate: Error parse parameters'
               event_name: 'Certificate: {?jsonpath(last(//cert.get.data),"$.error.message", "")}'
               priority: HIGH
@@ -245,14 +245,14 @@ zabbix_export:
                   value: cert
               trigger_prototypes:
                 - uuid: 6dc7e67f43fc4981bb2216050e509ace
-                  expression: '(last(/Website certificate by Zabbix agent 2 active/cert.not_after[{#CERT.WEBSITE.ITEMNAME}]) - now()) / 86400 < {$CERT.EXPIRY.WARN}'
+                  expression: '(last(/Website certificate by TAA agent 2 active/cert.not_after[{#CERT.WEBSITE.ITEMNAME}]) - now()) / 86400 < {$CERT.EXPIRY.WARN}'
                   name: 'Cert [{#CERT.WEBSITE.ITEMNAME}]: SSL certificate expires soon'
                   event_name: 'Cert [{#CERT.WEBSITE.ITEMNAME}]: SSL certificate expires soon (less than {$CERT.EXPIRY.WARN} days)'
                   priority: WARNING
                   description: 'The SSL certificate should be updated or it will become untrusted.'
                   dependencies:
                     - name: 'Cert [{#CERT.WEBSITE.ITEMNAME}]: SSL certificate is invalid'
-                      expression: 'find(/Website certificate by Zabbix agent 2 active/cert.validation[{#CERT.WEBSITE.ITEMNAME}],,"like","invalid")=1'
+                      expression: 'find(/Website certificate by TAA agent 2 active/cert.validation[{#CERT.WEBSITE.ITEMNAME}],,"like","invalid")=1'
                   tags:
                     - tag: scope
                       value: notice
@@ -318,7 +318,7 @@ zabbix_export:
                   value: cert
               trigger_prototypes:
                 - uuid: ecc7a4e33c454e25aff5734be592c022
-                  expression: 'last(/Website certificate by Zabbix agent 2 active/cert.sha1_fingerprint[{#CERT.WEBSITE.ITEMNAME}]) <> last(/Website certificate by Zabbix agent 2 active/cert.sha1_fingerprint[{#CERT.WEBSITE.ITEMNAME}],#2)'
+                  expression: 'last(/Website certificate by TAA agent 2 active/cert.sha1_fingerprint[{#CERT.WEBSITE.ITEMNAME}]) <> last(/Website certificate by TAA agent 2 active/cert.sha1_fingerprint[{#CERT.WEBSITE.ITEMNAME}],#2)'
                   name: 'Cert [{#CERT.WEBSITE.ITEMNAME}]: Fingerprint has changed'
                   event_name: 'Cert [{#CERT.WEBSITE.ITEMNAME}]: Fingerprint has changed (new version: {ITEM.VALUE})'
                   priority: INFO
@@ -376,7 +376,7 @@ zabbix_export:
                   value: cert
               trigger_prototypes:
                 - uuid: f06a24be911c463b8bf2b4c25bfbef83
-                  expression: 'find(/Website certificate by Zabbix agent 2 active/cert.validation[{#CERT.WEBSITE.ITEMNAME}],,"like","invalid")=1'
+                  expression: 'find(/Website certificate by TAA agent 2 active/cert.validation[{#CERT.WEBSITE.ITEMNAME}],,"like","invalid")=1'
                   name: 'Cert [{#CERT.WEBSITE.ITEMNAME}]: SSL certificate is invalid'
                   priority: HIGH
                   description: 'The SSL certificate has expired or it is issued for another domain.'

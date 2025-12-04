@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 846977d1dfed4968bc5f8bdb363285bc
       name: 'Templates/Operating systems'
   templates:
     - uuid: f8f7908280354f2abeed07dc788c3747
-      template: 'Linux by Zabbix agent'
-      name: 'Linux by Zabbix agent'
+      template: 'Linux by TAA agent'
+      name: 'Linux by TAA agent'
       description: |
-        This is an official Linux template. It requires Zabbix agent 7.4 or newer.
+        This is an official Linux template. It requires TAA agent 7.4 or newer.
         
         Notes on filesystem (FS) discovery:
         - The ext4/3/2 filesystem reserves space for privileged usage, typically set at 5% by default.
@@ -24,7 +24,7 @@ zabbix_export:
       readme: |
         ## Overview
         
-        This is an official Linux template. It requires Zabbix agent 7.4 or newer.
+        This is an official Linux template. It requires TAA agent 7.4 or newer.
         
         #### Notes on filesystem (FS) discovery:
         - The ext4/3/2 FS reserves space for privileged usage, typically set at 5% by default.
@@ -39,7 +39,7 @@ zabbix_export:
         - name: 'Templates/Operating systems'
       items:
         - uuid: df561a0cece94760a78704edf7da7326
-          name: 'Host name of Zabbix agent running'
+          name: 'Host name of TAA agent running'
           key: agent.hostname
           delay: 1h
           value_type: CHAR
@@ -51,16 +51,16 @@ zabbix_export:
             - tag: component
               value: system
         - uuid: f94f9f4699e94c369e6c98b2a2f485ce
-          name: 'Zabbix agent ping'
+          name: 'TAA agent ping'
           key: agent.ping
           description: 'The agent always returns "1" for this item. May be used in combination with `nodata()` for the availability check.'
           valuemap:
-            name: 'Zabbix agent ping status'
+            name: 'TAA agent ping status'
           tags:
             - tag: component
               value: system
         - uuid: 27c42cf180b44632b5d9b8b5788165b3
-          name: 'Version of Zabbix agent running'
+          name: 'Version of TAA agent running'
           key: agent.version
           delay: 1h
           value_type: CHAR
@@ -85,7 +85,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: b9bdcf42f54a409a9a9a616dbd0eaed2
-              expression: 'last(/Linux by Zabbix agent/kernel.maxfiles)<{$KERNEL.MAXFILES.MIN}'
+              expression: 'last(/Linux by TAA agent/kernel.maxfiles)<{$KERNEL.MAXFILES.MIN}'
               name: 'Linux: Configured max number of open filedescriptors is too low'
               event_name: 'Linux: Configured max number of open filedescriptors is too low (< {$KERNEL.MAXFILES.MIN})'
               priority: INFO
@@ -106,13 +106,13 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 8cf253ca3eea4109a90443f9cb76fc5c
-              expression: 'last(/Linux by Zabbix agent/kernel.maxproc)<{$KERNEL.MAXPROC.MIN}'
+              expression: 'last(/Linux by TAA agent/kernel.maxproc)<{$KERNEL.MAXPROC.MIN}'
               name: 'Linux: Configured max number of processes is too low'
               event_name: 'Linux: Configured max number of processes is too low (< {$KERNEL.MAXPROC.MIN})'
               priority: INFO
               dependencies:
                 - name: 'Linux: Getting closer to process limit'
-                  expression: 'last(/Linux by Zabbix agent/proc.num)/last(/Linux by Zabbix agent/kernel.maxproc)*100>80'
+                  expression: 'last(/Linux by TAA agent/proc.num)/last(/Linux by TAA agent/kernel.maxproc)*100>80'
               tags:
                 - tag: scope
                   value: performance
@@ -212,7 +212,7 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: b4e904559b694df0ad45bcce7930c3a6
-              expression: 'min(/Linux by Zabbix agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
+              expression: 'min(/Linux by TAA agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
               name: 'Linux: High CPU utilization'
               event_name: 'Linux: High CPU utilization (over {$CPU.UTIL.CRIT}% for 5m)'
               opdata: 'Current utilization: {ITEM.LASTVALUE1}'
@@ -221,9 +221,9 @@ zabbix_export:
               dependencies:
                 - name: 'Linux: Load average is too high'
                   expression: |
-                    min(/Linux by Zabbix agent/system.cpu.load[all,avg1],5m)/last(/Linux by Zabbix agent/system.cpu.num)>{$LOAD_AVG_PER_CPU.MAX.WARN}
-                    and last(/Linux by Zabbix agent/system.cpu.load[all,avg5])>0
-                    and last(/Linux by Zabbix agent/system.cpu.load[all,avg15])>0
+                    min(/Linux by TAA agent/system.cpu.load[all,avg1],5m)/last(/Linux by TAA agent/system.cpu.num)>{$LOAD_AVG_PER_CPU.MAX.WARN}
+                    and last(/Linux by TAA agent/system.cpu.load[all,avg5])>0
+                    and last(/Linux by TAA agent/system.cpu.load[all,avg15])>0
               tags:
                 - tag: scope
                   value: performance
@@ -333,7 +333,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 371a12f95a26438d8da659c84364631b
-              expression: 'change(/Linux by Zabbix agent/system.hostname) and length(last(/Linux by Zabbix agent/system.hostname))>0'
+              expression: 'change(/Linux by TAA agent/system.hostname) and length(last(/Linux by TAA agent/system.hostname))>0'
               name: 'Linux: System name has changed'
               event_name: 'Linux: System name has changed (new name: {ITEM.VALUE})'
               priority: INFO
@@ -354,9 +354,9 @@ zabbix_export:
               value: system
           triggers:
             - uuid: fb77b6ac381c4b5289584bd91e7da7d5
-              expression: 'fuzzytime(/Linux by Zabbix agent/system.localtime,{$SYSTEM.FUZZYTIME.MAX})=0'
+              expression: 'fuzzytime(/Linux by TAA agent/system.localtime,{$SYSTEM.FUZZYTIME.MAX})=0'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'fuzzytime(/Linux by Zabbix agent/system.localtime,{$SYSTEM.FUZZYTIME.MIN})=1'
+              recovery_expression: 'fuzzytime(/Linux by TAA agent/system.localtime,{$SYSTEM.FUZZYTIME.MIN})=1'
               name: 'Linux: System time is out of sync'
               event_name: 'Linux: System time is out of sync (diff with Zabbix server > {$SYSTEM.FUZZYTIME.MAX})'
               priority: WARNING
@@ -395,14 +395,14 @@ zabbix_export:
               value: os
           triggers:
             - uuid: b1998f98c06b49dd8d71e1c6df409371
-              expression: 'change(/Linux by Zabbix agent/system.sw.os) and length(last(/Linux by Zabbix agent/system.sw.os))>0'
+              expression: 'change(/Linux by TAA agent/system.sw.os) and length(last(/Linux by TAA agent/system.sw.os))>0'
               name: 'Linux: Operating system description has changed'
               priority: INFO
               description: 'The description of the operating system has changed. Possible reasons are that the system has been updated or replaced. Acknowledge to close the problem manually.'
               manual_close: 'YES'
               dependencies:
                 - name: 'Linux: System name has changed'
-                  expression: 'change(/Linux by Zabbix agent/system.hostname) and length(last(/Linux by Zabbix agent/system.hostname))>0'
+                  expression: 'change(/Linux by TAA agent/system.hostname) and length(last(/Linux by TAA agent/system.hostname))>0'
               tags:
                 - tag: scope
                   value: notice
@@ -422,7 +422,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: b950c306394f4b3c902060a8273cbcde
-              expression: 'change(/Linux by Zabbix agent/system.sw.packages.get)<>0'
+              expression: 'change(/Linux by TAA agent/system.sw.packages.get)<>0'
               name: 'Linux: Number of installed packages has been changed'
               priority: WARNING
               manual_close: 'YES'
@@ -485,7 +485,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 1dbab80d7b6847e5b5a676cffba0fd1d
-              expression: 'last(/Linux by Zabbix agent/system.uptime)<10m'
+              expression: 'last(/Linux by TAA agent/system.uptime)<10m'
               name: 'Linux: {HOST.NAME} has been restarted'
               event_name: 'Linux: {HOST.NAME} has been restarted (uptime < 10m)'
               priority: WARNING
@@ -515,15 +515,15 @@ zabbix_export:
               value: security
           triggers:
             - uuid: 3a764881727b4e7eb01e137ccfc968a2
-              expression: 'last(/Linux by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/Linux by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
+              expression: 'last(/Linux by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/Linux by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
               name: 'Linux: /etc/passwd has been changed'
               priority: INFO
               manual_close: 'YES'
               dependencies:
                 - name: 'Linux: Operating system description has changed'
-                  expression: 'change(/Linux by Zabbix agent/system.sw.os) and length(last(/Linux by Zabbix agent/system.sw.os))>0'
+                  expression: 'change(/Linux by TAA agent/system.sw.os) and length(last(/Linux by TAA agent/system.sw.os))>0'
                 - name: 'Linux: System name has changed'
-                  expression: 'change(/Linux by Zabbix agent/system.hostname) and length(last(/Linux by Zabbix agent/system.hostname))>0'
+                  expression: 'change(/Linux by TAA agent/system.hostname) and length(last(/Linux by TAA agent/system.hostname))>0'
               tags:
                 - tag: scope
                   value: security
@@ -584,21 +584,21 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: cfd395b1cde74ef18a5e5f840bd5142a
-              expression: 'min(/Linux by Zabbix agent/vm.memory.utilization,5m)>{$MEMORY.UTIL.MAX}'
+              expression: 'min(/Linux by TAA agent/vm.memory.utilization,5m)>{$MEMORY.UTIL.MAX}'
               name: 'Linux: High memory utilization'
               event_name: 'Linux: High memory utilization (>{$MEMORY.UTIL.MAX}% for 5m)'
               priority: AVERAGE
               description: 'The system is running out of free memory.'
               dependencies:
                 - name: 'Linux: Lack of available memory'
-                  expression: 'max(/Linux by Zabbix agent/vm.memory.size[available],5m)<{$MEMORY.AVAILABLE.MIN} and last(/Linux by Zabbix agent/vm.memory.size[total])>0'
+                  expression: 'max(/Linux by TAA agent/vm.memory.size[available],5m)<{$MEMORY.AVAILABLE.MIN} and last(/Linux by TAA agent/vm.memory.size[total])>0'
               tags:
                 - tag: scope
                   value: capacity
                 - tag: scope
                   value: performance
         - uuid: ca48c53be1bf46ae9dd2707158a55139
-          name: 'Zabbix agent availability'
+          name: 'TAA agent availability'
           type: INTERNAL
           key: 'zabbix[host,agent,available]'
           description: 'Used for monitoring the availability status of the agent.'
@@ -609,9 +609,9 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 93594214371b4dc88b41663cad8537f0
-              expression: 'max(/Linux by Zabbix agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
-              name: 'Linux: Zabbix agent is not available'
-              event_name: 'Linux: Zabbix agent is not available (for {$AGENT.TIMEOUT})'
+              expression: 'max(/Linux by TAA agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
+              name: 'Linux: TAA agenti faol emas'
+              event_name: 'Linux: TAA agenti faol emas ({$AGENT.TIMEOUT} davomida)'
               priority: AVERAGE
               description: 'For passive agents only, host availability is used with `{$AGENT.TIMEOUT}` as a time threshold.'
               manual_close: 'YES'
@@ -751,9 +751,9 @@ zabbix_export:
                   value: '{#IFNAME}'
               trigger_prototypes:
                 - uuid: 4d7f18ca132340b885c0692464dc429f
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
                   recovery_mode: RECOVERY_EXPRESSION
-                  recovery_expression: 'last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  recovery_expression: 'last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
                   name: 'Linux: Interface {#IFNAME}: Link down'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -814,15 +814,15 @@ zabbix_export:
           trigger_prototypes:
             - uuid: 2ffdc1d5a318492bb497facd263843bd
               expression: |
-                change(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])<0 and last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])>0
+                change(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])<0 and last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])>0
                 and
-                (last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/type"])=6 or last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/type"])=1)
+                (last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/type"])=6 or last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/type"])=1)
                 and
-                (last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2)
+                (last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2)
               recovery_mode: RECOVERY_EXPRESSION
               recovery_expression: |
-                (change(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])>0 and last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"],#2)>0) or
-                (last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2)
+                (change(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])>0 and last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"],#2)>0) or
+                (last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2)
               name: 'Linux: Interface {#IFNAME}: Ethernet has changed to lower speed than it was before'
               opdata: 'Current reported speed: {ITEM.LASTVALUE1}'
               priority: INFO
@@ -830,20 +830,20 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Linux: Interface {#IFNAME}: Link down'
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
-                  recovery_expression: 'last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
+                  recovery_expression: 'last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
               tags:
                 - tag: scope
                   value: performance
             - uuid: f64186d30b4e4c4281fce84349cbd646
               expression: |
-                (avg(/Linux by Zabbix agent/net.if.in["{#IFNAME}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"]) or
-                avg(/Linux by Zabbix agent/net.if.out["{#IFNAME}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])) and
-                last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])>0
+                (avg(/Linux by TAA agent/net.if.in["{#IFNAME}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"]) or
+                avg(/Linux by TAA agent/net.if.out["{#IFNAME}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])) and
+                last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])>0
               recovery_mode: RECOVERY_EXPRESSION
               recovery_expression: |
-                avg(/Linux by Zabbix agent/net.if.in["{#IFNAME}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"]) and
-                avg(/Linux by Zabbix agent/net.if.out["{#IFNAME}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])
+                avg(/Linux by TAA agent/net.if.in["{#IFNAME}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"]) and
+                avg(/Linux by TAA agent/net.if.out["{#IFNAME}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/speed"])
               name: 'Linux: Interface {#IFNAME}: High bandwidth usage'
               event_name: 'Linux: Interface {#IFNAME}: High bandwidth usage (>{$IF.UTIL.MAX:"{#IFNAME}"}%)'
               opdata: 'In: {ITEM.LASTVALUE1}, out: {ITEM.LASTVALUE3}, speed: {ITEM.LASTVALUE2}'
@@ -852,19 +852,19 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Linux: Interface {#IFNAME}: Link down'
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
-                  recovery_expression: 'last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
+                  recovery_expression: 'last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
               tags:
                 - tag: scope
                   value: performance
             - uuid: ad50aecf8e7746b2a85f24507f1d511d
               expression: |
-                min(/Linux by Zabbix agent/net.if.in["{#IFNAME}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
-                or min(/Linux by Zabbix agent/net.if.out["{#IFNAME}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
+                min(/Linux by TAA agent/net.if.in["{#IFNAME}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
+                or min(/Linux by TAA agent/net.if.out["{#IFNAME}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
               recovery_mode: RECOVERY_EXPRESSION
               recovery_expression: |
-                max(/Linux by Zabbix agent/net.if.in["{#IFNAME}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
-                and max(/Linux by Zabbix agent/net.if.out["{#IFNAME}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
+                max(/Linux by TAA agent/net.if.in["{#IFNAME}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
+                and max(/Linux by TAA agent/net.if.out["{#IFNAME}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
               name: 'Linux: Interface {#IFNAME}: High error rate'
               event_name: 'Linux: Interface {#IFNAME}: High error rate (>{$IF.ERRORS.WARN:"{#IFNAME}"} for 5m)'
               opdata: 'errors in: {ITEM.LASTVALUE1}, errors out: {ITEM.LASTVALUE2}'
@@ -873,8 +873,8 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Linux: Interface {#IFNAME}: Link down'
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
-                  recovery_expression: 'last(/Linux by Zabbix agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])=2 and (last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#1)<>last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"],#2))'
+                  recovery_expression: 'last(/Linux by TAA agent/vfs.file.contents["/sys/class/net/{#IFNAME}/operstate"])<>2 or {$IFCONTROL:"{#IFNAME}"}=0'
               tags:
                 - tag: scope
                   value: availability
@@ -887,37 +887,37 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 199C0D
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'net.if.in["{#IFNAME}"]'
                 - sortorder: '1'
                   drawtype: BOLD_LINE
                   color: F63100
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'net.if.out["{#IFNAME}"]'
                 - sortorder: '2'
                   color: 00611C
                   yaxisside: RIGHT
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'net.if.out["{#IFNAME}",errors]'
                 - sortorder: '3'
                   color: F7941D
                   yaxisside: RIGHT
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'net.if.in["{#IFNAME}",errors]'
                 - sortorder: '4'
                   color: FC6EA3
                   yaxisside: RIGHT
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'net.if.out["{#IFNAME}",dropped]'
                 - sortorder: '5'
                   color: 6C59DC
                   yaxisside: RIGHT
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'net.if.in["{#IFNAME}",dropped]'
         - uuid: 2bbdc79f082d4c618e01bec625e9c90a
           name: 'Block devices discovery'
@@ -1098,7 +1098,7 @@ zabbix_export:
                   value: raw
           trigger_prototypes:
             - uuid: eb6230f786d04b658ce62c30a9309a34
-              expression: 'min(/Linux by Zabbix agent/vfs.dev.read.await[{#DEVNAME}],15m) > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"} or min(/Linux by Zabbix agent/vfs.dev.write.await[{#DEVNAME}],15m) > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"}'
+              expression: 'min(/Linux by TAA agent/vfs.dev.read.await[{#DEVNAME}],15m) > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"} or min(/Linux by TAA agent/vfs.dev.write.await[{#DEVNAME}],15m) > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"}'
               name: 'Linux: {#DEVNAME}: Disk read/write request responses are too high'
               event_name: 'Linux: {#DEVNAME}: Disk read/write request responses are too high (read > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"} ms for 15m or write > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"} ms for 15m)'
               priority: WARNING
@@ -1113,26 +1113,26 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.dev.read.await[{#DEVNAME}]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: F63100
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.dev.write.await[{#DEVNAME}]'
             - uuid: d436d6d5456c44f0a534bf1f681d5039
               name: '{#DEVNAME}: Disk read/write rates'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.dev.read.rate[{#DEVNAME}]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: F63100
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.dev.write.rate[{#DEVNAME}]'
             - uuid: c42e4045e0974e89a306c57fb188c4fa
               name: '{#DEVNAME}: Disk utilization and queue'
@@ -1140,13 +1140,13 @@ zabbix_export:
                 - color: 199C0D
                   yaxisside: RIGHT
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.dev.queue_size[{#DEVNAME}]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: F63100
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.dev.util[{#DEVNAME}]'
         - uuid: 7d090603037e4defb34ef74021d3adcd
           name: 'Mounted filesystem discovery'
@@ -1189,7 +1189,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 115b2d37807f476faf6d02ef406acabd
-                  expression: 'min(/Linux by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/Linux by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   name: 'Linux: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'Linux: {#FSNAME}: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -1201,7 +1201,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: ea012c7295344ffe8c66f7ea54d81042
-                  expression: 'min(/Linux by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
+                  expression: 'min(/Linux by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
                   name: 'Linux: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'Linux: FS [{#FSNAME}]: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -1209,7 +1209,7 @@ zabbix_export:
                   description: 'Disk writing may fail if index nodes are exhausted, leading to error messages like "No space left on device" or "Disk is full", despite available free space.'
                   dependencies:
                     - name: 'Linux: FS [{#FSNAME}]: Running out of free inodes'
-                      expression: 'min(/Linux by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/Linux by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: capacity
@@ -1256,7 +1256,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 9abccdfff8be4e14967ac917ca09afe1
-                  expression: 'min(/Linux by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/Linux by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   name: 'Linux: FS [{#FSNAME}]: Space is critically low'
                   event_name: 'Linux: FS [{#FSNAME}]: Space is critically low (used > {$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -1272,7 +1272,7 @@ zabbix_export:
                     - tag: scope
                       value: capacity
                 - uuid: d6d348ea500c428da6ba718816c4b048
-                  expression: 'min(/Linux by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
+                  expression: 'min(/Linux by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
                   name: 'Linux: FS [{#FSNAME}]: Space is low'
                   event_name: 'Linux: FS [{#FSNAME}]: Space is low (used > {$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -1284,7 +1284,7 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'Linux: FS [{#FSNAME}]: Space is critically low'
-                      expression: 'min(/Linux by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/Linux by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: availability
@@ -1354,7 +1354,7 @@ zabbix_export:
               name: 'FS [{#FSNAME}]: Option: Read-only'
               type: DEPENDENT
               key: 'vfs.fs.dependent[{#FSNAME},readonly]'
-              description: 'The filesystem is mounted as read-only. It is available only for Zabbix agents 6.4 and higher.'
+              description: 'The filesystem is mounted as read-only. It is available only for TAA agents 6.4 and higher.'
               preprocessing:
                 - type: JSONPATH
                   parameters:
@@ -1377,12 +1377,12 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: c8e2f67378d84b3ba687467bc6daf63a
-                  expression: 'last(/Linux by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly],#2)=0 and last(/Linux by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly])=1'
+                  expression: 'last(/Linux by TAA agent/vfs.fs.dependent[{#FSNAME},readonly],#2)=0 and last(/Linux by TAA agent/vfs.fs.dependent[{#FSNAME},readonly])=1'
                   recovery_mode: RECOVERY_EXPRESSION
-                  recovery_expression: 'last(/Linux by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly])=0'
+                  recovery_expression: 'last(/Linux by TAA agent/vfs.fs.dependent[{#FSNAME},readonly])=0'
                   name: 'Linux: FS [{#FSNAME}]: Filesystem has become read-only'
                   priority: AVERAGE
-                  description: 'The filesystem has become read-only, possibly due to an I/O error. Available only for Zabbix agents 6.4 and higher.'
+                  description: 'The filesystem has become read-only, possibly due to an I/O error. Available only for TAA agents 6.4 and higher.'
                   manual_close: 'YES'
                   tags:
                     - tag: scope
@@ -1401,7 +1401,7 @@ zabbix_export:
                   color: F63100
                   calc_fnc: ALL
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},pused]'
             - uuid: bb209e7862ad4f8f8f7efcd003146e97
               name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
@@ -1414,19 +1414,19 @@ zabbix_export:
                   calc_fnc: LAST
                   type: GRAPH_SUM
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},total]'
                 - sortorder: '1'
                   color: F63100
                   calc_fnc: LAST
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},used]'
                 - sortorder: '2'
                   color: 199C09
                   calc_fnc: LAST
                   item:
-                    host: 'Linux by Zabbix agent'
+                    host: 'Linux by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},free]'
           master_item:
             key: vfs.fs.get
@@ -1475,7 +1475,7 @@ zabbix_export:
           config:
             type: TEXT
             priority: '1'
-            label: 'Seconds since the last Zabbix agent seen'
+            label: 'Seconds since the last TAA agent seen'
             description: 'Timeout after which agent is considered unavailable.'
         - macro: '{$CPU.UTIL.CRIT}'
           value: '90'
@@ -1741,7 +1741,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -1757,7 +1757,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space usage graph, in % (relative to max available)'
                     - type: STRING
                       name: reference
@@ -1777,7 +1777,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'Interface {#IFNAME}: Network traffic'
                     - type: STRING
                       name: reference
@@ -1793,7 +1793,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'Linux: System load'
                     - type: STRING
                       name: reference
@@ -1806,7 +1806,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'Linux: Memory usage'
                     - type: STRING
                       name: reference
@@ -1822,7 +1822,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -1838,7 +1838,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: '{#DEVNAME}: Disk read/write rates'
                     - type: STRING
                       name: reference
@@ -1854,7 +1854,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: '{#DEVNAME}: Disk average waiting time'
                     - type: STRING
                       name: reference
@@ -1870,7 +1870,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: '{#DEVNAME}: Disk utilization and queue'
                     - type: STRING
                       name: reference
@@ -1886,7 +1886,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'Interface {#IFNAME}: Network traffic'
                     - type: STRING
                       name: reference
@@ -1899,7 +1899,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'Linux: CPU usage'
                     - type: STRING
                       name: reference
@@ -1913,7 +1913,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Linux by Zabbix agent'
+                        host: 'Linux by TAA agent'
                         name: 'Linux: Swap usage'
                     - type: STRING
                       name: reference
@@ -2077,13 +2077,13 @@ zabbix_export:
             - value: '2'
               newvalue: unknown
         - uuid: 64faba3a883241a88da8833970ac3ab0
-          name: 'Zabbix agent ping status'
+          name: 'TAA agent ping status'
           mappings:
             - value: '1'
               newvalue: Up
   triggers:
     - uuid: ae5269e17d434927bfd6edc09a9a1f4d
-      expression: 'last(/Linux by Zabbix agent/proc.num)/last(/Linux by Zabbix agent/kernel.maxproc)*100>80'
+      expression: 'last(/Linux by TAA agent/proc.num)/last(/Linux by TAA agent/kernel.maxproc)*100>80'
       name: 'Linux: Getting closer to process limit'
       event_name: 'Linux: Getting closer to process limit (over 80% used)'
       opdata: '{ITEM.LASTVALUE1} active, {ITEM.LASTVALUE2} limit.'
@@ -2092,7 +2092,7 @@ zabbix_export:
         - tag: scope
           value: performance
     - uuid: f49fc01c5ac945d59455563bdbcc6469
-      expression: 'max(/Linux by Zabbix agent/system.swap.size[,pfree],5m)<{$SWAP.PFREE.MIN.WARN} and last(/Linux by Zabbix agent/system.swap.size[,total])>0'
+      expression: 'max(/Linux by TAA agent/system.swap.size[,pfree],5m)<{$SWAP.PFREE.MIN.WARN} and last(/Linux by TAA agent/system.swap.size[,total])>0'
       name: 'Linux: High swap space usage'
       event_name: 'Linux: High swap space usage (less than {$SWAP.PFREE.MIN.WARN}% free)'
       opdata: 'Free: {ITEM.LASTVALUE1}, total: {ITEM.LASTVALUE2}'
@@ -2100,14 +2100,14 @@ zabbix_export:
       description: 'If there is no swap configured, this trigger is ignored.'
       dependencies:
         - name: 'Linux: High memory utilization'
-          expression: 'min(/Linux by Zabbix agent/vm.memory.utilization,5m)>{$MEMORY.UTIL.MAX}'
+          expression: 'min(/Linux by TAA agent/vm.memory.utilization,5m)>{$MEMORY.UTIL.MAX}'
         - name: 'Linux: Lack of available memory'
-          expression: 'max(/Linux by Zabbix agent/vm.memory.size[available],5m)<{$MEMORY.AVAILABLE.MIN} and last(/Linux by Zabbix agent/vm.memory.size[total])>0'
+          expression: 'max(/Linux by TAA agent/vm.memory.size[available],5m)<{$MEMORY.AVAILABLE.MIN} and last(/Linux by TAA agent/vm.memory.size[total])>0'
       tags:
         - tag: scope
           value: capacity
     - uuid: 686470cef97f48f6b017e9fc7a078afe
-      expression: 'max(/Linux by Zabbix agent/vm.memory.size[available],5m)<{$MEMORY.AVAILABLE.MIN} and last(/Linux by Zabbix agent/vm.memory.size[total])>0'
+      expression: 'max(/Linux by TAA agent/vm.memory.size[available],5m)<{$MEMORY.AVAILABLE.MIN} and last(/Linux by TAA agent/vm.memory.size[total])>0'
       name: 'Linux: Lack of available memory'
       event_name: 'Linux: Lack of available memory (<{$MEMORY.AVAILABLE.MIN} of {ITEM.VALUE2})'
       opdata: 'Available: {ITEM.LASTVALUE1}, total: {ITEM.LASTVALUE2}'
@@ -2120,9 +2120,9 @@ zabbix_export:
           value: performance
     - uuid: 695f0c352377409d95aca3fe76d1cae2
       expression: |
-        min(/Linux by Zabbix agent/system.cpu.load[all,avg1],5m)/last(/Linux by Zabbix agent/system.cpu.num)>{$LOAD_AVG_PER_CPU.MAX.WARN}
-        and last(/Linux by Zabbix agent/system.cpu.load[all,avg5])>0
-        and last(/Linux by Zabbix agent/system.cpu.load[all,avg15])>0
+        min(/Linux by TAA agent/system.cpu.load[all,avg1],5m)/last(/Linux by TAA agent/system.cpu.num)>{$LOAD_AVG_PER_CPU.MAX.WARN}
+        and last(/Linux by TAA agent/system.cpu.load[all,avg5])>0
+        and last(/Linux by TAA agent/system.cpu.load[all,avg15])>0
       name: 'Linux: Load average is too high'
       event_name: 'Linux: Load average is too high (per CPU load over {$LOAD_AVG_PER_CPU.MAX.WARN} for 5m)'
       opdata: 'Load averages(1m 5m 15m): ({ITEM.LASTVALUE1} {ITEM.LASTVALUE3} {ITEM.LASTVALUE4}), # of CPUs: {ITEM.LASTVALUE2}'
@@ -2139,12 +2139,12 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: system.cpu.switches
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: system.cpu.intr
     - uuid: f217c30162b24c9190785fad1ec83b73
       name: 'Linux: CPU usage'
@@ -2154,47 +2154,47 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,system]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,user]'
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,nice]'
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,iowait]'
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,steal]'
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,interrupt]'
         - sortorder: '6'
           color: C7A72D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,softirq]'
         - sortorder: '7'
           color: BA2A5D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,guest]'
         - sortorder: '8'
           color: F230E0
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.util[,guest_nice]'
     - uuid: 668ae470ea33444bb40e3b83b97659c3
       name: 'Linux: CPU utilization'
@@ -2204,7 +2204,7 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: system.cpu.util
     - uuid: f260a63bc3b04c3b80b47f83bb05ed9c
       name: 'Linux: Memory usage'
@@ -2213,13 +2213,13 @@ zabbix_export:
         - drawtype: BOLD_LINE
           color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'vm.memory.size[total]'
         - sortorder: '1'
           drawtype: GRADIENT_LINE
           color: F63100
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'vm.memory.size[available]'
     - uuid: bac7a8fb7e014696b54d262bf40e5b12
       name: 'Linux: Memory utilization'
@@ -2229,31 +2229,31 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: vm.memory.utilization
     - uuid: fa49531c9c3d4087b2205bed6ed0469f
       name: 'Linux: Processes'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: proc.num
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'proc.num[,,run]'
     - uuid: 1ca6e2d883114853bd402110c3fd211e
       name: 'Linux: Swap usage'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.swap.size[,free]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.swap.size[,total]'
     - uuid: 1b8cc9470a5040d79090a3e5dfcb0a76
       name: 'Linux: System load'
@@ -2261,21 +2261,21 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.load[all,avg1]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.load[all,avg5]'
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: 'system.cpu.load[all,avg15]'
         - sortorder: '3'
           color: F7941D
           yaxisside: RIGHT
           item:
-            host: 'Linux by Zabbix agent'
+            host: 'Linux by TAA agent'
             key: system.cpu.num

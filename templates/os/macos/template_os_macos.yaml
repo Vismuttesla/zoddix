@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 846977d1dfed4968bc5f8bdb363285bc
       name: 'Templates/Operating systems'
   templates:
     - uuid: f895df5b37494f668cde1a2388d7af8b
-      template: 'macOS by Zabbix agent'
-      name: 'macOS by Zabbix agent'
+      template: 'macOS by TAA agent'
+      name: 'macOS by TAA agent'
       description: |
-        This is an official macOS template. It requires Zabbix agent 7.4 or newer.
+        This is an official macOS template. It requires TAA agent 7.4 or newer.
         
         Notes on filesystem (FS) discovery:
           - The ext4/3/2 FS reserves space for privileged usage, typically set at 5% by default.
@@ -27,7 +27,7 @@ zabbix_export:
         - name: 'Templates/Operating systems'
       items:
         - uuid: 96c93b959e884934808b4d3c3b2f93d6
-          name: 'Host name of Zabbix agent running'
+          name: 'Host name of TAA agent running'
           key: agent.hostname
           delay: 1h
           value_type: CHAR
@@ -39,16 +39,16 @@ zabbix_export:
             - tag: component
               value: system
         - uuid: 3e70e8cc76bb4099a3a6b96f5669f059
-          name: 'Zabbix agent ping'
+          name: 'TAA agent ping'
           key: agent.ping
           description: 'The agent always returns "1" for this item. May be used in combination with `nodata()` for the availability check.'
           valuemap:
-            name: 'Zabbix agent ping status'
+            name: 'TAA agent ping status'
           tags:
             - tag: component
               value: system
         - uuid: 32e67f37a30c4fb28db9119d9e26a996
-          name: 'Version of Zabbix agent running'
+          name: 'Version of TAA agent running'
           key: agent.version
           delay: 1h
           value_type: CHAR
@@ -69,7 +69,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 933b14ead0974a9c96d36c833da90ebb
-              expression: 'last(/macOS by Zabbix agent/kernel.maxfiles)<1024'
+              expression: 'last(/macOS by TAA agent/kernel.maxfiles)<1024'
               name: 'macOS: Configured max number of opened files is too low'
               priority: INFO
               tags:
@@ -87,7 +87,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 0e89b2e0cad948c0b81bc223d2ed673c
-              expression: 'last(/macOS by Zabbix agent/kernel.maxproc)<256'
+              expression: 'last(/macOS by TAA agent/kernel.maxproc)<256'
               name: 'macOS: Configured max number of processes is too low'
               priority: INFO
               tags:
@@ -137,7 +137,7 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: 3cf40421e61b41bab7697bbf9a2649d6
-              expression: 'avg(/macOS by Zabbix agent/system.cpu.load[percpu,avg1],5m)>5'
+              expression: 'avg(/macOS by TAA agent/system.cpu.load[percpu,avg1],5m)>5'
               name: 'macOS: Processor load is too high'
               priority: WARNING
               tags:
@@ -177,7 +177,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: ffb713a281a543879e4196e4207bdd62
-              expression: 'last(/macOS by Zabbix agent/system.hostname,#1)<>last(/macOS by Zabbix agent/system.hostname,#2)'
+              expression: 'last(/macOS by TAA agent/system.hostname,#1)<>last(/macOS by TAA agent/system.hostname,#2)'
               name: 'macOS: Hostname was changed'
               priority: INFO
               tags:
@@ -207,7 +207,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 55d8650af70d4aeea56345985e454df9
-              expression: 'last(/macOS by Zabbix agent/system.uname,#1)<>last(/macOS by Zabbix agent/system.uname,#2)'
+              expression: 'last(/macOS by TAA agent/system.uname,#1)<>last(/macOS by TAA agent/system.uname,#2)'
               name: 'macOS: Host information was changed'
               priority: INFO
               tags:
@@ -224,7 +224,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 1f0cc03186cc4bb98483927f425df8e9
-              expression: 'change(/macOS by Zabbix agent/system.uptime)<0'
+              expression: 'change(/macOS by TAA agent/system.uptime)<0'
               name: 'macOS: Server has just been restarted'
               priority: INFO
               tags:
@@ -253,7 +253,7 @@ zabbix_export:
               value: security
           triggers:
             - uuid: 39cfe50a3d2a46ad9a53b9ec7443ec18
-              expression: 'last(/macOS by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/macOS by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
+              expression: 'last(/macOS by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/macOS by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
               name: 'macOS: /etc/passwd has been changed'
               priority: WARNING
               tags:
@@ -278,7 +278,7 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: c38dfc1b95d1463585d378f60d6a689a
-              expression: 'last(/macOS by Zabbix agent/vm.memory.size[available])<20M'
+              expression: 'last(/macOS by TAA agent/vm.memory.size[available])<20M'
               name: 'macOS: Lack of available memory on server'
               priority: AVERAGE
               tags:
@@ -296,7 +296,7 @@ zabbix_export:
             - tag: component
               value: memory
         - uuid: d00cf9691f6c446fa35dab03b2201aa4
-          name: 'Zabbix agent availability'
+          name: 'TAA agent availability'
           type: INTERNAL
           key: 'zabbix[host,agent,available]'
           description: 'Used for monitoring the availability status of the agent.'
@@ -307,9 +307,9 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 0766e9c2a02f46e7adbb86dbef67556f
-              expression: 'max(/macOS by Zabbix agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
-              name: 'macOS: Zabbix agent is not available'
-              event_name: 'macOS: Zabbix agent is not available (for {$AGENT.TIMEOUT})'
+              expression: 'max(/macOS by TAA agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
+              name: 'macOS: TAA agenti faol emas'
+              event_name: 'macOS: TAA agenti faol emas ({$AGENT.TIMEOUT} davomida)'
               priority: AVERAGE
               description: 'For passive checks only; the availability of the agent(s) and a host is used with `{$AGENT.TIMEOUT}` as the time threshold.'
               manual_close: 'YES'
@@ -334,7 +334,7 @@ zabbix_export:
               - macro: '{#FSTYPE}'
                 value: '{$VFS.FS.FSTYPE.NOT_MATCHES}'
                 operator: NOT_MATCHES_REGEX
-          description: 'The discovery of mounted filesystems with different types. Note that the option to exclude dmg software images from discovery is available only with Zabbix agents 6.4 and higher.'
+          description: 'The discovery of mounted filesystems with different types. Note that the option to exclude dmg software images from discovery is available only with TAA agents 6.4 and higher.'
           item_prototypes:
             - uuid: b7560dc2b6f743458128961cc962bcd3
               name: 'FS [{#FSNAME}]: Inodes: Free, in %'
@@ -358,7 +358,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: a1173b22ee4443eda7132f784f5f17bd
-                  expression: 'min(/macOS by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/macOS by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   name: 'macOS: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'macOS: {#FSNAME}: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -370,7 +370,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: 91cccd7935854a47bf4ca184b1d4d09a
-                  expression: 'min(/macOS by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
+                  expression: 'min(/macOS by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
                   name: 'macOS: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'macOS: FS [{#FSNAME}]: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -378,7 +378,7 @@ zabbix_export:
                   description: 'Disk writing may fail if index nodes are exhausted, leading to error messages like "No space left on device" or "Disk is full", despite available free space.'
                   dependencies:
                     - name: 'macOS: FS [{#FSNAME}]: Running out of free inodes'
-                      expression: 'min(/macOS by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/macOS by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: capacity
@@ -448,7 +448,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 7282d1a9ff1543f5afdb73b8fd985fec
-                  expression: 'min(/macOS by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/macOS by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   name: 'macOS: FS [{#FSNAME}]: Space is critically low'
                   event_name: 'macOS: FS [{#FSNAME}]: Space is critically low (used > {$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -464,7 +464,7 @@ zabbix_export:
                     - tag: scope
                       value: capacity
                 - uuid: 673dbc5aec474abda3a3b392d31b6c11
-                  expression: 'min(/macOS by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
+                  expression: 'min(/macOS by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
                   name: 'macOS: FS [{#FSNAME}]: Space is low'
                   event_name: 'macOS: FS [{#FSNAME}]: Space is low (used > {$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -476,7 +476,7 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'macOS: FS [{#FSNAME}]: Space is critically low'
-                      expression: 'min(/macOS by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/macOS by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: availability
@@ -554,7 +554,7 @@ zabbix_export:
                   color: F63100
                   calc_fnc: ALL
                   item:
-                    host: 'macOS by Zabbix agent'
+                    host: 'macOS by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},pused]'
             - uuid: 110b798942874e9d817d6028b1ea2101
               name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
@@ -567,19 +567,19 @@ zabbix_export:
                   calc_fnc: LAST
                   type: GRAPH_SUM
                   item:
-                    host: 'macOS by Zabbix agent'
+                    host: 'macOS by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},total]'
                 - sortorder: '1'
                   color: F63100
                   calc_fnc: LAST
                   item:
-                    host: 'macOS by Zabbix agent'
+                    host: 'macOS by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},used]'
                 - sortorder: '2'
                   color: 199C09
                   calc_fnc: LAST
                   item:
-                    host: 'macOS by Zabbix agent'
+                    host: 'macOS by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},free]'
           master_item:
             key: vfs.fs.get
@@ -685,7 +685,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'macOS by Zabbix agent'
+                        host: 'macOS by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -701,7 +701,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'macOS by Zabbix agent'
+                        host: 'macOS by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space usage graph, in % (relative to max available)'
                     - type: STRING
                       name: reference
@@ -718,7 +718,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'macOS by Zabbix agent'
+                        host: 'macOS by TAA agent'
                         name: 'macOS: CPU load'
                     - type: STRING
                       name: reference
@@ -732,7 +732,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'macOS by Zabbix agent'
+                        host: 'macOS by TAA agent'
                         name: 'macOS: Memory usage'
                     - type: STRING
                       name: reference
@@ -748,7 +748,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'macOS by Zabbix agent'
+                        host: 'macOS by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -764,7 +764,7 @@ zabbix_export:
             - value: '2'
               newvalue: unknown
         - uuid: a72caf871acf4776a891a612932fbf2e
-          name: 'Zabbix agent ping status'
+          name: 'TAA agent ping status'
           mappings:
             - value: '1'
               newvalue: Up
@@ -775,30 +775,30 @@ zabbix_export:
       graph_items:
         - color: '009900'
           item:
-            host: 'macOS by Zabbix agent'
+            host: 'macOS by TAA agent'
             key: 'system.cpu.load[percpu,avg1]'
         - sortorder: '1'
           color: '000099'
           item:
-            host: 'macOS by Zabbix agent'
+            host: 'macOS by TAA agent'
             key: 'system.cpu.load[percpu,avg5]'
         - sortorder: '2'
           color: '990000'
           item:
-            host: 'macOS by Zabbix agent'
+            host: 'macOS by TAA agent'
             key: 'system.cpu.load[percpu,avg15]'
     - uuid: 5c942cb1fe5b440aa9428d45ee85e09c
       name: 'macOS: Memory usage'
       ymin_type_1: FIXED
       ymax_type_1: ITEM
       ymax_item_1:
-        host: 'macOS by Zabbix agent'
+        host: 'macOS by TAA agent'
         key: 'vm.memory.size[total]'
       graph_items:
         - drawtype: GRADIENT_LINE
           color: 00C800
           item:
-            host: 'macOS by Zabbix agent'
+            host: 'macOS by TAA agent'
             key: 'vm.memory.size[available]'
     - uuid: 5c4b08f992c541dbb02835bbd4f0a55e
       name: 'macOS: Network traffic on en0'
@@ -807,11 +807,11 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 00AA00
           item:
-            host: 'macOS by Zabbix agent'
+            host: 'macOS by TAA agent'
             key: 'net.if.in[en0]'
         - sortorder: '1'
           drawtype: GRADIENT_LINE
           color: 3333FF
           item:
-            host: 'macOS by Zabbix agent'
+            host: 'macOS by TAA agent'
             key: 'net.if.out[en0]'

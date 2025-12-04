@@ -1,4 +1,4 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -1778,7 +1778,7 @@ zabbix_export:
               name: 'FS [{#FSNAME}]: Filesystem is read-only'
               type: DEPENDENT
               key: 'vfs.fs.[node_exporter,"{#FSNAME}"]'
-              description: 'The filesystem is mounted as read-only. It is available only for Zabbix agents 6.4 and higher.'
+              description: 'The filesystem is mounted as read-only. It is available only for TAA agents 6.4 and higher.'
               preprocessing:
                 - type: PROMETHEUS_PATTERN
                   parameters:
@@ -1801,7 +1801,7 @@ zabbix_export:
                   recovery_expression: 'last(/Linux by Prom/vfs.fs.[node_exporter,"{#FSNAME}"])=0'
                   name: 'Linux: FS [{#FSNAME}]: Filesystem has become read-only'
                   priority: AVERAGE
-                  description: 'The filesystem has become read-only, possibly due to an I/O error. It is available only for Zabbix agents 6.4 and higher.'
+                  description: 'The filesystem has become read-only, possibly due to an I/O error. It is available only for TAA agents 6.4 and higher.'
                   manual_close: 'YES'
                   tags:
                     - tag: scope

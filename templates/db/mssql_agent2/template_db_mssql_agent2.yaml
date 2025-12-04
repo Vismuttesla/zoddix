@@ -1,18 +1,18 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 748ad4d098d447d492bb935c907f652f
       name: Templates/Databases
   templates:
     - uuid: 75fc96367e8d4588ba8314145fc12d35
-      template: 'MSSQL by Zabbix agent 2'
-      name: 'MSSQL by Zabbix agent 2'
+      template: 'MSSQL by TAA agent 2'
+      name: 'MSSQL by TAA agent 2'
       description: |
-        This template is designed for the effortless deployment of MSSQL monitoring by Zabbix via Zabbix agent 2 and uses a loadable plugin to run SQL queries.
+        This template is designed for the effortless deployment of MSSQL monitoring by Zabbix via TAA agent 2 and uses a loadable plugin to run SQL queries.
         
         Setup:
         
-        1. Deploy Zabbix agent 2 with the MSSQL plugin. You can use this template starting with version 7.4.0 of both Zabbix and the MSSQL plugin.
+        1. Deploy TAA agent 2 with the MSSQL plugin. You can use this template starting with version 7.4.0 of both Zabbix and the MSSQL plugin.
         
           For more information, see MSSQL plugin documentation: https://git.zabbix.com/projects/AP/repos/mssql/browse
         
@@ -195,7 +195,7 @@ zabbix_export:
               value: wait-time
           triggers:
             - uuid: 7d284dc23d4649c79bf67e13f1edc83b
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.average_wait_time,5m)>{$MSSQL.AVERAGE_WAIT_TIME.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.average_wait_time,5m)>{$MSSQL.AVERAGE_WAIT_TIME.MAX}'
               name: 'MSSQL: Total average wait time for locks is high'
               event_name: 'MSSQL: Total average wait time for locks is high (over {$MSSQL.AVERAGE_WAIT_TIME.MAX}ms for 5m)'
               priority: WARNING
@@ -267,7 +267,7 @@ zabbix_export:
               value: cache
           triggers:
             - uuid: 9ee2397e2560447eb01d4d50cde5fa9d
-              expression: 'max(/MSSQL by Zabbix agent 2/mssql.buffer_cache_hit_ratio,5m)<{$MSSQL.BUFFER_CACHE_RATIO.MIN.CRIT}'
+              expression: 'max(/MSSQL by TAA agent 2/mssql.buffer_cache_hit_ratio,5m)<{$MSSQL.BUFFER_CACHE_RATIO.MIN.CRIT}'
               name: 'MSSQL: Percentage of the buffer cache efficiency is low'
               event_name: 'MSSQL: Percentage of the buffer cache efficiency is low (below {$MSSQL.BUFFER_CACHE_RATIO.MIN.CRIT}% for 5m)'
               priority: HIGH
@@ -276,14 +276,14 @@ zabbix_export:
                 - tag: scope
                   value: performance
             - uuid: c22ac1cbc5224eb98fde9f87c52a3724
-              expression: 'max(/MSSQL by Zabbix agent 2/mssql.buffer_cache_hit_ratio,5m)<{$MSSQL.BUFFER_CACHE_RATIO.MIN.WARN}'
+              expression: 'max(/MSSQL by TAA agent 2/mssql.buffer_cache_hit_ratio,5m)<{$MSSQL.BUFFER_CACHE_RATIO.MIN.WARN}'
               name: 'MSSQL: Percentage of the buffer cache efficiency is low'
               event_name: 'MSSQL: Percentage of the buffer cache efficiency is low (below {$MSSQL.BUFFER_CACHE_RATIO.MIN.WARN}% for 5m)'
               priority: WARNING
               description: 'Low buffer cache hit ratio.'
               dependencies:
                 - name: 'MSSQL: Percentage of the buffer cache efficiency is low'
-                  expression: 'max(/MSSQL by Zabbix agent 2/mssql.buffer_cache_hit_ratio,5m)<{$MSSQL.BUFFER_CACHE_RATIO.MIN.CRIT}'
+                  expression: 'max(/MSSQL by TAA agent 2/mssql.buffer_cache_hit_ratio,5m)<{$MSSQL.BUFFER_CACHE_RATIO.MIN.CRIT}'
               tags:
                 - tag: scope
                   value: performance
@@ -531,7 +531,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: 5cf3182a47694569b9d75822404b77f7
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.free_list_stalls_sec.rate,5m)>{$MSSQL.FREE_LIST_STALLS.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.free_list_stalls_sec.rate,5m)>{$MSSQL.FREE_LIST_STALLS.MAX}'
               name: 'MSSQL: Number of rps waiting for a free page is high'
               event_name: 'MSSQL: Number of rps waiting for a free page is high (over {$MSSQL.FREE_LIST_STALLS.MAX} for 5m)'
               priority: WARNING
@@ -718,7 +718,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: 96698537fee846199197a25beecaafca
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.lazy_writes_sec.rate,5m)>{$MSSQL.LAZY_WRITES.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.lazy_writes_sec.rate,5m)>{$MSSQL.LAZY_WRITES.MAX}'
               name: 'MSSQL: Number of buffers written per second by the lazy writer is high'
               event_name: 'MSSQL: Number of buffers written per second by the lazy writer is high (over {$MSSQL.LAZY_WRITES.MAX} for 5m)'
               priority: WARNING
@@ -774,7 +774,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: 19137e1b06fe4f1eaf5e76c5ae47d29d
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.lock_requests_sec.rate,5m)>{$MSSQL.LOCK_REQUESTS.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.lock_requests_sec.rate,5m)>{$MSSQL.LOCK_REQUESTS.MAX}'
               name: 'MSSQL: Total number of locks per second is high'
               event_name: 'MSSQL: Total number of locks per second is high (over {$MSSQL.LOCK_REQUESTS.MAX} for 5m)'
               priority: WARNING
@@ -803,7 +803,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: a7313fad35804feeaddf544acb2a0d26
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.lock_timeouts_sec.rate,5m)>{$MSSQL.LOCK_TIMEOUTS.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.lock_timeouts_sec.rate,5m)>{$MSSQL.LOCK_TIMEOUTS.MAX}'
               name: 'MSSQL: Total lock requests per second that timed out is high'
               event_name: 'MSSQL: Total lock requests per second that timed out is high (over {$MSSQL.LOCK_TIMEOUTS.MAX} for 5m)'
               priority: WARNING
@@ -832,7 +832,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: c4fb968a66784746a11feee64a8f98e8
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.lock_waits_sec.rate,5m)>0'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.lock_waits_sec.rate,5m)>0'
               name: 'MSSQL: Some blocking is occurring for 5m'
               priority: AVERAGE
               description: 'Values greater than zero indicate at least some blocking is occurring, while a value of zero can quickly eliminate blocking as a potential root-cause problem.'
@@ -1031,7 +1031,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: f0b039f08b694db1bbafe6b3d8d4e9ab
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.number_deadlocks_sec.rate,5m)>{$MSSQL.DEADLOCKS.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.number_deadlocks_sec.rate,5m)>{$MSSQL.DEADLOCKS.MAX}'
               name: 'MSSQL: Number of deadlocks is high'
               event_name: 'MSSQL: Number of deadlocks is high (over {$MSSQL.DEADLOCKS.MAX} for 5m)'
               priority: AVERAGE
@@ -1075,7 +1075,7 @@ zabbix_export:
               value: page
           triggers:
             - uuid: e47d0eeac246490cbeedb8ba1cf77e94
-              expression: 'max(/MSSQL by Zabbix agent 2/mssql.page_life_expectancy,15m)<{$MSSQL.PAGE_LIFE_EXPECTANCY.MIN}'
+              expression: 'max(/MSSQL by TAA agent 2/mssql.page_life_expectancy,15m)<{$MSSQL.PAGE_LIFE_EXPECTANCY.MIN}'
               name: 'MSSQL: Page life expectancy is low'
               event_name: 'MSSQL: Page life expectancy is low (less {$MSSQL.PAGE_LIFE_EXPECTANCY.MIN}min for 15m)'
               priority: HIGH
@@ -1120,7 +1120,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: 5050b7c4e5a4445d9c4aae031b01115b
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.page_reads_sec.rate,5m)>{$MSSQL.PAGE_READS.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.page_reads_sec.rate,5m)>{$MSSQL.PAGE_READS.MAX}'
               name: 'MSSQL: Number of physical database page reads per second is high'
               event_name: 'MSSQL: Number of physical database page reads per second is high (over {$MSSQL.PAGE_READS.MAX} for 5m)'
               priority: WARNING
@@ -1166,7 +1166,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: 48e32bec13d34ad88db7c9cc98d86a3b
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.page_writes_sec.rate,5m)>{$MSSQL.PAGE_WRITES.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.page_writes_sec.rate,5m)>{$MSSQL.PAGE_WRITES.MAX}'
               name: 'MSSQL: Number of physical database page writes per second is high'
               event_name: 'MSSQL: Number of physical database page writes per second is high (over {$MSSQL.PAGE_WRITES.MAX} for 5m)'
               priority: WARNING
@@ -1190,7 +1190,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: cf0649863fe5421aa1dc279d1ca7e360
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.percent_of_adhoc_queries,15m) > {$MSSQL.PERCENT_COMPILATIONS.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.percent_of_adhoc_queries,15m) > {$MSSQL.PERCENT_COMPILATIONS.MAX}'
               name: 'MSSQL: Percent of ad hoc queries running is high'
               event_name: 'MSSQL: Percent of ad hoc queries running is over {$MSSQL.PERCENT_COMPILATIONS.MAX}% for 15m'
               priority: WARNING
@@ -1214,7 +1214,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 1218fe12f4d542d99d997ede6cc30813
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.percent_recompilations_to_compilations,15m) > {$MSSQL.PERCENT_RECOMPILATIONS.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.percent_recompilations_to_compilations,15m) > {$MSSQL.PERCENT_RECOMPILATIONS.MAX}'
               name: 'MSSQL: Percent of times statement recompiles is high'
               event_name: 'MSSQL: Percent of times statement recompiles is over {$MSSQL.PERCENT_RECOMPILATIONS.MAX}% for 15m'
               priority: WARNING
@@ -1327,7 +1327,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 378cdaf994ea4167b7727996357d7564
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.scan_to_search,15m) > 0.001'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.scan_to_search,15m) > 0.001'
               name: 'MSSQL: Number of index and table scans exceeds index searches in the last 15m'
               priority: WARNING
               description: 'Index searches are preferable to index and table scans. For OLTP applications, optimize for more index searches and less scans (preferably, 1 full scan for every 1000 index searches). Index and table scans are expensive I/O operations.'
@@ -1554,19 +1554,19 @@ zabbix_export:
               value: application
           triggers:
             - uuid: b64d08b9212645cd8bab9e35a8e29942
-              expression: 'nodata(/MSSQL by Zabbix agent 2/mssql.uptime,30m)=1'
+              expression: 'nodata(/MSSQL by TAA agent 2/mssql.uptime,30m)=1'
               name: 'MSSQL: Failed to fetch info data'
               event_name: 'MSSQL: Failed to fetch info data (or no data for 30m)'
               priority: INFO
               description: 'Zabbix has not received any data for items for the last 30 minutes.'
               dependencies:
                 - name: 'MSSQL: Service is unavailable'
-                  expression: 'last(/MSSQL by Zabbix agent 2/net.tcp.service[tcp,{$MSSQL.HOST},{$MSSQL.PORT}])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/net.tcp.service[tcp,{$MSSQL.HOST},{$MSSQL.PORT}])=0'
               tags:
                 - tag: scope
                   value: availability
             - uuid: 4ab35137c34845c495bc3837ac1f6f9f
-              expression: 'last(/MSSQL by Zabbix agent 2/mssql.uptime)<10m'
+              expression: 'last(/MSSQL by TAA agent 2/mssql.uptime)<10m'
               name: 'MSSQL: Service has been restarted'
               event_name: 'MSSQL: Service has been restarted (uptime < 10m)'
               priority: INFO
@@ -1621,7 +1621,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 12643eb3af884023ab61802559cde946
-              expression: 'last(/MSSQL by Zabbix agent 2/mssql.version["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"],#1)<>last(/MSSQL by Zabbix agent 2/mssql.version["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"],#2) and length(last(/MSSQL by Zabbix agent 2/mssql.version["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"]))>0'
+              expression: 'last(/MSSQL by TAA agent 2/mssql.version["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"],#1)<>last(/MSSQL by TAA agent 2/mssql.version["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"],#2) and length(last(/MSSQL by TAA agent 2/mssql.version["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"]))>0'
               name: 'MSSQL: Version has changed'
               event_name: 'MSSQL: Version has changed (new version value received: {ITEM.VALUE})'
               priority: INFO
@@ -1648,7 +1648,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: 6d25ee02edc14d7497b339627cc0c680
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.workfiles_created_sec.rate,5m)>{$MSSQL.WORK_FILES.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.workfiles_created_sec.rate,5m)>{$MSSQL.WORK_FILES.MAX}'
               name: 'MSSQL: Number of work files created per second is high'
               event_name: 'MSSQL: Number of work files created per second is high (over {$MSSQL.WORK_FILES.MAX} for 5m)'
               priority: AVERAGE
@@ -1674,7 +1674,7 @@ zabbix_export:
               value: performance
           triggers:
             - uuid: 4cd0c8e7089144aeaeb10c4866e89b06
-              expression: 'min(/MSSQL by Zabbix agent 2/mssql.worktables_created_sec.rate,5m)>{$MSSQL.WORK_TABLES.MAX}'
+              expression: 'min(/MSSQL by TAA agent 2/mssql.worktables_created_sec.rate,5m)>{$MSSQL.WORK_TABLES.MAX}'
               name: 'MSSQL: Number of work tables created per second is high'
               event_name: 'MSSQL: Number of work tables created per second is high (over {$MSSQL.WORK_TABLES.MAX} for 5m)'
               priority: AVERAGE
@@ -1700,7 +1700,7 @@ zabbix_export:
               value: cache
           triggers:
             - uuid: cb3dd51615d447379a3abda929faf881
-              expression: 'max(/MSSQL by Zabbix agent 2/mssql.worktables_from_cache_ratio,5m)<{$MSSQL.WORKTABLES_FROM_CACHE_RATIO.MIN.CRIT}'
+              expression: 'max(/MSSQL by TAA agent 2/mssql.worktables_from_cache_ratio,5m)<{$MSSQL.WORKTABLES_FROM_CACHE_RATIO.MIN.CRIT}'
               name: 'MSSQL: Percentage of work tables available from the work table cache is low'
               event_name: 'MSSQL: Percentage of work tables available from the work table cache is low (below {$MSSQL.WORKTABLES_FROM_CACHE_RATIO.MIN.CRIT}% for 5m)'
               priority: HIGH
@@ -1725,7 +1725,7 @@ zabbix_export:
               value: network
           triggers:
             - uuid: 2ea9eaf463144defbd85340a824f7986
-              expression: 'last(/MSSQL by Zabbix agent 2/net.tcp.service[tcp,{$MSSQL.HOST},{$MSSQL.PORT}])=0'
+              expression: 'last(/MSSQL by TAA agent 2/net.tcp.service[tcp,{$MSSQL.HOST},{$MSSQL.PORT}])=0'
               name: 'MSSQL: Service is unavailable'
               priority: DISASTER
               description: 'The TCP port of the MSSQL Server service is currently unavailable.'
@@ -1766,7 +1766,7 @@ zabbix_export:
                   value: availability-group
               trigger_prototypes:
                 - uuid: 7f0c69068dd6415abd193555684ba39d
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.primary_recovery_health["{#GROUP_NAME}"])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.primary_recovery_health["{#GROUP_NAME}"])=0'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'': Primary replica recovery health in progress'
                   priority: WARNING
                   description: 'The primary replica is in the synchronization process.'
@@ -1822,7 +1822,7 @@ zabbix_export:
                   value: availability-group
               trigger_prototypes:
                 - uuid: 4fc114d3f43741b38bdf7b8b73a6fe3e
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.secondary_recovery_health["{#GROUP_NAME}"])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.secondary_recovery_health["{#GROUP_NAME}"])=0'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'': Secondary replica recovery health in progress'
                   priority: WARNING
                   description: 'The secondary replica is in the synchronization process.'
@@ -1858,7 +1858,7 @@ zabbix_export:
                   value: availability-group
               trigger_prototypes:
                 - uuid: 1aa3dd01e7654dea903010b47f166596
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.synchronization_health["{#GROUP_NAME}"])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.synchronization_health["{#GROUP_NAME}"])=0'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'': All replicas unhealthy'
                   priority: DISASTER
                   description: 'None of the availability replicas have a healthy synchronization.'
@@ -1868,7 +1868,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: 02766fa029c14e85914e20b81f14be2c
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.synchronization_health["{#GROUP_NAME}"])=1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.synchronization_health["{#GROUP_NAME}"])=1'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'': Some replicas unhealthy'
                   priority: HIGH
                   description: 'The synchronization health of some, but not all, availability replicas is healthy.'
@@ -1943,7 +1943,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 4ff9a2f1c06347a291e99eb4269d87a5
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.diff["{#DBNAME}"])>{$MSSQL.BACKUP_DIFF.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_DIFF.USED:"{#DBNAME}"}=1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.backup.diff["{#DBNAME}"])>{$MSSQL.BACKUP_DIFF.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_DIFF.USED:"{#DBNAME}"}=1'
                   name: 'MSSQL: DB ''{#DBNAME}'': Diff backup is old'
                   event_name: 'MSSQL: DB ''{#DBNAME}'': Diff backup older than {$MSSQL.BACKUP_DIFF.CRIT:"{#DBNAME}"}'
                   opdata: 'Time since last backup: {ITEM.LASTVALUE1}'
@@ -1956,7 +1956,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: 49260837210a4086a6f2a4183cefbf8c
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.diff["{#DBNAME}"])>{$MSSQL.BACKUP_DIFF.WARN:"{#DBNAME}"} and {$MSSQL.BACKUP_DIFF.USED:"{#DBNAME}"}=1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.backup.diff["{#DBNAME}"])>{$MSSQL.BACKUP_DIFF.WARN:"{#DBNAME}"} and {$MSSQL.BACKUP_DIFF.USED:"{#DBNAME}"}=1'
                   name: 'MSSQL: DB ''{#DBNAME}'': Diff backup is old'
                   event_name: 'MSSQL: DB ''{#DBNAME}'': Diff backup older than {$MSSQL.BACKUP_DIFF.WARN:"{#DBNAME}"}'
                   opdata: 'Time since last backup: {ITEM.LASTVALUE1}'
@@ -1965,7 +1965,7 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'MSSQL: DB ''{#DBNAME}'': Diff backup is old'
-                      expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.diff["{#DBNAME}"])>{$MSSQL.BACKUP_DIFF.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_DIFF.USED:"{#DBNAME}"}=1'
+                      expression: 'last(/MSSQL by TAA agent 2/mssql.backup.diff["{#DBNAME}"])>{$MSSQL.BACKUP_DIFF.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_DIFF.USED:"{#DBNAME}"}=1'
                   tags:
                     - tag: database
                       value: '{#DBNAME}'
@@ -2014,7 +2014,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: ba1b19c9513f4adeba3e6f300c08748d
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.full["{#DBNAME}"])>{$MSSQL.BACKUP_FULL.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_FULL.USED:"{#DBNAME}"}=1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.backup.full["{#DBNAME}"])>{$MSSQL.BACKUP_FULL.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_FULL.USED:"{#DBNAME}"}=1'
                   name: 'MSSQL: DB ''{#DBNAME}'': Full backup is old'
                   event_name: 'MSSQL: DB ''{#DBNAME}'': Full backup older than {$MSSQL.BACKUP_FULL.CRIT:"{#DBNAME}"}'
                   opdata: 'Time since last backup: {ITEM.LASTVALUE1}'
@@ -2027,7 +2027,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: a8e099c8276f435cb4d55623be443db5
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.full["{#DBNAME}"])>{$MSSQL.BACKUP_FULL.WARN:"{#DBNAME}"} and {$MSSQL.BACKUP_FULL.USED:"{#DBNAME}"}=1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.backup.full["{#DBNAME}"])>{$MSSQL.BACKUP_FULL.WARN:"{#DBNAME}"} and {$MSSQL.BACKUP_FULL.USED:"{#DBNAME}"}=1'
                   name: 'MSSQL: DB ''{#DBNAME}'': Full backup is old'
                   event_name: 'MSSQL: DB ''{#DBNAME}'': Full backup older than {$MSSQL.BACKUP_FULL.WARN:"{#DBNAME}"}'
                   opdata: 'Time since last backup: {ITEM.LASTVALUE1}'
@@ -2036,7 +2036,7 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'MSSQL: DB ''{#DBNAME}'': Full backup is old'
-                      expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.full["{#DBNAME}"])>{$MSSQL.BACKUP_FULL.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_FULL.USED:"{#DBNAME}"}=1'
+                      expression: 'last(/MSSQL by TAA agent 2/mssql.backup.full["{#DBNAME}"])>{$MSSQL.BACKUP_FULL.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_FULL.USED:"{#DBNAME}"}=1'
                   tags:
                     - tag: scope
                       value: availability
@@ -2260,7 +2260,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 4bdf258b6902407cbcc7b27cc906ee48
-                  expression: 'min(/MSSQL by Zabbix agent 2/mssql.db.log_flush_waits_sec.rate["{#DBNAME}"],5m)>{$MSSQL.LOG_FLUSH_WAITS.MAX:"{#DBNAME}"}'
+                  expression: 'min(/MSSQL by TAA agent 2/mssql.db.log_flush_waits_sec.rate["{#DBNAME}"],5m)>{$MSSQL.LOG_FLUSH_WAITS.MAX:"{#DBNAME}"}'
                   name: 'MSSQL: DB ''{#DBNAME}'': Number of commits waiting for the log flush is high'
                   event_name: 'MSSQL: DB ''{#DBNAME}'': Number of commits waiting for the log flush is high (over {$MSSQL.LOG_FLUSH_WAITS.MAX:"{#DBNAME}"}/sec for 5m)'
                   priority: WARNING
@@ -2291,7 +2291,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 1baacf9d55d746599a28c407087ea5fb
-                  expression: 'min(/MSSQL by Zabbix agent 2/mssql.db.log_flush_wait_time["{#DBNAME}"],5m)>{$MSSQL.LOG_FLUSH_WAIT_TIME.MAX:"{#DBNAME}"}'
+                  expression: 'min(/MSSQL by TAA agent 2/mssql.db.log_flush_wait_time["{#DBNAME}"],5m)>{$MSSQL.LOG_FLUSH_WAIT_TIME.MAX:"{#DBNAME}"}'
                   name: 'MSSQL: DB ''{#DBNAME}'': Total wait time to flush the log is high'
                   event_name: 'MSSQL: DB ''{#DBNAME}'': Total wait time to flush the log is high (over {$MSSQL.LOG_FLUSH_WAIT_TIME.MAX:"{#DBNAME}"}ms for 5m)'
                   priority: WARNING
@@ -2369,7 +2369,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: f2a80dfd54ca4e2391adbc7006118987
-                  expression: 'min(/MSSQL by Zabbix agent 2/mssql.db.percent_log_used["{#DBNAME}"],5m)>{$MSSQL.PERCENT_LOG_USED.MAX:"{#DBNAME}"}'
+                  expression: 'min(/MSSQL by TAA agent 2/mssql.db.percent_log_used["{#DBNAME}"],5m)>{$MSSQL.PERCENT_LOG_USED.MAX:"{#DBNAME}"}'
                   name: 'MSSQL: DB ''{#DBNAME}'': Percent of log usage is high'
                   event_name: 'MSSQL: DB ''{#DBNAME}'': Percent of log usage is high (over {$MSSQL.PERCENT_LOG_USED.MAX:"{#DBNAME}"}% for 5m)'
                   priority: WARNING
@@ -2430,7 +2430,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 0963794ed0b0483bbaa9dc0858c9f445
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.db.state["{#DBNAME}"])>1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.db.state["{#DBNAME}"])>1'
                   name: 'MSSQL: DB ''{#DBNAME}'': State is {ITEM.VALUE}'
                   priority: HIGH
                   description: 'The DB has a non-working state.'
@@ -2459,7 +2459,7 @@ zabbix_export:
                   value: '{#DBNAME}'
           trigger_prototypes:
             - uuid: 7b708b7c408f4b2fb5d1bc6d017d6c68
-              expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.log["{#DBNAME}"])>{$MSSQL.BACKUP_LOG.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_LOG.USED:"{#DBNAME}"}=1 and last(/MSSQL by Zabbix agent 2/mssql.backup.recovery_model["{#DBNAME}"])<>3'
+              expression: 'last(/MSSQL by TAA agent 2/mssql.backup.log["{#DBNAME}"])>{$MSSQL.BACKUP_LOG.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_LOG.USED:"{#DBNAME}"}=1 and last(/MSSQL by TAA agent 2/mssql.backup.recovery_model["{#DBNAME}"])<>3'
               name: 'MSSQL: DB ''{#DBNAME}'': Log backup is old'
               event_name: 'MSSQL: DB ''{#DBNAME}'': Log backup older than {$MSSQL.BACKUP_LOG.CRIT:"{#DBNAME}"}'
               opdata: 'Time since last backup: {ITEM.LASTVALUE1}'
@@ -2472,7 +2472,7 @@ zabbix_export:
                 - tag: scope
                   value: availability
             - uuid: dc580ac10b3f451686b8163bdf21b759
-              expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.log["{#DBNAME}"])>{$MSSQL.BACKUP_LOG.WARN:"{#DBNAME}"} and {$MSSQL.BACKUP_LOG.USED:"{#DBNAME}"}=1 and last(/MSSQL by Zabbix agent 2/mssql.backup.recovery_model["{#DBNAME}"])<>3'
+              expression: 'last(/MSSQL by TAA agent 2/mssql.backup.log["{#DBNAME}"])>{$MSSQL.BACKUP_LOG.WARN:"{#DBNAME}"} and {$MSSQL.BACKUP_LOG.USED:"{#DBNAME}"}=1 and last(/MSSQL by TAA agent 2/mssql.backup.recovery_model["{#DBNAME}"])<>3'
               name: 'MSSQL: DB ''{#DBNAME}'': Log backup is old'
               event_name: 'MSSQL: DB ''{#DBNAME}'': Log backup older than {$MSSQL.BACKUP_LOG.WARN:"{#DBNAME}"}'
               opdata: 'Time since last backup: {ITEM.LASTVALUE1}'
@@ -2481,7 +2481,7 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'MSSQL: DB ''{#DBNAME}'': Log backup is old'
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.backup.log["{#DBNAME}"])>{$MSSQL.BACKUP_LOG.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_LOG.USED:"{#DBNAME}"}=1 and last(/MSSQL by Zabbix agent 2/mssql.backup.recovery_model["{#DBNAME}"])<>3'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.backup.log["{#DBNAME}"])>{$MSSQL.BACKUP_LOG.CRIT:"{#DBNAME}"} and {$MSSQL.BACKUP_LOG.USED:"{#DBNAME}"}=1 and last(/MSSQL by TAA agent 2/mssql.backup.recovery_model["{#DBNAME}"])<>3'
               tags:
                 - tag: database
                   value: '{#DBNAME}'
@@ -2493,36 +2493,36 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.db.log_files_size["{#DBNAME}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.db.log_files_used_size["{#DBNAME}"]'
             - uuid: 768ec0884405473fb269f8b465b214e6
               name: 'DB ''{#DBNAME}'': Number of Log changes'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.db.log_growths["{#DBNAME}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.db.log_shrinks["{#DBNAME}"]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.db.log_truncations["{#DBNAME}"]'
             - uuid: d60af32a941e41ed9d0a65f996df89e4
               name: 'DB ''{#DBNAME}'': Size'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.db.data_files_size["{#DBNAME}"]'
           master_item:
             key: 'mssql.db.get["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"]'
@@ -2680,7 +2680,7 @@ zabbix_export:
                   value: '{#JOBNAME}'
               trigger_prototypes:
                 - uuid: f404c4f644ee450ebbd269eb7c8897d9
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.job.runstatus["{#JOBNAME}"])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.job.runstatus["{#JOBNAME}"])=0'
                   name: 'MSSQL: Job ''{#JOBNAME}'': Failed to run'
                   priority: WARNING
                   description: 'The last run of the job has failed.'
@@ -2712,7 +2712,7 @@ zabbix_export:
                   value: '{#JOBNAME}'
               trigger_prototypes:
                 - uuid: b8bf7358712242609e64ce60303eb80f
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.job.run_duration["{#JOBNAME}"])>{$MSSQL.BACKUP_DURATION.WARN:"{#JOBNAME}"}'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.job.run_duration["{#JOBNAME}"])>{$MSSQL.BACKUP_DURATION.WARN:"{#JOBNAME}"}'
                   name: 'MSSQL: Job ''{#JOBNAME}'': Job duration is high'
                   event_name: 'MSSQL: Job ''{#JOBNAME}'': Job duration is greater than {$MSSQL.BACKUP_DURATION.WARN:"{#JOBNAME}"}'
                   opdata: 'Job duration: {ITEM.LASTVALUE1}'
@@ -2814,7 +2814,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 7eb2d73718b0451790c5d81d63517c1b
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.local_db.state["{#DBNAME}"])>0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.local_db.state["{#DBNAME}"])>0'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Local DB ''{#DBNAME}'': "{#DBNAME}" is {ITEM.VALUE}'
                   priority: WARNING
                   description: 'The local availability database has a non-working state.'
@@ -2854,7 +2854,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 47ba6c51cf34498a991b68b341210eca
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.local_db.synchronization_health["{#DBNAME}"])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.local_db.synchronization_health["{#DBNAME}"])=0'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Local DB ''{#DBNAME}'': "{#DBNAME}" is Not healthy'
                   priority: HIGH
                   description: 'The synchronization state of the local availability database is "Not synchronizing".'
@@ -2866,7 +2866,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: 112b6ba5294946c7973d278392266439
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.local_db.synchronization_health["{#DBNAME}"])=1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.local_db.synchronization_health["{#DBNAME}"])=1'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Local DB ''{#DBNAME}'': "{#DBNAME}" is Partially healthy'
                   priority: AVERAGE
                   description: 'A database on a synchronous-commit availability replica is considered partially healthy if synchronization state is "Synchronizing".'
@@ -2994,7 +2994,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 33ef90679bcb47f09cc0c5372ea54fdc
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.mirroring.state["{#DBNAME}"])=3'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.mirroring.state["{#DBNAME}"])=3'
                   name: 'MSSQL: Mirroring ''{#DBNAME}'': "{#DBNAME}" is {ITEM.VALUE}'
                   priority: WARNING
                   description: 'The state of the mirror database and of the database mirroring session is "Pending failover".'
@@ -3004,7 +3004,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: 4e7813c78c8f47808cfb5c970de2ad99
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.mirroring.state["{#DBNAME}"])=5'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.mirroring.state["{#DBNAME}"])=5'
                   name: 'MSSQL: Mirroring ''{#DBNAME}'': "{#DBNAME}" is {ITEM.VALUE}'
                   priority: HIGH
                   description: 'The state of the mirror database and of the database mirroring session is "Not synchronized". The partners are not synchronized. A failover is not possible now.'
@@ -3014,7 +3014,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: 5554197e2079495ab49491ca0855ccee
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.mirroring.state["{#DBNAME}"])>=0 and last(/MSSQL by Zabbix agent 2/mssql.mirroring.state["{#DBNAME}"])<=2'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.mirroring.state["{#DBNAME}"])>=0 and last(/MSSQL by TAA agent 2/mssql.mirroring.state["{#DBNAME}"])<=2'
                   name: 'MSSQL: Mirroring ''{#DBNAME}'': "{#DBNAME}" is {ITEM.VALUE}'
                   priority: INFO
                   description: 'The state of the mirror database and of the database mirroring session is "Suspended", "Disconnected from the other partner", or "Synchronizing".'
@@ -3050,7 +3050,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 3a3903f3008b4360a93e45d94f344a42
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.mirroring.witness_state["{#DBNAME}"])=2'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.mirroring.witness_state["{#DBNAME}"])=2'
                   name: 'MSSQL: Mirroring ''{#DBNAME}'': "{#DBNAME}" Witness is disconnected'
                   priority: WARNING
                   description: 'The state of the witness in the database mirroring session of the database is "Disconnected".'
@@ -3065,12 +3065,12 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.mirroring.state["{#DBNAME}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'MSSQL by Zabbix agent 2'
+                    host: 'MSSQL by TAA agent 2'
                     key: 'mssql.mirroring.witness_state["{#DBNAME}"]'
           master_item:
             key: 'mssql.mirroring.get["{$MSSQL.URI}","{$MSSQL.USER}","{$MSSQL.PASSWORD}"]'
@@ -3114,7 +3114,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: 16b1fc9ee0e340ac8f1742d04ffc6393
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#1)>last(/MSSQL by Zabbix agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2) and last(/MSSQL by Zabbix agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2)>last(/MSSQL by Zabbix agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#3)'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#1)>last(/MSSQL by TAA agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2) and last(/MSSQL by TAA agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2)>last(/MSSQL by TAA agent 2/mssql.non-local_db.log_send_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#3)'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Non-Local DB ''*{#REPLICA_NAME}*{#DBNAME}'': Log queue size is growing'
                   priority: HIGH
                   description: 'The log records of the primary database are not sent to the secondary databases.'
@@ -3152,7 +3152,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: b4748575543a451c85fa013e4867e38f
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#1)>last(/MSSQL by Zabbix agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2) and last(/MSSQL by Zabbix agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2)>last(/MSSQL by Zabbix agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#3)'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#1)>last(/MSSQL by TAA agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2) and last(/MSSQL by TAA agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#2)>last(/MSSQL by TAA agent 2/mssql.non-local_db.redo_queue_size["{#GROUP_NAME}*{#REPLICA_NAME}*{#DBNAME}"],#3)'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Non-Local DB ''*{#REPLICA_NAME}*{#DBNAME}'': Redo log queue size is growing'
                   priority: HIGH
                   description: 'The log records in the log files of the secondary replica have not yet been redone.'
@@ -3464,7 +3464,7 @@ zabbix_export:
                   value: '{#REPLICA_NAME}'
               trigger_prototypes:
                 - uuid: 7a05f5f0393f442d8e5d78669e9dd8cb
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=0 or last(/MSSQL by Zabbix agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=1 or last(/MSSQL by Zabbix agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=3'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=0 or last(/MSSQL by TAA agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=1 or last(/MSSQL by TAA agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=3'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Replica ''{#REPLICA_NAME}'': {#REPLICA_NAME} is {ITEM.VALUE}'
                   priority: WARNING
                   description: 'The operational state of the replica in a given availability group is "Pending" or "Offline".'
@@ -3476,7 +3476,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: 5f67fcecd9864c5a97c0bb7c8281cd81
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=4'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=4'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Replica ''{#REPLICA_NAME}'': {#REPLICA_NAME} is {ITEM.VALUE}'
                   priority: AVERAGE
                   description: 'The operational state of the replica in a given availability group is "Failed".'
@@ -3488,7 +3488,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: 7e387d698f214c458a6e45d64191185e
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=5'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.replica.operational_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=5'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Replica ''{#REPLICA_NAME}'': {#REPLICA_NAME} is {ITEM.VALUE}'
                   priority: HIGH
                   description: 'The operational state of the replica in a given availability group is "Failed, no quorum".'
@@ -3527,7 +3527,7 @@ zabbix_export:
                   value: '{#REPLICA_NAME}'
               trigger_prototypes:
                 - uuid: 9c5f393288114e1081055f18c136dd07
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.replica.recovery_health["{#GROUP_NAME}_{#REPLICA_NAME}"])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.replica.recovery_health["{#GROUP_NAME}_{#REPLICA_NAME}"])=0'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Replica ''{#REPLICA_NAME}'': {#REPLICA_NAME} Recovery in progress'
                   priority: INFO
                   description: 'At least one joined database has a database state other than "Online".'
@@ -3594,7 +3594,7 @@ zabbix_export:
                   value: '{#REPLICA_NAME}'
               trigger_prototypes:
                 - uuid: 57aef51f42cd4e40a1041bb6862fde27
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.replica.synchronization_health["{#GROUP_NAME}_{#REPLICA_NAME}"])=0'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.replica.synchronization_health["{#GROUP_NAME}_{#REPLICA_NAME}"])=0'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Replica ''{#REPLICA_NAME}'': {#REPLICA_NAME} is Not healthy'
                   priority: AVERAGE
                   description: 'At least one joined database is in the "Not synchronizing" state.'
@@ -3606,7 +3606,7 @@ zabbix_export:
                     - tag: scope
                       value: availability
                 - uuid: e2ce3d5eb0174f1789ed01f3516f25dd
-                  expression: 'last(/MSSQL by Zabbix agent 2/mssql.replica.synchronization_health["{#GROUP_NAME}_{#REPLICA_NAME}"])=1'
+                  expression: 'last(/MSSQL by TAA agent 2/mssql.replica.synchronization_health["{#GROUP_NAME}_{#REPLICA_NAME}"])=1'
                   name: 'MSSQL: AG ''{#GROUP_NAME}'' Replica ''{#REPLICA_NAME}'': {#REPLICA_NAME} is Partially healthy'
                   priority: WARNING
                   description: 'Some replicas are not in the target synchronization state: synchronous-commit replicas should be synchronized, and asynchronous-commit replicas should be synchronizing.'
@@ -3619,7 +3619,7 @@ zabbix_export:
                       value: availability
           trigger_prototypes:
             - uuid: b6e37290b6b44d2888bdbfe53a949b63
-              expression: 'last(/MSSQL by Zabbix agent 2/mssql.replica.connected_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=0 and last(/MSSQL by Zabbix agent 2/mssql.replica.role["{#GROUP_NAME}_{#REPLICA_NAME}"])=2'
+              expression: 'last(/MSSQL by TAA agent 2/mssql.replica.connected_state["{#GROUP_NAME}_{#REPLICA_NAME}"])=0 and last(/MSSQL by TAA agent 2/mssql.replica.role["{#GROUP_NAME}_{#REPLICA_NAME}"])=2'
               name: 'MSSQL: AG ''{#GROUP_NAME}'' Replica ''{#REPLICA_NAME}'': {#REPLICA_NAME} is disconnected'
               priority: WARNING
               description: |
@@ -4057,7 +4057,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Errors'
                     - type: STRING
                       name: reference
@@ -4070,7 +4070,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Server memory'
                     - type: STRING
                       name: reference
@@ -4083,7 +4083,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Waits per second'
                     - type: STRING
                       name: reference
@@ -4096,7 +4096,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Database pages'
                     - type: STRING
                       name: reference
@@ -4109,7 +4109,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Transactions'
                     - type: STRING
                       name: reference
@@ -4122,7 +4122,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Pages'
                     - type: STRING
                       name: reference
@@ -4135,7 +4135,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Memory grants outstanding and pending'
                     - type: STRING
                       name: reference
@@ -4148,7 +4148,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Access methods'
                     - type: STRING
                       name: reference
@@ -4161,7 +4161,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Logins per second and Logouts per second'
                     - type: STRING
                       name: reference
@@ -4174,7 +4174,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Locks'
                     - type: STRING
                       name: reference
@@ -4188,7 +4188,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Memory/cache load'
                     - type: STRING
                       name: reference
@@ -4202,7 +4202,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Wait times'
                     - type: STRING
                       name: reference
@@ -4216,7 +4216,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Cache objects'
                     - type: STRING
                       name: reference
@@ -4230,7 +4230,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Compilations'
                     - type: STRING
                       name: reference
@@ -4244,7 +4244,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Page life expectancy'
                     - type: STRING
                       name: reference
@@ -4258,7 +4258,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Processes blocked'
                     - type: STRING
                       name: reference
@@ -4272,7 +4272,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'MSSQL: Auto-params'
                     - type: STRING
                       name: reference
@@ -4289,7 +4289,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'DB ''{#DBNAME}'': Size'
                     - type: STRING
                       name: reference
@@ -4308,7 +4308,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'MSSQL by Zabbix agent 2'
+                        host: 'MSSQL by TAA agent 2'
                         name: 'DB ''{#DBNAME}'': Log size'
                     - type: STRING
                       name: reference
@@ -4530,7 +4530,7 @@ zabbix_export:
               newvalue: Up
   triggers:
     - uuid: 366fa3cfcba94e038ad77c2f5a2649a2
-      expression: 'last(/MSSQL by Zabbix agent 2/mssql.forwarded_records_sec.rate) * 100 > 10 * last(/MSSQL by Zabbix agent 2/mssql.batch_requests_sec.rate)'
+      expression: 'last(/MSSQL by TAA agent 2/mssql.forwarded_records_sec.rate) * 100 > 10 * last(/MSSQL by TAA agent 2/mssql.batch_requests_sec.rate)'
       name: 'MSSQL: Too frequently using pointers'
       priority: WARNING
       description: 'Rows with VARCHAR columns can experience expansion when VARCHAR values are updated with a longer string. In the case where the row cannot fit in the existing page, the row migrates, and access to the row will traverse a pointer. This only happens on heaps (tables without clustered indexes). In cases where clustered indexes cannot be used, drop non-clustered indexes, build a clustered index to reorg pages and rows, drop the clustered index, then recreate non-clustered indexes.'
@@ -4538,7 +4538,7 @@ zabbix_export:
         - tag: scope
           value: performance
     - uuid: 274773f4bb9d4af798e8922b5054226b
-      expression: 'last(/MSSQL by Zabbix agent 2/mssql.readahead_pages_sec.rate) > {$MSSQL.PERCENT_READAHEAD.MAX} / 100 * last(/MSSQL by Zabbix agent 2/mssql.page_reads_sec.rate)'
+      expression: 'last(/MSSQL by TAA agent 2/mssql.readahead_pages_sec.rate) > {$MSSQL.PERCENT_READAHEAD.MAX} / 100 * last(/MSSQL by TAA agent 2/mssql.page_reads_sec.rate)'
       name: 'MSSQL: Too many physical reads occurring'
       priority: WARNING
       description: 'If this value makes up even a sizeable minority of the total "Page Reads/sec" (say, greater than 20% of the total page reads), you may have too many physical reads occurring.'
@@ -4551,297 +4551,297 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.forwarded_records_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.full_scans_sec.rate
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.index_searches_sec.rate
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.page_splits_sec.rate
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.workfiles_created_sec.rate
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.worktables_created_sec.rate
     - uuid: c1df070c49994a9fb3b15a3f9f15cf59
       name: 'MSSQL: Auto-params'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.autoparam_attempts_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.failed_autoparams_sec.rate
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.safe_autoparams_sec.rate
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.unsafe_autoparams_sec.rate
     - uuid: 15b49ae51375483182c927a06c7e094a
       name: 'MSSQL: Cache objects'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.cache_object_counts
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.cache_objects_in_use
     - uuid: b3422c184eb7476e97e5b0f09bb70160
       name: 'MSSQL: Compilations'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.sql_compilations_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.sql_recompilations_sec.rate
     - uuid: ecc056aa9b4d4da3b41f6ad7ec8d600c
       name: 'MSSQL: Database pages'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.database_pages
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.target_pages
     - uuid: b1decdef518c43c3bc8813b028e04025
       name: 'MSSQL: Errors'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.errors_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.offline_errors_sec.rate
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.info_errors_sec.rate
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.kill_connection_errors_sec.rate
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.user_errors_sec.rate
     - uuid: 6dff1806a75343a6a81a94c5fee6a632
       name: 'MSSQL: Locks'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.lock_requests_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.lock_timeouts_sec.rate
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.number_deadlocks_sec.rate
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.lock_waits_sec.rate
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.average_wait_time
     - uuid: ef6f803fbb744e8faa04673b5e3f5b38
       name: 'MSSQL: Logins per second and Logouts per second'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.logins_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.logouts_sec.rate
     - uuid: b68986ff810f4336ad907d550f973b56
       name: 'MSSQL: Memory/cache load'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.cache_hit_ratio
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.buffer_cache_hit_ratio
     - uuid: 335d81ea81384d1e85de7527598ce3f6
       name: 'MSSQL: Memory grants outstanding and pending'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.memory_grants_outstanding
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.memory_grants_pending
     - uuid: 157c122b6d474441b4f95b91beee5730
       name: 'MSSQL: Page life expectancy'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.page_life_expectancy
     - uuid: fff870597f4649d2a72941fb972d201c
       name: 'MSSQL: Pages'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.page_lookups_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.page_reads_sec.rate
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.page_writes_sec.rate
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.readahead_pages_sec.rate
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.checkpoint_pages_sec.rate
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.free_list_stalls_sec.rate
         - sortorder: '6'
           color: C7A72D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.lazy_writes_sec.rate
     - uuid: 3297eadad79f4f7d8597f0eccb0af926
       name: 'MSSQL: Processes blocked'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.processes_blocked
     - uuid: 418dc893929c4f62beb361dcaaa6c56a
       name: 'MSSQL: Server memory'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.target_server_memory
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.total_server_memory
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.granted_workspace_memory
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.maximum_workspace_memory
     - uuid: 31467ce0afe24b2fa1a547f28eebc24a
       name: 'MSSQL: Transactions'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.transactions_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.batch_requests_sec.rate
     - uuid: e35b61f7a547477cba31c9949be61f5e
       name: 'MSSQL: Waits per second'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.latch_waits_sec.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.lock_waits_sec.rate
     - uuid: ae485dce95974187a046b9743f32f629
       name: 'MSSQL: Wait times'
       graph_items:
         - color: 199C0D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.average_latch_wait_time
         - sortorder: '1'
           color: F63100
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.total_latch_wait_time
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.average_wait_time
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'MSSQL by Zabbix agent 2'
+            host: 'MSSQL by TAA agent 2'
             key: mssql.lock_wait_time

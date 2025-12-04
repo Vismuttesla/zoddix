@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: 4677be3e07bf4f3285496f2f4230b928
-      template: 'IIS by Zabbix agent active'
-      name: 'IIS by Zabbix agent active'
+      template: 'IIS by TAA agent active'
+      name: 'IIS by TAA agent active'
       description: |
-        Get metrics from IIS using Zabbix agent running on Windows.
+        Get metrics from IIS using TAA agent running on Windows.
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/401862-discussion-thread-for-official-zabbix-template-internet-information-services
         
@@ -36,13 +36,13 @@ zabbix_export:
               value: network
           triggers:
             - uuid: 2b73bb4c09404d748e019ef2257a9e20
-              expression: 'last(/IIS by Zabbix agent active/net.tcp.service[{$IIS.SERVICE},,{$IIS.PORT}])=0'
+              expression: 'last(/IIS by TAA agent active/net.tcp.service[{$IIS.SERVICE},,{$IIS.PORT}])=0'
               name: 'IIS: Port {$IIS.PORT} is down'
               priority: AVERAGE
               manual_close: 'YES'
               dependencies:
                 - name: 'IIS: The World Wide Web Publishing Service (W3SVC) is not running'
-                  expression: 'last(/IIS by Zabbix agent active/service.info[W3SVC])<>0'
+                  expression: 'last(/IIS by TAA agent active/service.info[W3SVC])<>0'
               tags:
                 - tag: scope
                   value: availability
@@ -362,7 +362,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: f68768567f334d369d52797309f95c41
-              expression: 'last(/IIS by Zabbix agent active/perf_counter_en["\Web Service(_Total)\Service Uptime"])<10m'
+              expression: 'last(/IIS by TAA agent active/perf_counter_en["\Web Service(_Total)\Service Uptime"])<10m'
               name: 'IIS: Service has been restarted'
               event_name: 'IIS: Service has been restarted (uptime < 10m)'
               priority: INFO
@@ -493,13 +493,13 @@ zabbix_export:
               value: health
           triggers:
             - uuid: ca139b8b27c44f7fb22938fd3419cff5
-              expression: 'last(/IIS by Zabbix agent active/service.info[W3SVC])<>0'
+              expression: 'last(/IIS by TAA agent active/service.info[W3SVC])<>0'
               name: 'IIS: The World Wide Web Publishing Service (W3SVC) is not running'
               priority: HIGH
               description: 'The World Wide Web Publishing Service (W3SVC) is not in the running state. IIS cannot start.'
               dependencies:
                 - name: 'IIS: Windows process Activation Service (WAS) is not running'
-                  expression: 'last(/IIS by Zabbix agent active/service.info[WAS])<>0'
+                  expression: 'last(/IIS by TAA agent active/service.info[WAS])<>0'
               tags:
                 - tag: scope
                   value: availability
@@ -521,7 +521,7 @@ zabbix_export:
               value: health
           triggers:
             - uuid: d7a16291f196424ca9c39af4271ab78f
-              expression: 'last(/IIS by Zabbix agent active/service.info[WAS])<>0'
+              expression: 'last(/IIS by TAA agent active/service.info[WAS])<>0'
               name: 'IIS: Windows process Activation Service (WAS) is not running'
               priority: HIGH
               description: 'Windows Process Activation Service (WAS) is not in the running state. IIS cannot start.'
@@ -547,7 +547,7 @@ zabbix_export:
               value: network
           triggers:
             - uuid: b9d8edc865f54e8eb56e84392817ff5b
-              expression: 'min(/IIS by Zabbix agent active/zabbix[host,active_agent,available],{$AGENT.TIMEOUT})=2'
+              expression: 'min(/IIS by TAA agent active/zabbix[host,active_agent,available],{$AGENT.TIMEOUT})=2'
               name: 'IIS: Active checks are not available'
               opdata: 'Current state: {ITEM.LASTVALUE1}'
               priority: HIGH
@@ -588,12 +588,12 @@ zabbix_export:
                   value: application
               trigger_prototypes:
                 - uuid: a7184495eb684293ada387292c812b0f
-                  expression: 'last(/IIS by Zabbix agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Current Application Pool State"])<>3 and {$IIS.APPPOOL.MONITORED:"{#APPPOOL}"}=1'
+                  expression: 'last(/IIS by TAA agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Current Application Pool State"])<>3 and {$IIS.APPPOOL.MONITORED:"{#APPPOOL}"}=1'
                   name: 'IIS: Application pool {#APPPOOL} is not in Running state'
                   priority: HIGH
                   dependencies:
                     - name: 'IIS: The World Wide Web Publishing Service (W3SVC) is not running'
-                      expression: 'last(/IIS by Zabbix agent active/service.info[W3SVC])<>0'
+                      expression: 'last(/IIS by TAA agent active/service.info[W3SVC])<>0'
                   tags:
                     - tag: scope
                       value: availability
@@ -611,7 +611,7 @@ zabbix_export:
                   value: application
               trigger_prototypes:
                 - uuid: d2a9854722a44253a39c8eaab67f7677
-                  expression: 'last(/IIS by Zabbix agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Current Application Pool Uptime"])<10m'
+                  expression: 'last(/IIS by TAA agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Current Application Pool Uptime"])<10m'
                   name: 'IIS: {#APPPOOL} has been restarted'
                   event_name: 'IIS: {#APPPOOL} has been restarted (uptime < 10m)'
                   priority: INFO
@@ -636,7 +636,7 @@ zabbix_export:
                   value: application
               trigger_prototypes:
                 - uuid: 27a93967a29849f3aef833db136e1b8e
-                  expression: 'last(/IIS by Zabbix agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Total Application Pool Recycles"],#1)<>last(/IIS by Zabbix agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Total Application Pool Recycles"],#2) and {$IIS.APPPOOL.MONITORED:"{#APPPOOL}"}=1'
+                  expression: 'last(/IIS by TAA agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Total Application Pool Recycles"],#1)<>last(/IIS by TAA agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Total Application Pool Recycles"],#2) and {$IIS.APPPOOL.MONITORED:"{#APPPOOL}"}=1'
                   name: 'IIS: Application pool {#APPPOOL} has been recycled'
                   priority: INFO
                   tags:
@@ -659,13 +659,13 @@ zabbix_export:
                   value: application
               trigger_prototypes:
                 - uuid: 68499a4737d24ee6846aaea2a37b7b4f
-                  expression: 'min(/IIS by Zabbix agent active/perf_counter_en["\HTTP Service Request Queues({#APPPOOL})\CurrentQueueSize"],{$IIS.QUEUE.MAX.TIME})>{$IIS.QUEUE.MAX.WARN}'
+                  expression: 'min(/IIS by TAA agent active/perf_counter_en["\HTTP Service Request Queues({#APPPOOL})\CurrentQueueSize"],{$IIS.QUEUE.MAX.TIME})>{$IIS.QUEUE.MAX.WARN}'
                   name: 'IIS: Request queue of {#APPPOOL} is too large'
                   event_name: 'IIS: Request queue of {#APPPOOL} is too large (over {$IIS.QUEUE.MAX.WARN})'
                   priority: WARNING
                   dependencies:
                     - name: 'IIS: Application pool {#APPPOOL} is not in Running state'
-                      expression: 'last(/IIS by Zabbix agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Current Application Pool State"])<>3 and {$IIS.APPPOOL.MONITORED:"{#APPPOOL}"}=1'
+                      expression: 'last(/IIS by TAA agent active/perf_counter_en["\APP_POOL_WAS({#APPPOOL})\Current Application Pool State"])<>3 and {$IIS.APPPOOL.MONITORED:"{#APPPOOL}"}=1'
                   tags:
                     - tag: scope
                       value: performance
@@ -713,7 +713,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'IIS by Zabbix agent active'
+                        host: 'IIS by TAA agent active'
                         name: 'IIS: Requests rate'
                     - type: STRING
                       name: reference
@@ -726,7 +726,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'IIS by Zabbix agent active'
+                        host: 'IIS by TAA agent active'
                         name: 'IIS: Cache misses'
                     - type: STRING
                       name: reference
@@ -739,7 +739,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'IIS by Zabbix agent active'
+                        host: 'IIS by TAA agent active'
                         name: 'IIS: Cache hits percentage'
                     - type: STRING
                       name: reference
@@ -806,64 +806,64 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service Cache\URI Cache Hits %"]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service Cache\File Cache Hits %"]'
     - uuid: 2ac5f3ee169b4e79ad6f08e4dffbffeb
       name: 'IIS: Cache misses'
       graph_items:
         - color: 199C0D
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service Cache\URI Cache Misses"]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service Cache\File Cache Misses"]'
     - uuid: 4c488d9247ca49ac8b33d655ccbca2b3
       name: 'IIS: Requests rate'
       graph_items:
         - color: 199C0D
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Total Method Requests/Sec", 60]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Other Request Methods/Sec", 60]'
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Get Requests/Sec", 60]'
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Post Requests/Sec", 60]'
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Put Requests/Sec", 60]'
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Delete Requests/Sec", 60]'
         - sortorder: '6'
           color: C7A72D
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Head Requests/Sec", 60]'
         - sortorder: '7'
           color: BA2A5D
           item:
-            host: 'IIS by Zabbix agent active'
+            host: 'IIS by TAA agent active'
             key: 'perf_counter_en["\Web Service(_Total)\Trace Requests/Sec", 60]'

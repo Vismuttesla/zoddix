@@ -1,18 +1,18 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 748ad4d098d447d492bb935c907f652f
       name: Templates/Databases
   templates:
     - uuid: 21cca24cec1d40cdb0c2999aa6ac3037
-      template: 'PostgreSQL by Zabbix agent 2 active'
-      name: 'PostgreSQL by Zabbix agent 2 active'
+      template: 'PostgreSQL by TAA agent 2 active'
+      name: 'PostgreSQL by TAA agent 2 active'
       description: |
-        This template is designed for the deployment of PostgreSQL monitoring by Zabbix via Zabbix agent 2 and uses a loadable plugin to run SQL queries.
+        This template is designed for the deployment of PostgreSQL monitoring by Zabbix via TAA agent 2 and uses a loadable plugin to run SQL queries.
         
         Setup:
         
-        1. Deploy Zabbix agent 2 with the PostgreSQL plugin. Starting with Zabbix versions 6.0.10 / 6.2.4 / 6.4 PostgreSQL metrics are moved to a loadable plugin and require installation of a separate package or compilation of the plugin from sources (https://www.zabbix.com/documentation/7.4/manual/extensions/plugins/build).
+        1. Deploy TAA agent 2 with the PostgreSQL plugin. Starting with Zabbix versions 6.0.10 / 6.2.4 / 6.4 PostgreSQL metrics are moved to a loadable plugin and require installation of a separate package or compilation of the plugin from sources (https://www.zabbix.com/documentation/7.4/manual/extensions/plugins/build).
         
         2. Create the PostgreSQL user for monitoring (`<password>` at your discretion) and inherit permissions from the default role `pg_monitor`:
         CREATE USER zbx_monitor WITH PASSWORD '<PASSWORD>' INHERIT;
@@ -45,7 +45,7 @@ zabbix_export:
       readme: |
         ## Overview
         
-        This template is designed for the deployment of PostgreSQL monitoring by Zabbix via Zabbix agent 2 and uses a loadable plugin to run SQL queries.
+        This template is designed for the deployment of PostgreSQL monitoring by Zabbix via TAA agent 2 and uses a loadable plugin to run SQL queries.
         
         ## Setup
         
@@ -496,7 +496,7 @@ zabbix_export:
               value: connections
           triggers:
             - uuid: f07fbe410afa48e6a08da06f4af504c5
-              expression: 'min(/PostgreSQL by Zabbix agent 2 active/pgsql.connections.sum.total_pct,5m) > {$PG.CONN_TOTAL_PCT.MAX.WARN}'
+              expression: 'min(/PostgreSQL by TAA agent 2 active/pgsql.connections.sum.total_pct,5m) > {$PG.CONN_TOTAL_PCT.MAX.WARN}'
               name: 'PostgreSQL: Total number of connections is too high'
               event_name: 'PostgreSQL: Total number of connections is too high (over {$PG.CONN_TOTAL_PCT.MAX.WARN} in 5m)'
               priority: AVERAGE
@@ -640,7 +640,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 15357041a8774ae19a6cfa64154a4395
-              expression: 'last(/PostgreSQL by Zabbix agent 2 active/pgsql.dbstat.sum.checksum_failures.rate)>0'
+              expression: 'last(/PostgreSQL by TAA agent 2 active/pgsql.dbstat.sum.checksum_failures.rate)>0'
               name: 'PostgreSQL: Dbstat: Checksum failures detected'
               priority: AVERAGE
               description: |
@@ -887,7 +887,7 @@ zabbix_export:
               value: transactions
           triggers:
             - uuid: 233757fda5784d9fb264bd0d4a7765ac
-              expression: 'last(/PostgreSQL by Zabbix agent 2 active/pgsql.oldest.xid["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"]) > 18000000'
+              expression: 'last(/PostgreSQL by TAA agent 2 active/pgsql.oldest.xid["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"]) > 18000000'
               name: 'PostgreSQL: Oldest xid is too big'
               priority: AVERAGE
               tags:
@@ -911,7 +911,7 @@ zabbix_export:
               value: health
           triggers:
             - uuid: ab52bca5bae940cdad5b7eead56f2ff9
-              expression: 'last(/PostgreSQL by Zabbix agent 2 active/pgsql.ping["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"])=0'
+              expression: 'last(/PostgreSQL by TAA agent 2 active/pgsql.ping["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"])=0'
               name: 'PostgreSQL: Service is down'
               priority: HIGH
               description: 'Last test of a connection was unsuccessful.'
@@ -996,7 +996,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: ec3d8fb289234e84b300b83ce169137f
-              expression: 'last(/PostgreSQL by Zabbix agent 2 active/pgsql.uptime["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"]) < 10m'
+              expression: 'last(/PostgreSQL by TAA agent 2 active/pgsql.uptime["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"]) < 10m'
               name: 'PostgreSQL: Service has been restarted'
               event_name: 'PostgreSQL: Service has been restarted (uptime < 10m)'
               priority: AVERAGE
@@ -1020,7 +1020,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 0d8c3bf10b4e42f796f72136768ce6ab
-              expression: 'last(/PostgreSQL by Zabbix agent 2 active/pgsql.version["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"],#1)<>last(/PostgreSQL by Zabbix agent 2 active/pgsql.version["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"],#2) and length(last(/PostgreSQL by Zabbix agent 2 active/pgsql.version["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"]))>0'
+              expression: 'last(/PostgreSQL by TAA agent 2 active/pgsql.version["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"],#1)<>last(/PostgreSQL by TAA agent 2 active/pgsql.version["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"],#2) and length(last(/PostgreSQL by TAA agent 2 active/pgsql.version["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{$PG.DATABASE}"]))>0'
               name: 'PostgreSQL: Version has changed'
               event_name: 'PostgreSQL: Version has changed (new version value received: {ITEM.VALUE})'
               priority: INFO
@@ -1242,7 +1242,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: b0a2935d0a984233a530cf47d8fc606b
-                  expression: 'last(/PostgreSQL by Zabbix agent 2 active/pgsql.dbstat.checksum_failures.rate["{#DBNAME}"])>0'
+                  expression: 'last(/PostgreSQL by TAA agent 2 active/pgsql.dbstat.checksum_failures.rate["{#DBNAME}"])>0'
                   name: 'PostgreSQL: DB [{#DBNAME}]: Checksum failures detected'
                   priority: AVERAGE
                   description: |
@@ -1271,7 +1271,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: d156ed02bcad4123a827a3d7900bed1e
-                  expression: 'min(/PostgreSQL by Zabbix agent 2 active/pgsql.dbstat.conflicts.rate["{#DBNAME}"],5m) > {$PG.CONFLICTS.MAX.WARN:"{#DBNAME}"}'
+                  expression: 'min(/PostgreSQL by TAA agent 2 active/pgsql.dbstat.conflicts.rate["{#DBNAME}"],5m) > {$PG.CONFLICTS.MAX.WARN:"{#DBNAME}"}'
                   name: 'PostgreSQL: DB [{#DBNAME}]: Too many recovery conflicts'
                   event_name: 'PostgreSQL: DB [{#DBNAME}]: Too many recovery conflicts (over {$PG.CONFLICTS.MAX.WARN:"{#DBNAME}"} in 5m)'
                   priority: AVERAGE
@@ -1301,7 +1301,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: d188109b522b4ff896ed08fb04cf5f9d
-                  expression: 'min(/PostgreSQL by Zabbix agent 2 active/pgsql.dbstat.deadlocks.rate["{#DBNAME}"],5m) > {$PG.DEADLOCKS.MAX.WARN:"{#DBNAME}"}'
+                  expression: 'min(/PostgreSQL by TAA agent 2 active/pgsql.dbstat.deadlocks.rate["{#DBNAME}"],5m) > {$PG.DEADLOCKS.MAX.WARN:"{#DBNAME}"}'
                   name: 'PostgreSQL: DB [{#DBNAME}]: Deadlock occurred'
                   event_name: 'PostgreSQL: DB [{#DBNAME}]: Deadlock occurred (over {$PG.DEADLOCKS.MAX.WARN:"{#DBNAME}"} in 5m)'
                   priority: HIGH
@@ -1756,7 +1756,7 @@ zabbix_export:
                   value: '{#DBNAME}'
               trigger_prototypes:
                 - uuid: be059c5eb7b6442b8312ef58b2bc55cc
-                  expression: 'min(/PostgreSQL by Zabbix agent 2 active/pgsql.queries.query.slow_count["{#DBNAME}"],5m)>{$PG.SLOW_QUERIES.MAX.WARN:"{#DBNAME}"}'
+                  expression: 'min(/PostgreSQL by TAA agent 2 active/pgsql.queries.query.slow_count["{#DBNAME}"],5m)>{$PG.SLOW_QUERIES.MAX.WARN:"{#DBNAME}"}'
                   name: 'PostgreSQL: DB [{#DBNAME}]: Too many slow queries'
                   event_name: 'PostgreSQL: DB [{#DBNAME}]: Too many slow queries (over {$PG.SLOW_QUERIES.MAX.WARN:"{#DBNAME}"} in 5m)'
                   priority: WARNING
@@ -1855,47 +1855,47 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 199C0D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.total["{#DBNAME}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.accessexclusive["{#DBNAME}"]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.accessshare["{#DBNAME}"]'
                 - sortorder: '3'
                   color: F7941D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.exclusive["{#DBNAME}"]'
                 - sortorder: '4'
                   color: FC6EA3
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.rowexclusive["{#DBNAME}"]'
                 - sortorder: '5'
                   color: 6C59DC
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.rowshare["{#DBNAME}"]'
                 - sortorder: '6'
                   color: C7A72D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.sharerowexclusive["{#DBNAME}"]'
                 - sortorder: '7'
                   color: BA2A5D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.shareupdateexclusive["{#DBNAME}"]'
                 - sortorder: '8'
                   color: F230E0
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.locks.share["{#DBNAME}"]'
             - uuid: 96144801ca8a4c02ac88c49f0fb4eb7c
               name: 'DB [{#DBNAME}]: Number of bloating tables'
@@ -1903,74 +1903,74 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 199C0D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.db.bloating_tables["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{#DBNAME}"]'
             - uuid: 55268d2bc7224902836b8ec683b82865
               name: 'DB [{#DBNAME}]: pg_stat_database metrics'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.blks_hit.rate["{#DBNAME}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.blks_read.rate["{#DBNAME}"]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.conflicts.rate["{#DBNAME}"]'
                 - sortorder: '3'
                   color: F7941D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.deadlocks.rate["{#DBNAME}"]'
                 - sortorder: '4'
                   color: FC6EA3
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.temp_bytes.rate["{#DBNAME}"]'
                 - sortorder: '5'
                   color: 6C59DC
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.temp_files.rate["{#DBNAME}"]'
                 - sortorder: '6'
                   color: C7A72D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.tup_deleted.rate["{#DBNAME}"]'
                 - sortorder: '7'
                   color: BA2A5D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.tup_fetched.rate["{#DBNAME}"]'
                 - sortorder: '8'
                   color: F230E0
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.tup_inserted.rate["{#DBNAME}"]'
                 - sortorder: '9'
                   color: 5CCD18
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.tup_returned.rate["{#DBNAME}"]'
                 - sortorder: '10'
                   color: BB2A02
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.tup_updated.rate["{#DBNAME}"]'
                 - sortorder: '11'
                   color: AC41A5
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.xact_commit.rate["{#DBNAME}"]'
                 - sortorder: '12'
                   color: 89ABF8
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.dbstat.xact_rollback.rate["{#DBNAME}"]'
             - uuid: 7d0246026bae4e6680f19626fba2bc02
               name: 'DB [{#DBNAME}]: Queries'
@@ -1979,37 +1979,37 @@ zabbix_export:
                 - color: 199C0D
                   yaxisside: RIGHT
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.mro.time_max["{#DBNAME}"]'
                 - sortorder: '1'
                   color: F63100
                   yaxisside: RIGHT
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.query.time_max["{#DBNAME}"]'
                 - sortorder: '2'
                   color: 00611C
                   yaxisside: RIGHT
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.tx.time_max["{#DBNAME}"]'
                 - sortorder: '3'
                   drawtype: GRADIENT_LINE
                   color: F7941D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.mro.time_sum["{#DBNAME}"]'
                 - sortorder: '4'
                   drawtype: GRADIENT_LINE
                   color: FC6EA3
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.query.time_sum["{#DBNAME}"]'
                 - sortorder: '5'
                   drawtype: GRADIENT_LINE
                   color: 6C59DC
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.tx.time_sum["{#DBNAME}"]'
             - uuid: 9a4b7b68ae0f4291a970e3e1838368c6
               name: 'DB [{#DBNAME}]: Size'
@@ -2017,7 +2017,7 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 199C0D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.db.size["{$PG.CONNSTRING.AGENT2}","{$PG.USER}","{$PG.PASSWORD}","{#DBNAME}"]'
             - uuid: 31c3e16c49ba486db9f6f92714d927b6
               name: 'DB [{#DBNAME}]: Slow queries'
@@ -2025,17 +2025,17 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.mro.slow_count["{#DBNAME}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.query.slow_count["{#DBNAME}"]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.queries.tx.slow_count["{#DBNAME}"]'
         - uuid: 92ba6c1b038a454d8d8d40399d0967d8
           name: 'Replication discovery'
@@ -2125,17 +2125,17 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.replication.process.flush_lag["{#APPLICATION_NAME}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.replication.process.replay_lag["{#APPLICATION_NAME}"]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'PostgreSQL by Zabbix agent 2 active'
+                    host: 'PostgreSQL by TAA agent 2 active'
                     key: 'pgsql.replication.process.write_lag["{#APPLICATION_NAME}"]'
       tags:
         - tag: class
@@ -2261,7 +2261,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'PostgreSQL by Zabbix agent 2 active'
+                        host: 'PostgreSQL by TAA agent 2 active'
                         name: 'DB [{#DBNAME}]: pg_stat_database metrics'
                     - type: STRING
                       name: reference
@@ -2277,7 +2277,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'PostgreSQL by Zabbix agent 2 active'
+                        host: 'PostgreSQL by TAA agent 2 active'
                         name: 'DB [{#DBNAME}]: Size'
                     - type: STRING
                       name: reference
@@ -2293,7 +2293,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'PostgreSQL by Zabbix agent 2 active'
+                        host: 'PostgreSQL by TAA agent 2 active'
                         name: 'DB [{#DBNAME}]: Queries'
                     - type: STRING
                       name: reference
@@ -2309,7 +2309,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'PostgreSQL by Zabbix agent 2 active'
+                        host: 'PostgreSQL by TAA agent 2 active'
                         name: 'DB [{#DBNAME}]: Locks'
                     - type: STRING
                       name: reference
@@ -2326,7 +2326,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'PostgreSQL by Zabbix agent 2 active'
+                        host: 'PostgreSQL by TAA agent 2 active'
                         name: 'DB [{#DBNAME}]: Number of bloating tables'
                     - type: STRING
                       name: reference
@@ -2343,7 +2343,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'PostgreSQL by Zabbix agent 2 active'
+                        host: 'PostgreSQL by TAA agent 2 active'
                         name: 'DB [{#DBNAME}]: Slow queries'
                     - type: STRING
                       name: reference

@@ -1,15 +1,15 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: 7297d66e419543c6b83dd8cfe5eb4fb7
-      template: 'Nvidia by Zabbix agent 2 active'
-      name: 'Nvidia by Zabbix agent 2 active'
+      template: 'Nvidia by TAA agent 2 active'
+      name: 'Nvidia by TAA agent 2 active'
       description: |
         This template is designed for Nvidia GPU monitoring and doesn't require any external scripts.
-        1. Setup and configure Zabbix agent 2 compiled with the Nvidia monitoring plugin.
+        1. Setup and configure TAA agent 2 compiled with the Nvidia monitoring plugin.
         2. Create a host and attach the template to it.
         All Nvidia GPUs will be discovered. Set filters with macros if you want to override default filter parameters.
         
@@ -39,7 +39,7 @@ zabbix_export:
               value: nvidia
           triggers:
             - uuid: adf85e5ea2404ef4841208a41ca3bb45
-              expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.count) <> 0'
+              expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.count) <> 0'
               name: 'Nvidia: Number of devices has changed'
               event_name: 'Nvidia: Number of devices on {HOST.HOST} has changed.'
               opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -80,7 +80,7 @@ zabbix_export:
               value: nvidia
           triggers:
             - uuid: bd2e26231d1a4ae29538c573e69fce34
-              expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.system.driver.version) <> 0'
+              expression: 'change(/Nvidia by TAA agent 2 active/nvml.system.driver.version) <> 0'
               name: 'Nvidia: Driver version has changed'
               event_name: 'Nvidia: Driver version on {HOST.HOST} has changed.'
               opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -110,7 +110,7 @@ zabbix_export:
               value: nvidia
           triggers:
             - uuid: 8db25f54f23f48c4ae2ead4ca3e52c34
-              expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.version) <> 0'
+              expression: 'change(/Nvidia by TAA agent 2 active/nvml.version) <> 0'
               name: 'Nvidia: NVML library has changed'
               event_name: 'Nvidia: NVML library on {HOST.HOST} has changed.'
               opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -159,7 +159,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 2ca21d91b7e94f0fa2328dd35846769b
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.decoder.utilization["{#UUID}"],3m) > {$NVIDIA.DECODER.UTIL.CRIT}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.decoder.utilization["{#UUID}"],3m) > {$NVIDIA.DECODER.UTIL.CRIT}'
                   name: 'Nvidia: [{#UUID}]: Decoder utilization exceeded critical threshold'
                   event_name: 'Nvidia: [{#UUID}]: Decoder utilization ({ITEM.VALUE1}) exceeded critical threshold ({$NVIDIA.DECODER.UTIL.CRIT} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -169,7 +169,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: 13f4fd62bdac46118781e3090df30a6e
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.decoder.utilization["{#UUID}"],3m) > {$NVIDIA.DECODER.UTIL.WARN}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.decoder.utilization["{#UUID}"],3m) > {$NVIDIA.DECODER.UTIL.WARN}'
                   name: 'Nvidia: [{#UUID}]: Decoder utilization exceeded warning threshold'
                   event_name: 'Nvidia: [{#UUID}]: Decoder utilization ({ITEM.VALUE1}) exceeded warning threshold ({$NVIDIA.DECODER.UTIL.WARN} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -177,7 +177,7 @@ zabbix_export:
                   description: '[{#UUID}]: Decoder utilization is high. It may indicate abnormal behavior/activity. Change corresponding macro in case of false-positive.'
                   dependencies:
                     - name: 'Nvidia: [{#UUID}]: Decoder utilization exceeded critical threshold'
-                      expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.decoder.utilization["{#UUID}"],3m) > {$NVIDIA.DECODER.UTIL.CRIT}'
+                      expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.decoder.utilization["{#UUID}"],3m) > {$NVIDIA.DECODER.UTIL.CRIT}'
                   tags:
                     - tag: scope
                       value: performance
@@ -251,7 +251,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 8257801252a14f81af72b7dde279de6e
-                  expression: 'last(/Nvidia by Zabbix agent 2 active/nvml.device.encoder.stats.latency["{#UUID}"]) > (2 * avg(/Nvidia by Zabbix agent 2 active/nvml.device.encoder.stats.latency["{#UUID}"],3m))'
+                  expression: 'last(/Nvidia by TAA agent 2 active/nvml.device.encoder.stats.latency["{#UUID}"]) > (2 * avg(/Nvidia by TAA agent 2 active/nvml.device.encoder.stats.latency["{#UUID}"],3m))'
                   name: 'Nvidia: [{#UUID}]: Encoder average latency is high'
                   event_name: 'Nvidia: [{#UUID}]: Encoder average latency is 2x higher than usual.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -298,7 +298,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 86419e03555c4bc38227bc04b1583fba
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.encoder.utilization["{#UUID}"],3m) > {$NVIDIA.ENCODER.UTIL.CRIT}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.encoder.utilization["{#UUID}"],3m) > {$NVIDIA.ENCODER.UTIL.CRIT}'
                   name: 'Nvidia: [{#UUID}]: Encoder utilization exceeded critical threshold'
                   event_name: 'Nvidia: [{#UUID}]: Encoder utilization ({ITEM.VALUE1}) exceeded critical threshold ({$NVIDIA.ENCODER.UTIL.CRIT} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -308,7 +308,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: 709342417f4746a6873f5e66601d97ff
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.encoder.utilization["{#UUID}"],3m) > {$NVIDIA.ENCODER.UTIL.WARN}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.encoder.utilization["{#UUID}"],3m) > {$NVIDIA.ENCODER.UTIL.WARN}'
                   name: 'Nvidia: [{#UUID}]: Encoder utilization exceeded warning threshold'
                   event_name: 'Nvidia: [{#UUID}]: Encoder utilization ({ITEM.VALUE1}) exceeded warning threshold ({$NVIDIA.ENCODER.UTIL.WARN} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -316,7 +316,7 @@ zabbix_export:
                   description: '[{#UUID}]: Encoder utilization is high. It may indicate abnormal behavior/activity. Change corresponding macro in case of false-positive.'
                   dependencies:
                     - name: 'Nvidia: [{#UUID}]: Encoder utilization exceeded critical threshold'
-                      expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.encoder.utilization["{#UUID}"],3m) > {$NVIDIA.ENCODER.UTIL.CRIT}'
+                      expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.encoder.utilization["{#UUID}"],3m) > {$NVIDIA.ENCODER.UTIL.CRIT}'
                   tags:
                     - tag: scope
                       value: performance
@@ -364,7 +364,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: cbf602d3ed784ec3ae3072899fa91f56
-                  expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.errors.memory.corrected["{#UUID}"]) <> 0'
+                  expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.errors.memory.corrected["{#UUID}"]) <> 0'
                   name: 'Nvidia: [{#UUID}]: Number of corrected memory ECC errors has changed'
                   event_name: 'Nvidia: Number of corrected memory ECC errors on {HOST.HOST} has changed.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -398,7 +398,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 3a93f82adbed4330b54296beaed17848
-                  expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.errors.memory.uncorrected["{#UUID}"]) <> 0'
+                  expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.errors.memory.uncorrected["{#UUID}"]) <> 0'
                   name: 'Nvidia: [{#UUID}]: Number of uncorrected memory ECC errors has changed'
                   event_name: 'Nvidia: Number uncorrected of memory ECC errors on {HOST.HOST} has changed.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -460,7 +460,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 4aa09321d7214173a0b1656d18455b78
-                  expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.errors.register.corrected["{#UUID}"]) <> 0'
+                  expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.errors.register.corrected["{#UUID}"]) <> 0'
                   name: 'Nvidia: [{#UUID}]: Number of corrected register file errors has changed'
                   event_name: 'Nvidia: Number corrected of register file errors on {HOST.HOST} has changed.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -494,7 +494,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 951c54e2edcc43d29ac466a35802cfc9
-                  expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.errors.register.uncorrected["{#UUID}"]) <> 0'
+                  expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.errors.register.uncorrected["{#UUID}"]) <> 0'
                   name: 'Nvidia: [{#UUID}]: Number of uncorrected register file errors has changed'
                   event_name: 'Nvidia: Number uncorrected of register file errors on {HOST.HOST} has changed.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -551,7 +551,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: dbc03d55d87946f2a9c279b8c6cbfbbc
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.fan.speed.avg["{#UUID}"],3m) > {$NVIDIA.FAN.SPEED.CRIT}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.fan.speed.avg["{#UUID}"],3m) > {$NVIDIA.FAN.SPEED.CRIT}'
                   name: 'Nvidia: [{#UUID}]: Fan speed exceeded critical threshold'
                   event_name: 'Nvidia: [{#UUID}]: Fan speed ({ITEM.VALUE1}) exceeded critical threshold ({$NVIDIA.FAN.SPEED.CRIT} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -561,7 +561,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: 636e31ac7a2c48ecbd65b0c4ec4c8fb0
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.fan.speed.avg["{#UUID}"],3m) > {$NVIDIA.FAN.SPEED.WARN}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.fan.speed.avg["{#UUID}"],3m) > {$NVIDIA.FAN.SPEED.WARN}'
                   name: 'Nvidia: [{#UUID}]: Fan speed exceeded warning threshold'
                   event_name: 'Nvidia: [{#UUID}]: Fan speed ({ITEM.VALUE1}) exceeded warning threshold ({$NVIDIA.FAN.SPEED.WARN} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -569,7 +569,7 @@ zabbix_export:
                   description: '[{#UUID}]: Fan speed is high. It may indicate abnormal behavior/activity. Change corresponding macro in case of false-positive.'
                   dependencies:
                     - name: 'Nvidia: [{#UUID}]: Fan speed exceeded critical threshold'
-                      expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.fan.speed.avg["{#UUID}"],3m) > {$NVIDIA.FAN.SPEED.CRIT}'
+                      expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.fan.speed.avg["{#UUID}"],3m) > {$NVIDIA.FAN.SPEED.CRIT}'
                   tags:
                     - tag: scope
                       value: performance
@@ -659,7 +659,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 794d204946f04b71b451129294b6065c
-                  expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.memory.bar1.total["{#UUID}"]) <> 0'
+                  expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.memory.bar1.total["{#UUID}"]) <> 0'
                   name: 'Nvidia: [{#UUID}]: Total BAR1 memory has changed'
                   event_name: 'Nvidia: Total BAR1 memory on {HOST.HOST} has changed.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -785,7 +785,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 7f1308d09489457db3ce7d6e1afe469b
-                  expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.memory.fb.total["{#UUID}"]) <> 0'
+                  expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.memory.fb.total["{#UUID}"]) <> 0'
                   name: 'Nvidia: [{#UUID}]: Total FB memory has changed'
                   event_name: 'Nvidia: Total FB memory on {HOST.HOST} has changed.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -944,7 +944,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: c7ba8c60f3de4c87a528db11d39ee2ec
-                  expression: 'change(/Nvidia by Zabbix agent 2 active/nvml.device.power.limit["{#UUID}"]) <> 0'
+                  expression: 'change(/Nvidia by TAA agent 2 active/nvml.device.power.limit["{#UUID}"]) <> 0'
                   name: 'Nvidia: [{#UUID}]: Power limit has changed'
                   event_name: 'Nvidia: [{#UUID}]Power limit on {HOST.HOST} has changed.'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1035,7 +1035,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: d325cc30ed2c4b539ce26844360077d0
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.temperature["{#UUID}"],3m) > {$NVIDIA.TEMPERATURE.CRIT}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.temperature["{#UUID}"],3m) > {$NVIDIA.TEMPERATURE.CRIT}'
                   name: 'Nvidia: [{#UUID}]: Temperature exceeded critical threshold'
                   event_name: 'Nvidia: [{#UUID}]: Temperature ({ITEM.VALUE1}) exceeded critical threshold ({$NVIDIA.TEMPERATURE.CRIT} C)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1045,7 +1045,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: ac0086ae1f4f4dc4bef1dc84f56487f8
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.temperature["{#UUID}"],3m) > {$NVIDIA.TEMPERATURE.WARN}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.temperature["{#UUID}"],3m) > {$NVIDIA.TEMPERATURE.WARN}'
                   name: 'Nvidia: [{#UUID}]: Temperature exceeded warning threshold'
                   event_name: 'Nvidia: [{#UUID}]: Temperature ({ITEM.VALUE1}) exceeded warning threshold ({$NVIDIA.TEMPERATURE.WARN} C)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1053,7 +1053,7 @@ zabbix_export:
                   description: '[{#UUID}]: Temperature is high. It may indicate abnormal behavior/activity. Change corresponding macro in case of false-positive.'
                   dependencies:
                     - name: 'Nvidia: [{#UUID}]: Temperature exceeded critical threshold'
-                      expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.temperature["{#UUID}"],3m) > {$NVIDIA.TEMPERATURE.CRIT}'
+                      expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.temperature["{#UUID}"],3m) > {$NVIDIA.TEMPERATURE.CRIT}'
                   tags:
                     - tag: scope
                       value: performance
@@ -1080,7 +1080,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: 57b043a2966647bea3aa39fe54a7eabf
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.utilization.gpu["{#UUID}"],3m) > {$NVIDIA.GPU.UTIL.CRIT}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.utilization.gpu["{#UUID}"],3m) > {$NVIDIA.GPU.UTIL.CRIT}'
                   name: 'Nvidia: [{#UUID}]: GPU utilization exceeded critical threshold'
                   event_name: 'Nvidia: [{#UUID}]: GPU utilization ({ITEM.VALUE1}) exceeded critical threshold ({$NVIDIA.GPU.UTIL.CRIT} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1090,7 +1090,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: 26b8dfb41d2b4f11bdff7addca9eb166
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.utilization.gpu["{#UUID}"],3m) > {$NVIDIA.GPU.UTIL.WARN}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.utilization.gpu["{#UUID}"],3m) > {$NVIDIA.GPU.UTIL.WARN}'
                   name: 'Nvidia: [{#UUID}]: GPU utilization exceeded warning threshold'
                   event_name: 'Nvidia: [{#UUID}]: GPU utilization ({ITEM.VALUE1}) exceeded warning threshold ({$NVIDIA.GPU.UTIL.WARN} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1098,7 +1098,7 @@ zabbix_export:
                   description: '[{#UUID}]: GPU utilization is high. It may indicate abnormal behavior/activity. Change corresponding macro in case of false-positive.'
                   dependencies:
                     - name: 'Nvidia: [{#UUID}]: GPU utilization exceeded critical threshold'
-                      expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.utilization.gpu["{#UUID}"],3m) > {$NVIDIA.GPU.UTIL.CRIT}'
+                      expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.utilization.gpu["{#UUID}"],3m) > {$NVIDIA.GPU.UTIL.CRIT}'
                   tags:
                     - tag: scope
                       value: performance
@@ -1127,7 +1127,7 @@ zabbix_export:
                   value: '{#UUID}'
               trigger_prototypes:
                 - uuid: eae9828d46f94eb1afb70c924dbf160f
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.utilization.memory["{#UUID}"],3m) > {$NVIDIA.MEMORY.UTIL.CRIT}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.utilization.memory["{#UUID}"],3m) > {$NVIDIA.MEMORY.UTIL.CRIT}'
                   name: 'Nvidia: [{#UUID}]: Memory utilization exceeded critical threshold'
                   event_name: 'Nvidia: [{#UUID}]: Memory utilization ({ITEM.VALUE1}) exceeded critical threshold ({$NVIDIA.MEMORY.UTIL.CRIT} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1137,7 +1137,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: d099782589ec42e99219cce11b424515
-                  expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.utilization.memory["{#UUID}"],3m) > {$NVIDIA.MEMORY.UTIL.WARN}'
+                  expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.utilization.memory["{#UUID}"],3m) > {$NVIDIA.MEMORY.UTIL.WARN}'
                   name: 'Nvidia: [{#UUID}]: Memory utilization exceeded warning threshold'
                   event_name: 'Nvidia: [{#UUID}]: Memory utilization ({ITEM.VALUE1}) exceeded warning threshold ({$NVIDIA.MEMORY.UTIL.WARN} %)'
                   opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1145,7 +1145,7 @@ zabbix_export:
                   description: '[{#UUID}]: Memory utilization is high. It may indicate abnormal behavior/activity. Change corresponding macro in case of false-positive.'
                   dependencies:
                     - name: 'Nvidia: [{#UUID}]: Memory utilization exceeded critical threshold'
-                      expression: 'min(/Nvidia by Zabbix agent 2 active/nvml.device.utilization.memory["{#UUID}"],3m) > {$NVIDIA.MEMORY.UTIL.CRIT}'
+                      expression: 'min(/Nvidia by TAA agent 2 active/nvml.device.utilization.memory["{#UUID}"],3m) > {$NVIDIA.MEMORY.UTIL.CRIT}'
                   tags:
                     - tag: scope
                       value: performance
@@ -1188,7 +1188,7 @@ zabbix_export:
                   value: '{#UUID}'
           trigger_prototypes:
             - uuid: c7ab007be36f4766a1ee5973132e95c6
-              expression: '(min(/Nvidia by Zabbix agent 2 active/nvml.device.power.usage["{#UUID}"],3m) * 100 / last(/Nvidia by Zabbix agent 2 active/nvml.device.power.limit["{#UUID}"])) > {$NVIDIA.POWER.UTIL.CRIT}'
+              expression: '(min(/Nvidia by TAA agent 2 active/nvml.device.power.usage["{#UUID}"],3m) * 100 / last(/Nvidia by TAA agent 2 active/nvml.device.power.limit["{#UUID}"])) > {$NVIDIA.POWER.UTIL.CRIT}'
               name: 'Nvidia: [{#UUID}]: Power usage exceeded critical threshold'
               event_name: 'Nvidia: [{#UUID}]: Power usage ({ITEM.VALUE1}) exceeded critical threshold ({$NVIDIA.POWER.UTIL.CRIT} %)'
               opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1198,7 +1198,7 @@ zabbix_export:
                 - tag: scope
                   value: performance
             - uuid: fe4707cde95c4075af78ad456c3b794e
-              expression: '(min(/Nvidia by Zabbix agent 2 active/nvml.device.power.usage["{#UUID}"],3m) * 100 / last(/Nvidia by Zabbix agent 2 active/nvml.device.power.limit["{#UUID}"])) > {$NVIDIA.POWER.UTIL.WARN}'
+              expression: '(min(/Nvidia by TAA agent 2 active/nvml.device.power.usage["{#UUID}"],3m) * 100 / last(/Nvidia by TAA agent 2 active/nvml.device.power.limit["{#UUID}"])) > {$NVIDIA.POWER.UTIL.WARN}'
               name: 'Nvidia: [{#UUID}]: Power usage exceeded warning threshold'
               event_name: 'Nvidia: [{#UUID}]: Power usage ({ITEM.VALUE1}) exceeded warning threshold ({$NVIDIA.POWER.UTIL.WARN} %)'
               opdata: 'current value: {ITEM.LASTVALUE1}'
@@ -1206,7 +1206,7 @@ zabbix_export:
               description: '[{#UUID}]: Power usage is high. It may indicate abnormal behavior/activity. Change corresponding macro in case of false-positive.'
               dependencies:
                 - name: 'Nvidia: [{#UUID}]: Power usage exceeded critical threshold'
-                  expression: '(min(/Nvidia by Zabbix agent 2 active/nvml.device.power.usage["{#UUID}"],3m) * 100 / last(/Nvidia by Zabbix agent 2 active/nvml.device.power.limit["{#UUID}"])) > {$NVIDIA.POWER.UTIL.CRIT}'
+                  expression: '(min(/Nvidia by TAA agent 2 active/nvml.device.power.usage["{#UUID}"],3m) * 100 / last(/Nvidia by TAA agent 2 active/nvml.device.power.limit["{#UUID}"])) > {$NVIDIA.POWER.UTIL.CRIT}'
               tags:
                 - tag: scope
                   value: performance
@@ -1216,70 +1216,70 @@ zabbix_export:
               type: STACKED
               ymax_type_1: ITEM
               ymax_item_1:
-                host: 'Nvidia by Zabbix agent 2 active'
+                host: 'Nvidia by TAA agent 2 active'
                 key: 'nvml.device.memory.bar1.total["{#UUID}"]'
               graph_items:
                 - color: FF0000
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.memory.bar1.used["{#UUID}"]'
                 - sortorder: '1'
                   color: 76B900
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.memory.bar1.free["{#UUID}"]'
             - uuid: 5d1a493fa02d47e8b69a254d032d984d
               name: 'Nvidia: [{#UUID}]: Fan speed'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.fan.speed.avg["{#UUID}"]'
             - uuid: 6e7b1aeee2cd4995a4c12eba47b7a489
               name: 'Nvidia: [{#UUID}]: FB memory'
               type: STACKED
               ymax_type_1: ITEM
               ymax_item_1:
-                host: 'Nvidia by Zabbix agent 2 active'
+                host: 'Nvidia by TAA agent 2 active'
                 key: 'nvml.device.memory.fb.total["{#UUID}"]'
               graph_items:
                 - color: FF0000
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.memory.fb.used["{#UUID}"]'
                 - sortorder: '1'
                   color: FF8000
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.memory.fb.reserved["{#UUID}"]'
                 - sortorder: '2'
                   color: 76B900
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.memory.fb.free["{#UUID}"]'
             - uuid: 360af5210fe14e408ed174bd50ef96b8
               name: 'Nvidia: [{#UUID}]: Memory ECC errors'
               graph_items:
                 - color: 76B900
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.errors.memory.corrected["{#UUID}"]'
                 - sortorder: '1'
                   color: FF0000
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.errors.memory.uncorrected["{#UUID}"]'
             - uuid: fbf7220f6e1a4cc2b4409dff7ba183b3
               name: 'Nvidia: [{#UUID}]: PCIe utilization'
               graph_items:
                 - color: FF0000
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.pci.utilization.rx.rate["{#UUID}"]'
                 - sortorder: '1'
                   color: 0040FF
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.pci.utilization.tx.rate["{#UUID}"]'
             - uuid: 237635b29c6a4a9d919b15879c78e34c
               name: 'Nvidia: [{#UUID}]: Performance state'
@@ -1289,30 +1289,30 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.performance.state["{#UUID}"]'
             - uuid: 9511ce8b654748fea58c3494c2658121
               name: 'Nvidia: [{#UUID}]: Power usage'
               ymax_type_1: ITEM
               ymax_item_1:
-                host: 'Nvidia by Zabbix agent 2 active'
+                host: 'Nvidia by TAA agent 2 active'
                 key: 'nvml.device.power.limit["{#UUID}"]'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.power.usage["{#UUID}"]'
             - uuid: f42dcd4d79e54db09055bf2e0d8995cf
               name: 'Nvidia: [{#UUID}]: Register file errors'
               graph_items:
                 - color: 76B900
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.errors.register.corrected["{#UUID}"]'
                 - sortorder: '1'
                   color: FF0000
                   item:
-                    host: 'Nvidia by Zabbix agent 2 active'
+                    host: 'Nvidia by TAA agent 2 active'
                     key: 'nvml.device.errors.register.uncorrected["{#UUID}"]'
           master_item:
             key: nvml.device.get
@@ -1792,7 +1792,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Nvidia by Zabbix agent 2 active'
+                        host: 'Nvidia by TAA agent 2 active'
                         name: 'Nvidia: [{#UUID}]: BAR1 memory'
                     - type: STRING
                       name: reference
@@ -1809,7 +1809,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Nvidia by Zabbix agent 2 active'
+                        host: 'Nvidia by TAA agent 2 active'
                         name: 'Nvidia: [{#UUID}]: PCIe utilization'
                     - type: STRING
                       name: reference
@@ -1826,7 +1826,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Nvidia by Zabbix agent 2 active'
+                        host: 'Nvidia by TAA agent 2 active'
                         name: 'Nvidia: [{#UUID}]: FB memory'
                     - type: STRING
                       name: reference
@@ -1844,7 +1844,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Nvidia by Zabbix agent 2 active'
+                        host: 'Nvidia by TAA agent 2 active'
                         name: 'Nvidia: [{#UUID}]: Fan speed'
                     - type: STRING
                       name: reference

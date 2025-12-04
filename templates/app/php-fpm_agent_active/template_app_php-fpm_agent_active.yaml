@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: a9e83f950e9f41a78474d523c8376338
-      template: 'PHP-FPM by Zabbix agent active'
-      name: 'PHP-FPM by Zabbix agent active'
+      template: 'PHP-FPM by TAA agent active'
+      name: 'PHP-FPM by TAA agent active'
       description: |
-        Get PHP-FPM metrics using Zabbix agent running on Linux.
+        Get PHP-FPM metrics using TAA agent running on Linux.
         
         Note that depending on your OS distribution, the PHP-FPM process name may vary. Please, check the actual name in the line "Name" from /proc/<pid>/status file (https://www.zabbix.com/documentation/7.4/manual/appendix/items/proc_mem_num_notes) and change {$PHP_FPM.PROCESS.NAME.PARAMETER} macro if needed.
         
@@ -90,7 +90,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: ffe46ce6fa4545ac8b2f035488c1b7ba
-              expression: 'min(/PHP-FPM by Zabbix agent active/php-fpm.listen_queue_usage,15m) > {$PHP_FPM.QUEUE.WARN.MAX}'
+              expression: 'min(/PHP-FPM by TAA agent active/php-fpm.listen_queue_usage,15m) > {$PHP_FPM.QUEUE.WARN.MAX}'
               name: 'PHP-FPM: Queue utilization is high'
               event_name: 'PHP-FPM: Queue utilization is high (over {$PHP_FPM.QUEUE.WARN.MAX}% for 15m)'
               priority: WARNING
@@ -227,7 +227,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 380943ae41cd48e5b903f433216f3cd1
-              expression: 'last(/PHP-FPM by Zabbix agent active/php-fpm.process_manager,#1)<>last(/PHP-FPM by Zabbix agent active/php-fpm.process_manager,#2)'
+              expression: 'last(/PHP-FPM by TAA agent active/php-fpm.process_manager,#1)<>last(/PHP-FPM by TAA agent active/php-fpm.process_manager,#2)'
               name: 'PHP-FPM: Manager changed'
               event_name: 'PHP-FPM: Manager changed (new value received: {ITEM.VALUE})'
               priority: INFO
@@ -253,7 +253,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 4a25c3fecad74df7ba59be94dd1df7cf
-              expression: 'min(/PHP-FPM by Zabbix agent active/php-fpm.slow_requests,#3)>0'
+              expression: 'min(/PHP-FPM by TAA agent active/php-fpm.slow_requests,#3)>0'
               name: 'PHP-FPM: Detected slow requests'
               priority: WARNING
               description: |
@@ -294,7 +294,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 77e61db3d40d4bd1ba518d27dfd05491
-              expression: 'last(/PHP-FPM by Zabbix agent active/php-fpm.uptime)<10m'
+              expression: 'last(/PHP-FPM by TAA agent active/php-fpm.uptime)<10m'
               name: 'PHP-FPM: Pool has been restarted'
               event_name: 'PHP-FPM: Pool has been restarted (uptime < 10m)'
               priority: INFO
@@ -325,7 +325,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 27684ff67232429dad79e0eae323945d
-              expression: 'last(/PHP-FPM by Zabbix agent active/php-fpm.version,#1)<>last(/PHP-FPM by Zabbix agent active/php-fpm.version,#2) and length(last(/PHP-FPM by Zabbix agent active/php-fpm.version))>0'
+              expression: 'last(/PHP-FPM by TAA agent active/php-fpm.version,#1)<>last(/PHP-FPM by TAA agent active/php-fpm.version,#2) and length(last(/PHP-FPM by TAA agent active/php-fpm.version))>0'
               name: 'PHP-FPM: Version has changed'
               event_name: 'PHP-FPM: Version has changed (new version: {ITEM.VALUE})'
               priority: INFO
@@ -418,7 +418,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: 86aabcdb709c4199b6c64e321875c60d
-                  expression: 'last(/PHP-FPM by Zabbix agent active/php-fpm.proc.num[{#PHP_FPM.NAME}])=0'
+                  expression: 'last(/PHP-FPM by TAA agent active/php-fpm.proc.num[{#PHP_FPM.NAME}])=0'
                   name: 'PHP-FPM: Process is not running'
                   priority: HIGH
                   tags:
@@ -485,7 +485,7 @@ zabbix_export:
                   value: cpu
           trigger_prototypes:
             - uuid: f28aac156ea142c4b92e8d5a29ed79f2
-              expression: 'nodata(/PHP-FPM by Zabbix agent active/php-fpm.uptime,30m)=1 and last(/PHP-FPM by Zabbix agent active/php-fpm.proc.num[{#PHP_FPM.NAME}])>0'
+              expression: 'nodata(/PHP-FPM by TAA agent active/php-fpm.uptime,30m)=1 and last(/PHP-FPM by TAA agent active/php-fpm.proc.num[{#PHP_FPM.NAME}])>0'
               name: 'PHP-FPM: Failed to fetch info data'
               event_name: 'PHP-FPM: Failed to fetch info data (or no data for 30m)'
               priority: INFO
@@ -495,7 +495,7 @@ zabbix_export:
                 - tag: scope
                   value: notice
             - uuid: f33109ac78a84debb66fa4ed92384f99
-              expression: '(last(/PHP-FPM by Zabbix agent active/php-fpm.ping)=0 or nodata(/PHP-FPM by Zabbix agent active/php-fpm.ping,3m)=1) and last(/PHP-FPM by Zabbix agent active/php-fpm.proc.num[{#PHP_FPM.NAME}])>0'
+              expression: '(last(/PHP-FPM by TAA agent active/php-fpm.ping)=0 or nodata(/PHP-FPM by TAA agent active/php-fpm.ping,3m)=1) and last(/PHP-FPM by TAA agent active/php-fpm.proc.num[{#PHP_FPM.NAME}])>0'
               name: 'PHP-FPM: Service is down'
               priority: HIGH
               manual_close: 'YES'
@@ -509,13 +509,13 @@ zabbix_export:
                 - drawtype: BOLD_LINE
                   color: 199C0D
                   item:
-                    host: 'PHP-FPM by Zabbix agent active'
+                    host: 'PHP-FPM by TAA agent active'
                     key: 'php-fpm.proc.vmem[{#PHP_FPM.NAME}]'
                 - sortorder: '1'
                   drawtype: BOLD_LINE
                   color: F63100
                   item:
-                    host: 'PHP-FPM by Zabbix agent active'
+                    host: 'PHP-FPM by TAA agent active'
                     key: 'php-fpm.proc.rss[{#PHP_FPM.NAME}]'
           master_item:
             key: 'proc.get[{$PHP_FPM.PROCESS.NAME.PARAMETER},,,summary]'
@@ -564,7 +564,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'PHP-FPM by Zabbix agent active'
+                        host: 'PHP-FPM by TAA agent active'
                         name: 'PHP-FPM: Process'
                     - type: STRING
                       name: reference
@@ -577,7 +577,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'PHP-FPM by Zabbix agent active'
+                        host: 'PHP-FPM by TAA agent active'
                         name: 'PHP-FPM: Queue'
                     - type: STRING
                       name: reference
@@ -596,37 +596,37 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'PHP-FPM by Zabbix agent active'
+            host: 'PHP-FPM by TAA agent active'
             key: php-fpm.processes_max_active
         - sortorder: '1'
           color: F63100
           item:
-            host: 'PHP-FPM by Zabbix agent active'
+            host: 'PHP-FPM by TAA agent active'
             key: php-fpm.processes_idle
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'PHP-FPM by Zabbix agent active'
+            host: 'PHP-FPM by TAA agent active'
             key: php-fpm.processes_total
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'PHP-FPM by Zabbix agent active'
+            host: 'PHP-FPM by TAA agent active'
             key: php-fpm.processes_active
     - uuid: 4555442cca864b45ba34904f4e8d44d8
       name: 'PHP-FPM: Queue'
       graph_items:
         - color: 199C0D
           item:
-            host: 'PHP-FPM by Zabbix agent active'
+            host: 'PHP-FPM by TAA agent active'
             key: php-fpm.listen_queue_len
         - sortorder: '1'
           color: F63100
           item:
-            host: 'PHP-FPM by Zabbix agent active'
+            host: 'PHP-FPM by TAA agent active'
             key: php-fpm.listen_queue
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'PHP-FPM by Zabbix agent active'
+            host: 'PHP-FPM by TAA agent active'
             key: php-fpm.listen_queue_max

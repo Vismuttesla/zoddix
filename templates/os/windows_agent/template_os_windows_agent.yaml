@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 846977d1dfed4968bc5f8bdb363285bc
       name: 'Templates/Operating systems'
   templates:
     - uuid: 13b06904a6bf41cbb795e3193d896340
-      template: 'Windows by Zabbix agent'
-      name: 'Windows by Zabbix agent'
+      template: 'Windows by TAA agent'
+      name: 'Windows by TAA agent'
       description: |
-        This is an official Windows template. It requires Zabbix agent 7.4 or newer.
+        This is an official Windows template. It requires TAA agent 7.4 or newer.
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/387224-discussion-thread-for-official-zabbix-template-for-windows
         
@@ -17,7 +17,7 @@ zabbix_export:
       readme: |
         ## Overview
         
-        This is an official Windows template. It requires Zabbix agent 7.4 or newer.
+        This is an official Windows template. It requires TAA agent 7.4 or newer.
       vendor:
         name: Zabbix
         version: 7.4-2
@@ -25,7 +25,7 @@ zabbix_export:
         - name: 'Templates/Operating systems'
       items:
         - uuid: af550a1bfe74428eb24492d8af3b405e
-          name: 'Host name of Zabbix agent running'
+          name: 'Host name of TAA agent running'
           key: agent.hostname
           delay: 1h
           value_type: CHAR
@@ -37,16 +37,16 @@ zabbix_export:
             - tag: component
               value: system
         - uuid: f81e2ce0d1104f9aaf1fc49284ed0ed4
-          name: 'Zabbix agent ping'
+          name: 'TAA agent ping'
           key: agent.ping
           description: 'The agent always returns "1" for this item. May be used in combination with `nodata()` for the availability check.'
           valuemap:
-            name: 'Zabbix agent ping status'
+            name: 'TAA agent ping status'
           tags:
             - tag: component
               value: system
         - uuid: 5707443d739d4689bde192e75ff4bd0f
-          name: 'Version of Zabbix agent running'
+          name: 'Version of TAA agent running'
           key: agent.version
           delay: 1h
           value_type: CHAR
@@ -74,14 +74,14 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: e3118e2e6109460f80cc2d56795ed42f
-              expression: 'max(/Windows by Zabbix agent/perf_counter_en["\Memory\Free System Page Table Entries"],5m)<{$MEM.PAGE_TABLE_CRIT.MIN}'
+              expression: 'max(/Windows by TAA agent/perf_counter_en["\Memory\Free System Page Table Entries"],5m)<{$MEM.PAGE_TABLE_CRIT.MIN}'
               name: 'Windows: Number of free system page table entries is too low'
               event_name: 'Windows: Number of free system page table entries is too low (less {$MEM.PAGE_TABLE_CRIT.MIN} for 5m)'
               priority: WARNING
               description: '`Memory\Free System Page Table Entries` has been less than `{$MEM.PAGE_TABLE_CRIT.MIN}` for 5 minutes. If the number is less than 5,000, there may be a memory leak.'
               dependencies:
                 - name: 'Windows: High memory utilization'
-                  expression: 'min(/Windows by Zabbix agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
+                  expression: 'min(/Windows by TAA agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
               tags:
                 - tag: scope
                   value: capacity
@@ -105,14 +105,14 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: ab4c9a66d16f42e6a32f6144f4d2a3ca
-              expression: 'min(/Windows by Zabbix agent/perf_counter_en["\Memory\Pages/sec"],5m)>{$MEM.PAGE_SEC.CRIT.MAX}'
+              expression: 'min(/Windows by TAA agent/perf_counter_en["\Memory\Pages/sec"],5m)>{$MEM.PAGE_SEC.CRIT.MAX}'
               name: 'Windows: The Memory Pages/sec is too high'
               event_name: 'Windows: The Memory Pages/sec is too high (over {$MEM.PAGE_SEC.CRIT.MAX} for 5m)'
               priority: WARNING
               description: 'The Memory Pages/sec in the last 5 minutes exceeds `{$MEM.PAGE_SEC.CRIT.MAX}`. If the value is greater than 1,000, as a result of excessive paging, there may be a memory leak.'
               dependencies:
                 - name: 'Windows: High memory utilization'
-                  expression: 'min(/Windows by Zabbix agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
+                  expression: 'min(/Windows by TAA agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
               tags:
                 - tag: scope
                   value: capacity
@@ -157,14 +157,14 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: f67bedcb282349b2aac052baf4963480
-              expression: 'min(/Windows by Zabbix agent/perf_counter_en["\Processor Information(_total)\% Interrupt Time"],5m)>{$CPU.INTERRUPT.CRIT.MAX}'
+              expression: 'min(/Windows by TAA agent/perf_counter_en["\Processor Information(_total)\% Interrupt Time"],5m)>{$CPU.INTERRUPT.CRIT.MAX}'
               name: 'Windows: CPU interrupt time is too high'
               event_name: 'Windows: CPU interrupt time is too high (over {$CPU.INTERRUPT.CRIT.MAX}% for 5m)'
               priority: WARNING
               description: 'The CPU Interrupt Time in the last 5 minutes exceeds `{$CPU.INTERRUPT.CRIT.MAX}`%.'
               dependencies:
                 - name: 'Windows: High CPU utilization'
-                  expression: 'min(/Windows by Zabbix agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
+                  expression: 'min(/Windows by TAA agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
               tags:
                 - tag: scope
                   value: performance
@@ -179,16 +179,16 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: 4d099256b3ba42f1b90143e2014900dd
-              expression: 'min(/Windows by Zabbix agent/perf_counter_en["\Processor Information(_total)\% Privileged Time"],5m)>{$CPU.PRIV.CRIT.MAX}'
+              expression: 'min(/Windows by TAA agent/perf_counter_en["\Processor Information(_total)\% Privileged Time"],5m)>{$CPU.PRIV.CRIT.MAX}'
               name: 'Windows: CPU privileged time is too high'
               event_name: 'Windows: CPU privileged time is too high (over {$CPU.PRIV.CRIT.MAX}% for 5m)'
               priority: WARNING
               description: 'The CPU privileged time in the last 5 minutes exceeds {$CPU.PRIV.CRIT.MAX}%.'
               dependencies:
                 - name: 'Windows: CPU interrupt time is too high'
-                  expression: 'min(/Windows by Zabbix agent/perf_counter_en["\Processor Information(_total)\% Interrupt Time"],5m)>{$CPU.INTERRUPT.CRIT.MAX}'
+                  expression: 'min(/Windows by TAA agent/perf_counter_en["\Processor Information(_total)\% Interrupt Time"],5m)>{$CPU.INTERRUPT.CRIT.MAX}'
                 - name: 'Windows: High CPU utilization'
-                  expression: 'min(/Windows by Zabbix agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
+                  expression: 'min(/Windows by TAA agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
               tags:
                 - tag: scope
                   value: performance
@@ -246,7 +246,7 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: 806aa232f56640ab98aacc79491fc4d7
-              expression: 'min(/Windows by Zabbix agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
+              expression: 'min(/Windows by TAA agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
               name: 'Windows: High CPU utilization'
               event_name: 'Windows: High CPU utilization (over {$CPU.UTIL.CRIT}% for 5m)'
               opdata: 'Current utilization: {ITEM.LASTVALUE1}'
@@ -271,7 +271,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 6b50d36a4e29468a9546e880f3004399
-              expression: 'change(/Windows by Zabbix agent/system.hostname) and length(last(/Windows by Zabbix agent/system.hostname))>0'
+              expression: 'change(/Windows by TAA agent/system.hostname) and length(last(/Windows by TAA agent/system.hostname))>0'
               name: 'Windows: System name has changed'
               event_name: 'Windows: System name has changed (new name: {ITEM.VALUE})'
               priority: INFO
@@ -290,9 +290,9 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 37ca2366c8474cc8a49a605e93377601
-              expression: 'fuzzytime(/Windows by Zabbix agent/system.localtime,{$SYSTEM.FUZZYTIME.MAX})=0'
+              expression: 'fuzzytime(/Windows by TAA agent/system.localtime,{$SYSTEM.FUZZYTIME.MAX})=0'
               recovery_mode: RECOVERY_EXPRESSION
-              recovery_expression: 'fuzzytime(/Windows by Zabbix agent/system.localtime,{$SYSTEM.FUZZYTIME.MIN})=1'
+              recovery_expression: 'fuzzytime(/Windows by TAA agent/system.localtime,{$SYSTEM.FUZZYTIME.MIN})=1'
               name: 'Windows: System time is out of sync'
               event_name: 'Windows: System time is out of sync (diff with Zabbix server > {$SYSTEM.FUZZYTIME.MAX})'
               priority: WARNING
@@ -329,14 +329,14 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 9d5648eb580b41fca95d750113287567
-              expression: 'change(/Windows by Zabbix agent/system.sw.os) and length(last(/Windows by Zabbix agent/system.sw.os))>0'
+              expression: 'change(/Windows by TAA agent/system.sw.os) and length(last(/Windows by TAA agent/system.sw.os))>0'
               name: 'Windows: Operating system description has changed'
               priority: INFO
               description: 'The description of the operating system has changed. Possible reasons are that the system has been updated or replaced. Acknowledge to close the problem manually.'
               manual_close: 'YES'
               dependencies:
                 - name: 'Windows: System name has changed'
-                  expression: 'change(/Windows by Zabbix agent/system.hostname) and length(last(/Windows by Zabbix agent/system.hostname))>0'
+                  expression: 'change(/Windows by TAA agent/system.hostname) and length(last(/Windows by TAA agent/system.hostname))>0'
               tags:
                 - tag: scope
                   value: notice
@@ -405,7 +405,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: d27b9eab4034439f91dff41fe6f043ab
-              expression: 'last(/Windows by Zabbix agent/system.uptime)<10m'
+              expression: 'last(/Windows by TAA agent/system.uptime)<10m'
               name: 'Windows: Host has been restarted'
               event_name: 'Windows: Host has been restarted (uptime < 10m)'
               priority: WARNING
@@ -452,7 +452,7 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: b442993bb2a6404a8ebcb7be39d16ce6
-              expression: 'min(/Windows by Zabbix agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
+              expression: 'min(/Windows by TAA agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
               name: 'Windows: High memory utilization'
               event_name: 'Windows: High memory utilization (>{$MEMORY.UTIL.MAX}% for 5m)'
               priority: AVERAGE
@@ -483,7 +483,7 @@ zabbix_export:
             - tag: component
               value: cpu
         - uuid: 3dcb0f79342b4ded97cdec0794472266
-          name: 'Zabbix agent availability'
+          name: 'TAA agent availability'
           type: INTERNAL
           key: 'zabbix[host,agent,available]'
           description: 'Used for monitoring the availability status of the agent.'
@@ -494,9 +494,9 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 05beb4500cae480892fad0739f99807d
-              expression: 'max(/Windows by Zabbix agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
-              name: 'Windows: Zabbix agent is not available'
-              event_name: 'Windows: Zabbix agent is not available (for {$AGENT.TIMEOUT})'
+              expression: 'max(/Windows by TAA agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
+              name: 'Windows: TAA agenti faol emas'
+              event_name: 'Windows: TAA agenti faol emas ({$AGENT.TIMEOUT} davomida)'
               priority: AVERAGE
               description: 'For passive agents only, host availability is used with `{$AGENT.TIMEOUT}` as a time threshold.'
               manual_close: 'YES'
@@ -674,9 +674,9 @@ zabbix_export:
                   value: '{#IFNAME}'
               trigger_prototypes:
                 - uuid: a9b1c61ac4a6481aab93d40c6fb93462
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#2))'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by TAA agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#2))'
                   recovery_mode: RECOVERY_EXPRESSION
-                  recovery_expression: 'last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  recovery_expression: 'last(/Windows by TAA agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
                   name: 'Windows: Interface {#IFNAME}({#IFALIAS}): Link down'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -719,9 +719,9 @@ zabbix_export:
           trigger_prototypes:
             - uuid: b2191521a7a54985a19740e3ee2674f2
               expression: |
-                change(/Windows by Zabbix agent/net.if.speed["{#IFGUID}"])<0 and
-                last(/Windows by Zabbix agent/net.if.speed["{#IFGUID}"])>0 and
-                last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])=2
+                change(/Windows by TAA agent/net.if.speed["{#IFGUID}"])<0 and
+                last(/Windows by TAA agent/net.if.speed["{#IFGUID}"])>0 and
+                last(/Windows by TAA agent/net.if.status["{#IFGUID}"])=2
               name: 'Windows: Interface {#IFNAME}({#IFALIAS}): Ethernet has changed to lower speed than it was before'
               opdata: 'Current reported speed: {ITEM.LASTVALUE1}'
               priority: INFO
@@ -729,20 +729,20 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Windows: Interface {#IFNAME}({#IFALIAS}): Link down'
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#2))'
-                  recovery_expression: 'last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by TAA agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#2))'
+                  recovery_expression: 'last(/Windows by TAA agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
               tags:
                 - tag: scope
                   value: capacity
             - uuid: c93048183c3942808c60d6dd61963bc0
               expression: |
-                (avg(/Windows by Zabbix agent/net.if.in["{#IFGUID}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Windows by Zabbix agent/net.if.speed["{#IFGUID}"]) or
-                avg(/Windows by Zabbix agent/net.if.out["{#IFGUID}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Windows by Zabbix agent/net.if.speed["{#IFGUID}"])) and
-                last(/Windows by Zabbix agent/net.if.speed["{#IFGUID}"])>0
+                (avg(/Windows by TAA agent/net.if.in["{#IFGUID}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Windows by TAA agent/net.if.speed["{#IFGUID}"]) or
+                avg(/Windows by TAA agent/net.if.out["{#IFGUID}"],15m)>({$IF.UTIL.MAX:"{#IFNAME}"}/100)*last(/Windows by TAA agent/net.if.speed["{#IFGUID}"])) and
+                last(/Windows by TAA agent/net.if.speed["{#IFGUID}"])>0
               recovery_mode: RECOVERY_EXPRESSION
               recovery_expression: |
-                avg(/Windows by Zabbix agent/net.if.in["{#IFGUID}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Windows by Zabbix agent/net.if.speed["{#IFGUID}"]) and
-                avg(/Windows by Zabbix agent/net.if.out["{#IFGUID}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Windows by Zabbix agent/net.if.speed["{#IFGUID}"])
+                avg(/Windows by TAA agent/net.if.in["{#IFGUID}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Windows by TAA agent/net.if.speed["{#IFGUID}"]) and
+                avg(/Windows by TAA agent/net.if.out["{#IFGUID}"],15m)<(({$IF.UTIL.MAX:"{#IFNAME}"}-3)/100)*last(/Windows by TAA agent/net.if.speed["{#IFGUID}"])
               name: 'Windows: Interface {#IFNAME}({#IFALIAS}): High bandwidth usage'
               event_name: 'Windows: Interface {#IFNAME}({#IFALIAS}): High bandwidth usage (>{$IF.UTIL.MAX:"{#IFNAME}"}%)'
               opdata: 'In: {ITEM.LASTVALUE1}, out: {ITEM.LASTVALUE3}, speed: {ITEM.LASTVALUE2}'
@@ -751,19 +751,19 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Windows: Interface {#IFNAME}({#IFALIAS}): Link down'
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#2))'
-                  recovery_expression: 'last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by TAA agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#2))'
+                  recovery_expression: 'last(/Windows by TAA agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
               tags:
                 - tag: scope
                   value: performance
             - uuid: a4fa6e161bb64b98b25b1a2a501a83f4
               expression: |
-                min(/Windows by Zabbix agent/net.if.in["{#IFGUID}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
-                or min(/Windows by Zabbix agent/net.if.out["{#IFGUID}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
+                min(/Windows by TAA agent/net.if.in["{#IFGUID}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
+                or min(/Windows by TAA agent/net.if.out["{#IFGUID}",errors],5m)>{$IF.ERRORS.WARN:"{#IFNAME}"}
               recovery_mode: RECOVERY_EXPRESSION
               recovery_expression: |
-                max(/Windows by Zabbix agent/net.if.in["{#IFGUID}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
-                and max(/Windows by Zabbix agent/net.if.out["{#IFGUID}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
+                max(/Windows by TAA agent/net.if.in["{#IFGUID}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
+                and max(/Windows by TAA agent/net.if.out["{#IFGUID}",errors],5m)<{$IF.ERRORS.WARN:"{#IFNAME}"}*0.8
               name: 'Windows: Interface {#IFNAME}({#IFALIAS}): High error rate'
               event_name: 'Windows: Interface {#IFNAME}({#IFALIAS}): High error rate (>{$IF.ERRORS.WARN:"{#IFNAME}"} for 5m)'
               opdata: 'errors in: {ITEM.LASTVALUE1}, errors out: {ITEM.LASTVALUE2}'
@@ -772,8 +772,8 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Windows: Interface {#IFNAME}({#IFALIAS}): Link down'
-                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"],#2))'
-                  recovery_expression: 'last(/Windows by Zabbix agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
+                  expression: '{$IFCONTROL:"{#IFNAME}"}=1 and last(/Windows by TAA agent/net.if.status["{#IFGUID}"])<>2 and (last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#1)<>last(/Windows by TAA agent/net.if.status["{#IFGUID}"],#2))'
+                  recovery_expression: 'last(/Windows by TAA agent/net.if.status["{#IFGUID}"])=2 or {$IFCONTROL:"{#IFNAME}"}=0'
               tags:
                 - tag: scope
                   value: availability
@@ -784,37 +784,37 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 199C0D
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'net.if.in["{#IFGUID}"]'
                 - sortorder: '1'
                   drawtype: BOLD_LINE
                   color: F63100
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'net.if.out["{#IFGUID}"]'
                 - sortorder: '2'
                   color: 00611C
                   yaxisside: RIGHT
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'net.if.out["{#IFGUID}",errors]'
                 - sortorder: '3'
                   color: F7941D
                   yaxisside: RIGHT
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'net.if.in["{#IFGUID}",errors]'
                 - sortorder: '4'
                   color: FC6EA3
                   yaxisside: RIGHT
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'net.if.out["{#IFGUID}",dropped]'
                 - sortorder: '5'
                   color: 6C59DC
                   yaxisside: RIGHT
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'net.if.in["{#IFGUID}",dropped]'
           master_item:
             key: 'wmi.getall[root\cimv2,"select Name,Description,NetConnectionID,Speed,AdapterTypeId,NetConnectionStatus,GUID from win32_networkadapter where PhysicalAdapter=True and NetConnectionStatus>0"]'
@@ -864,7 +864,7 @@ zabbix_export:
                   value: '{#DEVNAME}'
               trigger_prototypes:
                 - uuid: 4777fa000fa9460baab1fd7bc7e40604
-                  expression: 'min(/Windows by Zabbix agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\% Idle Time",60],15m)>{$VFS.DEV.UTIL.MAX.WARN}'
+                  expression: 'min(/Windows by TAA agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\% Idle Time",60],15m)>{$VFS.DEV.UTIL.MAX.WARN}'
                   name: 'Windows: {#DEVNAME}: Disk is overloaded'
                   event_name: 'Windows: {#DEVNAME}: Disk is overloaded (util > {$VFS.DEV.UTIL.MAX.WARN}% for 15m)'
                   priority: WARNING
@@ -872,9 +872,9 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'Windows: {#DEVNAME}: Disk read request responses are too high'
-                      expression: 'min(/Windows by Zabbix agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Read",60],15m) > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"}'
+                      expression: 'min(/Windows by TAA agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Read",60],15m) > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"}'
                     - name: 'Windows: {#DEVNAME}: Disk write request responses are too high'
-                      expression: 'min(/Windows by Zabbix agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Write",60],15m) > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"}'
+                      expression: 'min(/Windows by TAA agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Write",60],15m) > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"}'
                   tags:
                     - tag: scope
                       value: performance
@@ -901,7 +901,7 @@ zabbix_export:
                   value: '{#DEVNAME}'
               trigger_prototypes:
                 - uuid: 85a8c002b3d84121ad2e73c8aced0987
-                  expression: 'min(/Windows by Zabbix agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Read",60],15m) > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"}'
+                  expression: 'min(/Windows by TAA agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Read",60],15m) > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"}'
                   name: 'Windows: {#DEVNAME}: Disk read request responses are too high'
                   event_name: 'Windows: {#DEVNAME}: Disk read request responses are too high (read > {$VFS.DEV.READ.AWAIT.WARN:"{#DEVNAME}"}s for 15m)'
                   priority: WARNING
@@ -923,7 +923,7 @@ zabbix_export:
                   value: '{#DEVNAME}'
               trigger_prototypes:
                 - uuid: db6809fd85e241948fb5ef76cb7cc17b
-                  expression: 'min(/Windows by Zabbix agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Write",60],15m) > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"}'
+                  expression: 'min(/Windows by TAA agent/perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Write",60],15m) > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"}'
                   name: 'Windows: {#DEVNAME}: Disk write request responses are too high'
                   event_name: 'Windows: {#DEVNAME}: Disk write request responses are too high (write > {$VFS.DEV.WRITE.AWAIT.WARN:"{#DEVNAME}"}s for 15m)'
                   priority: WARNING
@@ -980,38 +980,38 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk Read Queue Length",60]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk Write Queue Length",60]'
             - uuid: f54bdfb7e0c7471f80b8ca599bc4f904
               name: '{#DEVNAME}: Disk average waiting time'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Read",60]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: F63100
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\Avg. Disk sec/Write",60]'
             - uuid: 339a20ba0d3f4ba4a05aee0611124819
               name: '{#DEVNAME}: Disk read/write rates'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\Disk Reads/sec",60]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: F63100
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\Disk Writes/sec",60]'
             - uuid: bc71dc24634742028a5c8384dcaa0f32
               name: '{#DEVNAME}: Disk utilization and queue'
@@ -1019,13 +1019,13 @@ zabbix_export:
                 - color: 199C0D
                   yaxisside: RIGHT
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\Current Disk Queue Length",60]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: F63100
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'perf_counter_en["\PhysicalDisk({#DEVNAME})\% Idle Time",60]'
           preprocessing:
             - type: STR_REPLACE
@@ -1065,7 +1065,7 @@ zabbix_export:
                   value: '{#SERVICE.NAME}'
               trigger_prototypes:
                 - uuid: 4708592603db4577b26cb6daade41754
-                  expression: 'min(/Windows by Zabbix agent/service.info["{#SERVICE.NAME}",state],#3)<>0'
+                  expression: 'min(/Windows by TAA agent/service.info["{#SERVICE.NAME}",state],#3)<>0'
                   name: 'Windows: "{#SERVICE.NAME}" ({#SERVICE.DISPLAYNAME}) is not running'
                   event_name: 'Windows: "{#SERVICE.NAME}" ({#SERVICE.DISPLAYNAME}) is not running (startup type {#SERVICE.STARTUPNAME})'
                   priority: AVERAGE
@@ -1138,7 +1138,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: d3e99134a1d04894918f2c92ff38cb92
-                  expression: 'min(/Windows by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSLABEL}({#FSNAME})"}'
+                  expression: 'min(/Windows by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSLABEL}({#FSNAME})"}'
                   name: 'Windows: FS [{#FSLABEL}({#FSNAME})]: Space is critically low'
                   event_name: 'Windows: FS [{#FSLABEL}({#FSNAME})]: Space is critically low (used > {$VFS.FS.PUSED.MAX.CRIT:"{#FSLABEL}({#FSNAME})"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -1154,7 +1154,7 @@ zabbix_export:
                     - tag: scope
                       value: capacity
                 - uuid: 97115bbe4f6b4a8cb2873b8fa01f95d3
-                  expression: 'min(/Windows by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSLABEL}({#FSNAME})"}'
+                  expression: 'min(/Windows by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSLABEL}({#FSNAME})"}'
                   name: 'Windows: FS [{#FSLABEL}({#FSNAME})]: Space is low'
                   event_name: 'Windows: FS [{#FSLABEL}({#FSNAME})]: Space is low (used > {$VFS.FS.PUSED.MAX.WARN:"{#FSLABEL}({#FSNAME})"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -1166,7 +1166,7 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'Windows: FS [{#FSLABEL}({#FSNAME})]: Space is critically low'
-                      expression: 'min(/Windows by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSLABEL}({#FSNAME})"}'
+                      expression: 'min(/Windows by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSLABEL}({#FSNAME})"}'
                   tags:
                     - tag: scope
                       value: availability
@@ -1244,7 +1244,7 @@ zabbix_export:
                   color: F63100
                   calc_fnc: ALL
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},pused]'
             - uuid: f80e47b8d4db4c378f25056c02b72382
               name: 'FS [{#FSLABEL}({#FSNAME})]: Space utilization chart'
@@ -1257,19 +1257,19 @@ zabbix_export:
                   calc_fnc: LAST
                   type: GRAPH_SUM
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},total]'
                 - sortorder: '1'
                   color: F63100
                   calc_fnc: LAST
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},used]'
                 - sortorder: '2'
                   color: 199C09
                   calc_fnc: LAST
                   item:
-                    host: 'Windows by Zabbix agent'
+                    host: 'Windows by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},free]'
           master_item:
             key: vfs.fs.get
@@ -1313,7 +1313,7 @@ zabbix_export:
           config:
             type: TEXT
             priority: '1'
-            label: 'Seconds since the last Zabbix agent seen'
+            label: 'Seconds since the last TAA agent seen'
             description: 'Timeout after which agent is considered unavailable.'
         - macro: '{$CPU.INTERRUPT.CRIT.MAX}'
           value: '50'
@@ -1670,7 +1670,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'FS [{#FSLABEL}({#FSNAME})]: Space utilization chart'
                     - type: STRING
                       name: reference
@@ -1686,7 +1686,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'FS [{#FSLABEL}({#FSNAME})]: Space usage graph, in %'
                     - type: STRING
                       name: reference
@@ -1706,7 +1706,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'Interface {#IFNAME}({#IFALIAS}): Network traffic'
                     - type: STRING
                       name: reference
@@ -1722,7 +1722,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'Windows: CPU usage'
                     - type: STRING
                       name: reference
@@ -1735,7 +1735,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'Windows: Memory utilization'
                     - type: STRING
                       name: reference
@@ -1751,7 +1751,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'FS [{#FSLABEL}({#FSNAME})]: Space utilization chart'
                     - type: STRING
                       name: reference
@@ -1767,7 +1767,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: '{#DEVNAME}: Disk read/write rates'
                     - type: STRING
                       name: reference
@@ -1783,7 +1783,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: '{#DEVNAME}: Disk utilization and queue'
                     - type: STRING
                       name: reference
@@ -1799,7 +1799,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'Interface {#IFNAME}({#IFALIAS}): Network traffic'
                     - type: STRING
                       name: reference
@@ -1812,7 +1812,7 @@ zabbix_export:
                     - type: ITEM
                       name: itemid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         key: 'perf_counter_en["\System\Processor Queue Length"]'
                     - type: STRING
                       name: reference
@@ -1829,7 +1829,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Windows by Zabbix agent'
+                        host: 'Windows by TAA agent'
                         name: 'Windows: Swap usage'
                     - type: STRING
                       name: reference
@@ -1926,25 +1926,25 @@ zabbix_export:
             - value: '2'
               newvalue: unknown
         - uuid: 5d3e53f3090448c7aaf081eb32b28ced
-          name: 'Zabbix agent ping status'
+          name: 'TAA agent ping status'
           mappings:
             - value: '1'
               newvalue: Up
   triggers:
     - uuid: 8b1baeb26e154f99aefeaba3ea4fa63b
-      expression: 'min(/Windows by Zabbix agent/perf_counter_en["\System\Processor Queue Length"],5m) - last(/Windows by Zabbix agent/wmi.get[root/cimv2,"Select NumberOfLogicalProcessors from Win32_ComputerSystem"]) * 2 > {$CPU.QUEUE.CRIT.MAX}'
+      expression: 'min(/Windows by TAA agent/perf_counter_en["\System\Processor Queue Length"],5m) - last(/Windows by TAA agent/wmi.get[root/cimv2,"Select NumberOfLogicalProcessors from Win32_ComputerSystem"]) * 2 > {$CPU.QUEUE.CRIT.MAX}'
       name: 'Windows: CPU queue length is too high'
       event_name: 'Windows: CPU queue length is too high (over {$CPU.QUEUE.CRIT.MAX} for 5m)'
       priority: WARNING
       description: 'The CPU Queue Length in the last 5 minutes exceeds `{$CPU.QUEUE.CRIT.MAX}`. According to actual observations, PQL should not exceed the number of cores * 2. To fine-tune the conditions, use the macro `{$CPU.QUEUE.CRIT.MAX }`.'
       dependencies:
         - name: 'Windows: High CPU utilization'
-          expression: 'min(/Windows by Zabbix agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
+          expression: 'min(/Windows by TAA agent/system.cpu.util,5m)>{$CPU.UTIL.CRIT}'
       tags:
         - tag: scope
           value: performance
     - uuid: 7c23e03060ce42b094aac2f8aea1a9ad
-      expression: 'max(/Windows by Zabbix agent/system.swap.pfree,5m)<{$SWAP.PFREE.MIN.WARN} and last(/Windows by Zabbix agent/system.swap.size[,total])>0'
+      expression: 'max(/Windows by TAA agent/system.swap.pfree,5m)<{$SWAP.PFREE.MIN.WARN} and last(/Windows by TAA agent/system.swap.size[,total])>0'
       name: 'Windows: High swap space usage'
       event_name: 'Windows: High swap space usage (less than {$SWAP.PFREE.MIN.WARN}% free)'
       opdata: 'Free: {ITEM.LASTVALUE1}, total: {ITEM.LASTVALUE2}'
@@ -1952,7 +1952,7 @@ zabbix_export:
       description: 'This trigger is ignored, if there is no swap configured'
       dependencies:
         - name: 'Windows: High memory utilization'
-          expression: 'min(/Windows by Zabbix agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
+          expression: 'min(/Windows by TAA agent/vm.memory.util,5m)>{$MEMORY.UTIL.MAX}'
       tags:
         - tag: scope
           value: performance
@@ -1962,12 +1962,12 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: 'perf_counter_en["\System\Context Switches/sec"]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: 'perf_counter_en["\Processor Information(_total)\% Interrupt Time"]'
     - uuid: 0c2db401fe574282ab0beb6955049330
       name: 'Windows: CPU usage'
@@ -1977,12 +1977,12 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: 'perf_counter_en["\Processor Information(_total)\% User Time"]'
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: 'perf_counter_en["\Processor Information(_total)\% Privileged Time"]'
     - uuid: 5de711b16f3845659289483f6deb4761
       name: 'Windows: CPU utilization'
@@ -1992,7 +1992,7 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: system.cpu.util
     - uuid: 1b86c8f6fe3343e6838c5d02f4f64b2b
       name: 'Windows: Memory utilization'
@@ -2002,17 +2002,17 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: vm.memory.util
     - uuid: 518f6bcdcefc4cf493244798ccd09ec1
       name: 'Windows: Swap usage'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: system.swap.free
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Windows by Zabbix agent'
+            host: 'Windows by TAA agent'
             key: 'system.swap.size[,total]'

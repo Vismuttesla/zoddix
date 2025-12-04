@@ -65,6 +65,7 @@ services:
       - ./css:/usr/share/zabbix/css:ro
       - ./sass:/usr/share/zabbix/sass:ro
       - ./misc:/usr/share/zabbix/misc:ro
+      - ./templates:/usr/share/zabbix/templates:ro
     networks:
       - zabbix-network
 

@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: 846977d1dfed4968bc5f8bdb363285bc
       name: 'Templates/Operating systems'
   templates:
     - uuid: 760be6e1c2194a5bb7c0df47cc5f71ca
-      template: 'OpenBSD by Zabbix agent'
-      name: 'OpenBSD by Zabbix agent'
+      template: 'OpenBSD by TAA agent'
+      name: 'OpenBSD by TAA agent'
       description: |
-        This is an Official OpenBSD template. It requires Zabbix agent 7.4 or newer.
+        This is an Official OpenBSD template. It requires TAA agent 7.4 or newer.
         
         Notes on filesystem (FS) discovery:
           - The ext4/3/2 FS reserves space for privileged usage, typically set at 5% by default.
@@ -27,7 +27,7 @@ zabbix_export:
         - name: 'Templates/Operating systems'
       items:
         - uuid: 390a1b2080e842f3985b0076509cc550
-          name: 'Host name of Zabbix agent running'
+          name: 'Host name of TAA agent running'
           key: agent.hostname
           delay: 1h
           value_type: CHAR
@@ -39,16 +39,16 @@ zabbix_export:
             - tag: component
               value: system
         - uuid: 99dbf8825c0d4e1f9ae433bcb786d7c7
-          name: 'Zabbix agent ping'
+          name: 'TAA agent ping'
           key: agent.ping
           description: 'The agent always returns "1" for this item. May be used in combination with `nodata()` for the availability check.'
           valuemap:
-            name: 'Zabbix agent ping status'
+            name: 'TAA agent ping status'
           tags:
             - tag: component
               value: system
         - uuid: c65db5a2b42c46dc90cf4891ad1ecc83
-          name: 'Version of Zabbix agent running'
+          name: 'Version of TAA agent running'
           key: agent.version
           delay: 1h
           value_type: CHAR
@@ -69,7 +69,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: aab96e16dd194d72b9b049ffa8b41b02
-              expression: 'last(/OpenBSD by Zabbix agent/kernel.maxfiles)<1024'
+              expression: 'last(/OpenBSD by TAA agent/kernel.maxfiles)<1024'
               name: 'OpenBSD: Configured max number of opened files is too low on {HOST.NAME}'
               priority: INFO
               tags:
@@ -87,7 +87,7 @@ zabbix_export:
               value: processes
           triggers:
             - uuid: 149b9b77d17543fba253666ccbd6a607
-              expression: 'last(/OpenBSD by Zabbix agent/kernel.maxproc)<256'
+              expression: 'last(/OpenBSD by TAA agent/kernel.maxproc)<256'
               name: 'OpenBSD: Configured max number of processes is too low on {HOST.NAME}'
               priority: INFO
               tags:
@@ -104,7 +104,7 @@ zabbix_export:
               value: processes
           triggers:
             - uuid: d67740bc103348ab8ab11df2bdb0ad8f
-              expression: 'avg(/OpenBSD by Zabbix agent/proc.num[,,run],5m)>30'
+              expression: 'avg(/OpenBSD by TAA agent/proc.num[,,run],5m)>30'
               name: 'OpenBSD: Too many processes running on {HOST.NAME}'
               priority: WARNING
               tags:
@@ -119,7 +119,7 @@ zabbix_export:
               value: processes
           triggers:
             - uuid: dd1b0c14e6dd439ea8f7323cdcc607de
-              expression: 'avg(/OpenBSD by Zabbix agent/proc.num[],5m)>300'
+              expression: 'avg(/OpenBSD by TAA agent/proc.num[],5m)>300'
               name: 'OpenBSD: Too many processes on {HOST.NAME}'
               priority: WARNING
               tags:
@@ -153,7 +153,7 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: 1128bfb41f5f420c81feffb1d395cf9f
-              expression: 'avg(/OpenBSD by Zabbix agent/system.cpu.load[percpu,avg1],5m)>5'
+              expression: 'avg(/OpenBSD by TAA agent/system.cpu.load[percpu,avg1],5m)>5'
               name: 'OpenBSD: Processor load is too high on {HOST.NAME}'
               priority: WARNING
               tags:
@@ -255,7 +255,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: d6927a9b74eb4cb8b15400baf784fc36
-              expression: 'last(/OpenBSD by Zabbix agent/system.hostname,#1)<>last(/OpenBSD by Zabbix agent/system.hostname,#2)'
+              expression: 'last(/OpenBSD by TAA agent/system.hostname,#1)<>last(/OpenBSD by TAA agent/system.hostname,#2)'
               name: 'OpenBSD: Hostname was changed on {HOST.NAME}'
               priority: INFO
               tags:
@@ -288,7 +288,7 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: 0efa45d2c8884bc6b4090afc6408198b
-              expression: 'last(/OpenBSD by Zabbix agent/system.swap.size[,pfree])<50'
+              expression: 'last(/OpenBSD by TAA agent/system.swap.size[,pfree])<50'
               name: 'OpenBSD: Lack of free swap space on {HOST.NAME}'
               priority: WARNING
               description: 'It probably means that the systems requires more physical memory.'
@@ -322,7 +322,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: 3d3bcd54f24448c1a11746a4e75ea736
-              expression: 'last(/OpenBSD by Zabbix agent/system.uname,#1)<>last(/OpenBSD by Zabbix agent/system.uname,#2)'
+              expression: 'last(/OpenBSD by TAA agent/system.uname,#1)<>last(/OpenBSD by TAA agent/system.uname,#2)'
               name: 'OpenBSD: Host information was changed on {HOST.NAME}'
               priority: INFO
               tags:
@@ -338,7 +338,7 @@ zabbix_export:
               value: os
           triggers:
             - uuid: de874b9d875a4298ab39888c9e9cb747
-              expression: 'change(/OpenBSD by Zabbix agent/system.uptime)<0'
+              expression: 'change(/OpenBSD by TAA agent/system.uptime)<0'
               name: 'OpenBSD: {HOST.NAME} has just been restarted'
               priority: INFO
               tags:
@@ -367,7 +367,7 @@ zabbix_export:
               value: security
           triggers:
             - uuid: 9db4055df94d414d86938066ed05dbc5
-              expression: 'last(/OpenBSD by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/OpenBSD by Zabbix agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
+              expression: 'last(/OpenBSD by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#1)<>last(/OpenBSD by TAA agent/vfs.file.cksum[/etc/passwd,sha256],#2)'
               name: 'OpenBSD: /etc/passwd has been changed on {HOST.NAME}'
               priority: WARNING
               tags:
@@ -392,7 +392,7 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: bdf3c729b8bc4a9481c9041e4c1ea624
-              expression: 'last(/OpenBSD by Zabbix agent/vm.memory.size[available])<20M'
+              expression: 'last(/OpenBSD by TAA agent/vm.memory.size[available])<20M'
               name: 'OpenBSD: Lack of available memory on server {HOST.NAME}'
               priority: AVERAGE
               tags:
@@ -410,7 +410,7 @@ zabbix_export:
             - tag: component
               value: memory
         - uuid: 7ab36f1fcf0244229effa26f16889a36
-          name: 'Zabbix agent availability'
+          name: 'TAA agent availability'
           type: INTERNAL
           key: 'zabbix[host,agent,available]'
           description: 'Used for monitoring the availability status of the agent.'
@@ -421,9 +421,9 @@ zabbix_export:
               value: system
           triggers:
             - uuid: d046f431e11d4bd7be42e66e14a21663
-              expression: 'max(/OpenBSD by Zabbix agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
-              name: 'OpenBSD: Zabbix agent is not available'
-              event_name: 'OpenBSD: Zabbix agent is not available (for {$AGENT.TIMEOUT})'
+              expression: 'max(/OpenBSD by TAA agent/zabbix[host,agent,available],{$AGENT.TIMEOUT})=0'
+              name: 'OpenBSD: TAA agenti faol emas'
+              event_name: 'OpenBSD: TAA agenti faol emas ({$AGENT.TIMEOUT} davomida)'
               priority: AVERAGE
               description: 'For passive checks only; the availability of the agent(s) and a host is used with `{$AGENT.TIMEOUT}` as the time threshold.'
               manual_close: 'YES'
@@ -477,13 +477,13 @@ zabbix_export:
                 - drawtype: GRADIENT_LINE
                   color: 00AA00
                   item:
-                    host: 'OpenBSD by Zabbix agent'
+                    host: 'OpenBSD by TAA agent'
                     key: 'net.if.in[{#IFNAME}]'
                 - sortorder: '1'
                   drawtype: GRADIENT_LINE
                   color: 3333FF
                   item:
-                    host: 'OpenBSD by Zabbix agent'
+                    host: 'OpenBSD by TAA agent'
                     key: 'net.if.out[{#IFNAME}]'
         - uuid: feb02c707aa64b91a3b340aa5ef23de9
           name: 'Mounted filesystem discovery'
@@ -526,7 +526,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 25a43340efc94c8b982204a920441ff3
-                  expression: 'min(/OpenBSD by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/OpenBSD by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   name: 'OpenBSD: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'OpenBSD: {#FSNAME}: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -538,7 +538,7 @@ zabbix_export:
                     - tag: scope
                       value: performance
                 - uuid: 7802203fd5ba471db2be4f35eda44a0b
-                  expression: 'min(/OpenBSD by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
+                  expression: 'min(/OpenBSD by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}'
                   name: 'OpenBSD: FS [{#FSNAME}]: Running out of free inodes'
                   event_name: 'OpenBSD: FS [{#FSNAME}]: Running out of free inodes (free < {$VFS.FS.INODE.PFREE.MIN.WARN:"{#FSNAME}"}%)'
                   opdata: 'Free inodes: {ITEM.LASTVALUE1}'
@@ -546,7 +546,7 @@ zabbix_export:
                   description: 'Disk writing may fail if index nodes are exhausted, leading to error messages like "No space left on device" or "Disk is full", despite available free space.'
                   dependencies:
                     - name: 'OpenBSD: FS [{#FSNAME}]: Running out of free inodes'
-                      expression: 'min(/OpenBSD by Zabbix agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/OpenBSD by TAA agent/vfs.fs.dependent.inode[{#FSNAME},pfree],5m)<{$VFS.FS.INODE.PFREE.MIN.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: capacity
@@ -616,7 +616,7 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: dfe8922f9bf94933a940133997df9997
-                  expression: 'min(/OpenBSD by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                  expression: 'min(/OpenBSD by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   name: 'OpenBSD: FS [{#FSNAME}]: Space is critically low'
                   event_name: 'OpenBSD: FS [{#FSNAME}]: Space is critically low (used > {$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -632,7 +632,7 @@ zabbix_export:
                     - tag: scope
                       value: capacity
                 - uuid: 9741c9425c984804ac8fb9a52ef22221
-                  expression: 'min(/OpenBSD by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
+                  expression: 'min(/OpenBSD by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}'
                   name: 'OpenBSD: FS [{#FSNAME}]: Space is low'
                   event_name: 'OpenBSD: FS [{#FSNAME}]: Space is low (used > {$VFS.FS.PUSED.MAX.WARN:"{#FSNAME}"}%, total {{?last(//vfs.fs.dependent.size[{#FSNAME},total])/1024/1024/1024}.fmtnum(1)}GB)'
                   opdata: 'Space used: {{ITEM.LASTVALUE1}.fmtnum(1)}%'
@@ -644,7 +644,7 @@ zabbix_export:
                   manual_close: 'YES'
                   dependencies:
                     - name: 'OpenBSD: FS [{#FSNAME}]: Space is critically low'
-                      expression: 'min(/OpenBSD by Zabbix agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
+                      expression: 'min(/OpenBSD by TAA agent/vfs.fs.dependent.size[{#FSNAME},pused],5m)>{$VFS.FS.PUSED.MAX.CRIT:"{#FSNAME}"}'
                   tags:
                     - tag: scope
                       value: availability
@@ -714,7 +714,7 @@ zabbix_export:
               name: 'FS [{#FSNAME}]: Option: Read-only'
               type: DEPENDENT
               key: 'vfs.fs.dependent[{#FSNAME},readonly]'
-              description: 'The filesystem is mounted as read-only. It is available only for Zabbix agents 6.4 and higher.'
+              description: 'The filesystem is mounted as read-only. It is available only for TAA agents 6.4 and higher.'
               preprocessing:
                 - type: JSONPATH
                   parameters:
@@ -737,12 +737,12 @@ zabbix_export:
                   value: '{#FSTYPE}'
               trigger_prototypes:
                 - uuid: 7d1eaacab7ac4af7969c7fc22c67cfb8
-                  expression: 'last(/OpenBSD by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly],#2)=0 and last(/OpenBSD by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly])=1'
+                  expression: 'last(/OpenBSD by TAA agent/vfs.fs.dependent[{#FSNAME},readonly],#2)=0 and last(/OpenBSD by TAA agent/vfs.fs.dependent[{#FSNAME},readonly])=1'
                   recovery_mode: RECOVERY_EXPRESSION
-                  recovery_expression: 'last(/OpenBSD by Zabbix agent/vfs.fs.dependent[{#FSNAME},readonly])=0'
+                  recovery_expression: 'last(/OpenBSD by TAA agent/vfs.fs.dependent[{#FSNAME},readonly])=0'
                   name: 'OpenBSD: FS [{#FSNAME}]: Filesystem has become read-only'
                   priority: AVERAGE
-                  description: 'The filesystem has become read-only, possibly due to an I/O error. Available only for Zabbix agents 6.4 and higher.'
+                  description: 'The filesystem has become read-only, possibly due to an I/O error. Available only for TAA agents 6.4 and higher.'
                   manual_close: 'YES'
                   tags:
                     - tag: scope
@@ -761,7 +761,7 @@ zabbix_export:
                   color: F63100
                   calc_fnc: ALL
                   item:
-                    host: 'OpenBSD by Zabbix agent'
+                    host: 'OpenBSD by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},pused]'
             - uuid: 8b5ab39870b248b28e7099a2801b9c2d
               name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
@@ -774,19 +774,19 @@ zabbix_export:
                   calc_fnc: LAST
                   type: GRAPH_SUM
                   item:
-                    host: 'OpenBSD by Zabbix agent'
+                    host: 'OpenBSD by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},total]'
                 - sortorder: '1'
                   color: F63100
                   calc_fnc: LAST
                   item:
-                    host: 'OpenBSD by Zabbix agent'
+                    host: 'OpenBSD by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},used]'
                 - sortorder: '2'
                   color: 199C09
                   calc_fnc: LAST
                   item:
-                    host: 'OpenBSD by Zabbix agent'
+                    host: 'OpenBSD by TAA agent'
                     key: 'vfs.fs.dependent.size[{#FSNAME},free]'
           master_item:
             key: vfs.fs.get
@@ -872,7 +872,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'OpenBSD by Zabbix agent'
+                        host: 'OpenBSD by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -888,7 +888,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'OpenBSD by Zabbix agent'
+                        host: 'OpenBSD by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space usage graph, in % (relative to max available)'
                     - type: STRING
                       name: reference
@@ -904,7 +904,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'OpenBSD by Zabbix agent'
+                        host: 'OpenBSD by TAA agent'
                         name: 'OpenBSD: CPU load'
                     - type: STRING
                       name: reference
@@ -917,7 +917,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'OpenBSD by Zabbix agent'
+                        host: 'OpenBSD by TAA agent'
                         name: 'OpenBSD: Memory usage'
                     - type: STRING
                       name: reference
@@ -933,7 +933,7 @@ zabbix_export:
                     - type: GRAPH_PROTOTYPE
                       name: graphid.0
                       value:
-                        host: 'OpenBSD by Zabbix agent'
+                        host: 'OpenBSD by TAA agent'
                         name: 'FS [{#FSTYPE}({#FSNAME})]: Space utilization chart (relative to total)'
                     - type: STRING
                       name: reference
@@ -946,7 +946,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'OpenBSD by Zabbix agent'
+                        host: 'OpenBSD by TAA agent'
                         name: 'OpenBSD: CPU utilization'
                     - type: STRING
                       name: reference
@@ -960,7 +960,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'OpenBSD by Zabbix agent'
+                        host: 'OpenBSD by TAA agent'
                         name: 'OpenBSD: Swap usage'
                     - type: STRING
                       name: reference
@@ -976,7 +976,7 @@ zabbix_export:
             - value: '2'
               newvalue: unknown
         - uuid: 8dad41742edf49178119c70abea0a0dc
-          name: 'Zabbix agent ping status'
+          name: 'TAA agent ping status'
           mappings:
             - value: '1'
               newvalue: Up
@@ -986,12 +986,12 @@ zabbix_export:
       graph_items:
         - color: '009900'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: system.cpu.switches
         - sortorder: '1'
           color: '000099'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: system.cpu.intr
     - uuid: 765b83f3f7a246aa893eff4f19600326
       name: 'OpenBSD: CPU load'
@@ -999,17 +999,17 @@ zabbix_export:
       graph_items:
         - color: '009900'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.load[percpu,avg1]'
         - sortorder: '1'
           color: '000099'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.load[percpu,avg5]'
         - sortorder: '2'
           color: '990000'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.load[percpu,avg15]'
     - uuid: 512ed29b170642d285b14a7e9b2d43de
       name: 'OpenBSD: CPU utilization'
@@ -1020,32 +1020,32 @@ zabbix_export:
       graph_items:
         - color: '009999'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.util[,interrupt]'
         - sortorder: '1'
           color: 2196F3
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.util[,spin]'
         - sortorder: '2'
           color: '990099'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.util[,nice]'
         - sortorder: '3'
           color: '990000'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.util[,system]'
         - sortorder: '4'
           color: '000099'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.util[,user]'
         - sortorder: '5'
           color: '009900'
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.cpu.util[,idle]'
     - uuid: 18bbcc8bba0840fc8353b90caa3e657f
       name: 'OpenBSD: Memory usage'
@@ -1053,7 +1053,7 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 00C800
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'vm.memory.size[available]'
     - uuid: 8a422a49defb413ca16b1e8515b59e00
       name: 'OpenBSD: Swap usage'
@@ -1067,10 +1067,10 @@ zabbix_export:
         - color: AA0000
           type: GRAPH_SUM
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.swap.size[,total]'
         - sortorder: '1'
           color: 00AA00
           item:
-            host: 'OpenBSD by Zabbix agent'
+            host: 'OpenBSD by TAA agent'
             key: 'system.swap.size[,free]'

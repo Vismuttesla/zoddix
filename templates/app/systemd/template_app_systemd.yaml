@@ -1,12 +1,12 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: 90ac276995294a6aa88462c032d2ddaf
-      template: 'Systemd by Zabbix agent 2'
-      name: 'Systemd by Zabbix agent 2'
+      template: 'Systemd by TAA agent 2'
+      name: 'Systemd by TAA agent 2'
       description: |
         Get systemd units metrics from plugin for the zabbix-agent2.
           1. Setup and configure zabbix-agent2 compiled with the Systemd monitoring plugin.
@@ -72,7 +72,7 @@ zabbix_export:
                   value: service
               trigger_prototypes:
                 - uuid: 5237bd423307449b8a58f692082d2a0a
-                  expression: 'last(/Systemd by Zabbix agent 2/systemd.service.active_state["{#UNIT.NAME}"])<>1'
+                  expression: 'last(/Systemd by TAA agent 2/systemd.service.active_state["{#UNIT.NAME}"])<>1'
                   name: 'Systemd: {#UNIT.NAME}: Service is not running'
                   priority: WARNING
                   manual_close: 'YES'
@@ -140,7 +140,7 @@ zabbix_export:
                   value: service
               trigger_prototypes:
                 - uuid: e2292c5ead924500a06d38b6356930c7
-                  expression: 'last(/Systemd by Zabbix agent 2/systemd.service.uptime["{#UNIT.NAME}"])<10m'
+                  expression: 'last(/Systemd by TAA agent 2/systemd.service.uptime["{#UNIT.NAME}"])<10m'
                   name: 'Systemd: {#UNIT.NAME} has been restarted'
                   event_name: 'Systemd: {#UNIT.NAME} has been restarted (uptime < 10m)'
                   priority: INFO
@@ -290,7 +290,7 @@ zabbix_export:
                     - type: ITEM_PROTOTYPE
                       name: itemid.0
                       value:
-                        host: 'Systemd by Zabbix agent 2'
+                        host: 'Systemd by TAA agent 2'
                         key: 'systemd.service.active_state["{#UNIT.NAME}"]'
                     - type: STRING
                       name: reference
@@ -310,7 +310,7 @@ zabbix_export:
                     - type: ITEM_PROTOTYPE
                       name: itemid.0
                       value:
-                        host: 'Systemd by Zabbix agent 2'
+                        host: 'Systemd by TAA agent 2'
                         key: 'systemd.socket.conn_count["{#UNIT.NAME}"]'
                     - type: STRING
                       name: reference

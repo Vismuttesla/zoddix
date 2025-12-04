@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: 5fa761bc51e4432a90c6c9eece930c4a
-      template: 'RabbitMQ cluster by Zabbix agent'
-      name: 'RabbitMQ cluster by Zabbix agent'
+      template: 'RabbitMQ cluster by TAA agent'
+      name: 'RabbitMQ cluster by TAA agent'
       description: |
-        Get cluster metrics from RabbitMQ management plugin provided an HTTP-based API using Zabbix agent.
+        Get cluster metrics from RabbitMQ management plugin provided an HTTP-based API using TAA agent.
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/387226-discussion-thread-for-official-zabbix-template-rabbitmq
         
@@ -431,7 +431,7 @@ zabbix_export:
               value: raw
           triggers:
             - uuid: 000d3e773f6e4ebf89f16daa2ce8c168
-              expression: 'nodata(/RabbitMQ cluster by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.CLUSTER_HOST}:{$RABBITMQ.API.PORT}/api/overview"],30m)=1'
+              expression: 'nodata(/RabbitMQ cluster by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.CLUSTER_HOST}:{$RABBITMQ.API.PORT}/api/overview"],30m)=1'
               name: 'RabbitMQ cluster: Failed to fetch overview data'
               event_name: 'RabbitMQ cluster: Failed to fetch overview data (or no data for 30m)'
               priority: WARNING
@@ -883,7 +883,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: 032949c387c64223b3125ba1120ae082
-                  expression: 'last(/RabbitMQ cluster by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.CLUSTER_HOST}:{$RABBITMQ.API.PORT}/api/health/checks/alarms{#SINGLETON}"])=0'
+                  expression: 'last(/RabbitMQ cluster by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.CLUSTER_HOST}:{$RABBITMQ.API.PORT}/api/health/checks/alarms{#SINGLETON}"])=0'
                   name: 'RabbitMQ cluster: There are active alarms in the cluster'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -944,7 +944,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ cluster by Zabbix agent'
+                        host: 'RabbitMQ cluster by TAA agent'
                         name: 'RabbitMQ: Messages'
                     - type: STRING
                       name: reference
@@ -957,7 +957,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ cluster by Zabbix agent'
+                        host: 'RabbitMQ cluster by TAA agent'
                         name: 'RabbitMQ: Messages status'
                     - type: STRING
                       name: reference
@@ -970,7 +970,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ cluster by Zabbix agent'
+                        host: 'RabbitMQ cluster by TAA agent'
                         name: 'RabbitMQ: Messages per second'
                     - type: STRING
                       name: reference
@@ -983,7 +983,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ cluster by Zabbix agent'
+                        host: 'RabbitMQ cluster by TAA agent'
                         name: 'RabbitMQ: Connections'
                     - type: STRING
                       name: reference
@@ -997,7 +997,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ cluster by Zabbix agent'
+                        host: 'RabbitMQ cluster by TAA agent'
                         name: 'RabbitMQ: Queues'
                     - type: STRING
                       name: reference
@@ -1013,10 +1013,10 @@ zabbix_export:
             - value: '2'
               newvalue: Error
     - uuid: d5dc11ae9ab143a89c4be534bbb35188
-      template: 'RabbitMQ node by Zabbix agent'
-      name: 'RabbitMQ node by Zabbix agent'
+      template: 'RabbitMQ node by TAA agent'
+      name: 'RabbitMQ node by TAA agent'
       description: |
-        Get node metrics from RabbitMQ management plugin provided an HTTP-based API using Zabbix agent.
+        Get node metrics from RabbitMQ management plugin provided an HTTP-based API using TAA agent.
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/387226-discussion-thread-for-official-zabbix-template-rabbitmq
         
@@ -1092,7 +1092,7 @@ zabbix_export:
               value: storage
           triggers:
             - uuid: b68cb12ecd4046fd80a717fb557f04e8
-              expression: 'last(/RabbitMQ node by Zabbix agent/rabbitmq.node.disk_free_alarm)=1'
+              expression: 'last(/RabbitMQ node by TAA agent/rabbitmq.node.disk_free_alarm)=1'
               name: 'RabbitMQ node: Free disk space alarm'
               event_name: 'RabbitMQ node: Free disk space alarm (Free space threshold has been reached)'
               opdata: 'Current state: {ITEM.LASTVALUE1}'
@@ -1149,7 +1149,7 @@ zabbix_export:
               value: memory
           triggers:
             - uuid: ec6ae727fe774b0fa56bb4d9ad773e35
-              expression: 'last(/RabbitMQ node by Zabbix agent/rabbitmq.node.mem_alarm)=1'
+              expression: 'last(/RabbitMQ node by TAA agent/rabbitmq.node.mem_alarm)=1'
               name: 'RabbitMQ node: Memory alarm'
               event_name: 'RabbitMQ node: Memory alarm (Memory usage threshold has been reached)'
               opdata: 'Current state: {ITEM.LASTVALUE1}'
@@ -1226,7 +1226,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: daf98bb4593d4697bc51423b2f65ba41
-              expression: 'last(/RabbitMQ node by Zabbix agent/rabbitmq.node.overview.rabbitmq_version,#1)<>last(/RabbitMQ node by Zabbix agent/rabbitmq.node.overview.rabbitmq_version,#2) and length(last(/RabbitMQ node by Zabbix agent/rabbitmq.node.overview.rabbitmq_version))>0'
+              expression: 'last(/RabbitMQ node by TAA agent/rabbitmq.node.overview.rabbitmq_version,#1)<>last(/RabbitMQ node by TAA agent/rabbitmq.node.overview.rabbitmq_version,#2) and length(last(/RabbitMQ node by TAA agent/rabbitmq.node.overview.rabbitmq_version))>0'
               name: 'RabbitMQ node: Version has changed'
               event_name: 'RabbitMQ node: Version has changed (new version: {ITEM.VALUE})'
               priority: INFO
@@ -1254,7 +1254,7 @@ zabbix_export:
               value: network
           triggers:
             - uuid: 5bed266725e94000804b0ecc7bce6209
-              expression: 'min(/RabbitMQ node by Zabbix agent/rabbitmq.node.partitions,5m)>0'
+              expression: 'min(/RabbitMQ node by TAA agent/rabbitmq.node.partitions,5m)>0'
               name: 'RabbitMQ node: Number of network partitions is too high'
               event_name: 'RabbitMQ node: Number of network partitions is too high (more than 0 for 5m)'
               opdata: 'Current value: {ITEM.LASTVALUE1}'
@@ -1343,7 +1343,7 @@ zabbix_export:
               value: system
           triggers:
             - uuid: 729c448ebabb417bb7ce17b1634c4484
-              expression: 'last(/RabbitMQ node by Zabbix agent/rabbitmq.node.uptime)<10m'
+              expression: 'last(/RabbitMQ node by TAA agent/rabbitmq.node.uptime)<10m'
               name: 'RabbitMQ node: Host has been restarted'
               event_name: 'RabbitMQ node: {HOST.NAME} has been restarted (uptime < 10m)'
               priority: INFO
@@ -1428,7 +1428,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: bf6bcbda20ed46cbb779d9c1f446dfa8
-                  expression: 'last(/RabbitMQ node by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/healthchecks/node{#SINGLETON}"])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/healthchecks/node{#SINGLETON}"])=0'
                   name: 'RabbitMQ node: Node healthcheck failed'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -1489,7 +1489,7 @@ zabbix_export:
                   value: health
               trigger_prototypes:
                 - uuid: d180912136c74e5cb246655ecab75f57
-                  expression: 'last(/RabbitMQ node by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/certificate-expiration/1/months{#SINGLETON}"])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/certificate-expiration/1/months{#SINGLETON}"])=0'
                   name: 'RabbitMQ node: There are valid TLS certificates expiring in the next month'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -1527,7 +1527,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: 62962f18baa4480294e097fec2cc5e4c
-                  expression: 'last(/RabbitMQ node by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/local-alarms{#SINGLETON}"])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/local-alarms{#SINGLETON}"])=0'
                   name: 'RabbitMQ node: There are active alarms in the node'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -1566,7 +1566,7 @@ zabbix_export:
                   value: queues
               trigger_prototypes:
                 - uuid: 19e392f9e48e4c8287e04751a2a73843
-                  expression: 'last(/RabbitMQ node by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/node-is-mirror-sync-critical{#SINGLETON}"])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/node-is-mirror-sync-critical{#SINGLETON}"])=0'
                   name: 'RabbitMQ node: There are queues that could potentially lose data if this node goes offline.'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -1605,7 +1605,7 @@ zabbix_export:
                   value: queues
               trigger_prototypes:
                 - uuid: e063b6dde6a0484ba1561861d8b1f0c1
-                  expression: 'last(/RabbitMQ node by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/node-is-quorum-critical{#SINGLETON}"])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/node-is-quorum-critical{#SINGLETON}"])=0'
                   name: 'RabbitMQ node: There are queues that would lose their quorum and availability if this node is shut down.'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -1643,7 +1643,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: b61117e5eeff4d41a9a2f1729ec174b2
-                  expression: 'last(/RabbitMQ node by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/virtual-hosts{#SINGLETON}"])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/health/checks/virtual-hosts{#SINGLETON}"])=0'
                   name: 'RabbitMQ node: There are not running virtual hosts'
                   opdata: 'Current state: {ITEM.LASTVALUE1}'
                   priority: AVERAGE
@@ -1726,7 +1726,7 @@ zabbix_export:
                   value: system
               trigger_prototypes:
                 - uuid: 2979bc7d779b404696f7eac273e99ea7
-                  expression: 'last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])=0'
                   name: 'RabbitMQ node: Process is not running'
                   priority: HIGH
                   tags:
@@ -1783,7 +1783,7 @@ zabbix_export:
                   value: memory
           trigger_prototypes:
             - uuid: 4f2a88d09b1b49879d80e0794ec19e0e
-              expression: 'nodata(/RabbitMQ node by Zabbix agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/nodes/{$RABBITMQ.CLUSTER.NAME}@{HOST.NAME}?memory=true"],30m)=1 and last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
+              expression: 'nodata(/RabbitMQ node by TAA agent/web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/nodes/{$RABBITMQ.CLUSTER.NAME}@{HOST.NAME}?memory=true"],30m)=1 and last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
               name: 'RabbitMQ node: Failed to fetch nodes data'
               event_name: 'RabbitMQ node: Failed to fetch nodes data (or no data for 30m)'
               priority: WARNING
@@ -1791,24 +1791,24 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'RabbitMQ node: Process is not running'
-                  expression: 'last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])=0'
+                  expression: 'last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])=0'
               tags:
                 - tag: scope
                   value: availability
             - uuid: 253acf98446e4790975b330d44dd6b96
-              expression: 'max(/RabbitMQ node by Zabbix agent/rabbitmq.node.running,5m)=0 and last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
+              expression: 'max(/RabbitMQ node by TAA agent/rabbitmq.node.running,5m)=0 and last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
               name: 'RabbitMQ node: Node is not running'
               opdata: 'Current state: {ITEM.LASTVALUE1}'
               priority: AVERAGE
               description: 'RabbitMQ node is not running.'
               dependencies:
                 - name: 'RabbitMQ node: Service is down'
-                  expression: 'last(/RabbitMQ node by Zabbix agent/net.tcp.service["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"])=0 and last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
+                  expression: 'last(/RabbitMQ node by TAA agent/net.tcp.service["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"])=0 and last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
               tags:
                 - tag: scope
                   value: availability
             - uuid: af5cfb0004e04562a9720b9e1b41fd5b
-              expression: 'last(/RabbitMQ node by Zabbix agent/net.tcp.service["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"])=0 and last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
+              expression: 'last(/RabbitMQ node by TAA agent/net.tcp.service["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"])=0 and last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
               name: 'RabbitMQ node: Service is down'
               priority: AVERAGE
               manual_close: 'YES'
@@ -1816,14 +1816,14 @@ zabbix_export:
                 - tag: scope
                   value: availability
             - uuid: 5cb80a7552d74e44a83d0825f039f89f
-              expression: 'min(/RabbitMQ node by Zabbix agent/net.tcp.service.perf["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"],5m)>{$RABBITMQ.RESPONSE_TIME.MAX.WARN} and last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
+              expression: 'min(/RabbitMQ node by TAA agent/net.tcp.service.perf["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"],5m)>{$RABBITMQ.RESPONSE_TIME.MAX.WARN} and last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
               name: 'RabbitMQ node: Service response time is too high'
               event_name: 'RabbitMQ node: Service response time is too high (over {$RABBITMQ.RESPONSE_TIME.MAX.WARN}s for 5m)'
               priority: WARNING
               manual_close: 'YES'
               dependencies:
                 - name: 'RabbitMQ node: Service is down'
-                  expression: 'last(/RabbitMQ node by Zabbix agent/net.tcp.service["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"])=0 and last(/RabbitMQ node by Zabbix agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
+                  expression: 'last(/RabbitMQ node by TAA agent/net.tcp.service["{$RABBITMQ.API.SCHEME}","{$RABBITMQ.API.HOST}","{$RABBITMQ.API.PORT}"])=0 and last(/RabbitMQ node by TAA agent/rabbitmq.proc.num[{#RABBITMQ.NAME}])>0'
               tags:
                 - tag: scope
                   value: performance
@@ -1834,13 +1834,13 @@ zabbix_export:
                 - drawtype: BOLD_LINE
                   color: 199C0D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.proc.vmem[{#RABBITMQ.NAME}]'
                 - sortorder: '1'
                   drawtype: BOLD_LINE
                   color: F63100
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.proc.rss[{#RABBITMQ.NAME}]'
           master_item:
             key: 'proc.get[{$RABBITMQ.PROCESS.NAME.PARAMETER},,,summary]'
@@ -2160,7 +2160,7 @@ zabbix_export:
                   value: '{#VHOST}'
               trigger_prototypes:
                 - uuid: 58986cee2b4846b3b7bd3caf772d7ac6
-                  expression: 'min(/RabbitMQ node by Zabbix agent/rabbitmq.queue.messages["{#VHOST}/{#QUEUE}"],5m)>{$RABBITMQ.MESSAGES.MAX.WARN:"{#QUEUE}"}'
+                  expression: 'min(/RabbitMQ node by TAA agent/rabbitmq.queue.messages["{#VHOST}/{#QUEUE}"],5m)>{$RABBITMQ.MESSAGES.MAX.WARN:"{#QUEUE}"}'
                   name: 'RabbitMQ node: Too many messages in queue [{#VHOST}][{#QUEUE}]'
                   event_name: 'RabbitMQ node: Too many messages in queue [{#VHOST}][{#QUEUE}] (over {$RABBITMQ.MESSAGES.MAX.WARN:"{#QUEUE}"} for 5m)'
                   opdata: 'Current value: {ITEM.LASTVALUE1}'
@@ -2248,84 +2248,84 @@ zabbix_export:
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.rate["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.ack.rate["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.deliver.rate["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '3'
                   color: F7941D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.deliver_get.rate["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '4'
                   color: FC6EA3
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.publish.rate["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '5'
                   color: 6C59DC
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages_ready.rate["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '6'
                   color: C7A72D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.redeliver.rate["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '7'
                   color: BA2A5D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages_unacknowledged.rate["{#VHOST}/{#QUEUE}"]'
             - uuid: 03c88aa9d8b94389aafcf607dff1756f
               name: 'RabbitMQ: Queue [{#VHOST}][{#QUEUE}]: Messages status'
               graph_items:
                 - color: 199C0D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '1'
                   color: F63100
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.ack["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '2'
                   color: 00611C
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.deliver["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '3'
                   color: F7941D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.deliver_get["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '4'
                   color: FC6EA3
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.publish["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '5'
                   color: 6C59DC
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages_ready["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '6'
                   color: C7A72D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages.redeliver["{#VHOST}/{#QUEUE}"]'
                 - sortorder: '7'
                   color: BA2A5D
                   item:
-                    host: 'RabbitMQ node by Zabbix agent'
+                    host: 'RabbitMQ node by TAA agent'
                     key: 'rabbitmq.queue.messages_unacknowledged["{#VHOST}/{#QUEUE}"]'
           master_item:
             key: 'web.page.get["{$RABBITMQ.API.SCHEME}://{$RABBITMQ.API.USER}:{$RABBITMQ.API.PASSWORD}@{$RABBITMQ.API.HOST}:{$RABBITMQ.API.PORT}/api/queues"]'
@@ -2394,7 +2394,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ node by Zabbix agent'
+                        host: 'RabbitMQ node by TAA agent'
                         name: 'RabbitMQ: Node status'
                     - type: STRING
                       name: reference
@@ -2407,7 +2407,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ node by Zabbix agent'
+                        host: 'RabbitMQ node by TAA agent'
                         name: 'RabbitMQ: Disk free'
                     - type: STRING
                       name: reference
@@ -2420,7 +2420,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ node by Zabbix agent'
+                        host: 'RabbitMQ node by TAA agent'
                         name: 'RabbitMQ: File descriptors'
                     - type: STRING
                       name: reference
@@ -2433,7 +2433,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ node by Zabbix agent'
+                        host: 'RabbitMQ node by TAA agent'
                         name: 'RabbitMQ: Uptime'
                     - type: STRING
                       name: reference
@@ -2447,7 +2447,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ node by Zabbix agent'
+                        host: 'RabbitMQ node by TAA agent'
                         name: 'RabbitMQ: Memory used'
                     - type: STRING
                       name: reference
@@ -2461,7 +2461,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'RabbitMQ node by Zabbix agent'
+                        host: 'RabbitMQ node by TAA agent'
                         name: 'RabbitMQ: Sockets'
                     - type: STRING
                       name: reference
@@ -2496,17 +2496,17 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.object_totals.connections
         - sortorder: '1'
           color: F63100
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.object_totals.channels
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.object_totals.consumers
     - uuid: 72472749150041d59a52ce5abb3dc03e
       name: 'RabbitMQ: Disk free'
@@ -2514,20 +2514,20 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.disk_free
         - sortorder: '1'
           drawtype: BOLD_LINE
           color: FF0000
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.disk_free_limit
     - uuid: 132133fc0fd04002a5a50fc0d5169e6a
       name: 'RabbitMQ: File descriptors'
       graph_items:
         - color: 199C0D
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.fd_used
     - uuid: a5949ccf83434f1fb26cfe0a3671085e
       name: 'RabbitMQ: Memory used'
@@ -2535,114 +2535,114 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.mem_used
         - sortorder: '1'
           drawtype: BOLD_LINE
           color: FF0000
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.mem_limit
     - uuid: dca08567e6ce4dcbb60f72a431de5ddf
       name: 'RabbitMQ: Messages'
       graph_items:
         - color: 199C0D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.queue_totals.messages
         - sortorder: '1'
           color: F63100
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.queue_totals.messages.ready
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.queue_totals.messages.unacknowledged
     - uuid: ad303b1816a84248a347ef4773bf2c44
       name: 'RabbitMQ: Messages per second'
       graph_items:
         - color: 199C0D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.publish.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.ack.rate
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.confirm.rate
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.deliver_get.rate
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.publish_in.rate
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.publish_out.rate
         - sortorder: '6'
           color: C7A72D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.redeliver.rate
         - sortorder: '7'
           color: BA2A5D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.return_unroutable.rate
     - uuid: 94fa39136a0d42b2997dd3b9a7581621
       name: 'RabbitMQ: Messages status'
       graph_items:
         - color: 199C0D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.publish
         - sortorder: '1'
           color: F63100
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.ack
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.confirm
         - sortorder: '3'
           color: F7941D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.deliver_get
         - sortorder: '4'
           color: FC6EA3
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.publish_in
         - sortorder: '5'
           color: 6C59DC
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.publish_out
         - sortorder: '6'
           color: C7A72D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.redeliver
         - sortorder: '7'
           color: BA2A5D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.messages.return_unroutable
     - uuid: 358fb67c294d4486a79797818ebde851
       name: 'RabbitMQ: Node status'
@@ -2650,7 +2650,7 @@ zabbix_export:
         - drawtype: BOLD_LINE
           color: 199C0D
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.running
     - uuid: 3205b991eb5443e680b571b23b4a1721
       name: 'RabbitMQ: Queues'
@@ -2658,7 +2658,7 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'RabbitMQ cluster by Zabbix agent'
+            host: 'RabbitMQ cluster by TAA agent'
             key: rabbitmq.overview.object_totals.queues
     - uuid: 7e5fec850547465091a38f78268a207f
       name: 'RabbitMQ: Sockets'
@@ -2666,17 +2666,17 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.sockets_used
         - sortorder: '1'
           color: F63100
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.sockets_total
     - uuid: bf2b0b66f4d94549aae9cbe04dfe9bd2
       name: 'RabbitMQ: Uptime'
       graph_items:
         - color: 199C0D
           item:
-            host: 'RabbitMQ node by Zabbix agent'
+            host: 'RabbitMQ node by TAA agent'
             key: rabbitmq.node.uptime

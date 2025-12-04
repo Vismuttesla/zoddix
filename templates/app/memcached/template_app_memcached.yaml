@@ -1,14 +1,14 @@
-zabbix_export:
+﻿zabbix_export:
   version: '7.4'
   template_groups:
     - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
       name: Templates/Applications
   templates:
     - uuid: 05894ba2c9184d33992bf1bd21c347f6
-      template: 'Memcached by Zabbix agent 2'
-      name: 'Memcached by Zabbix agent 2'
+      template: 'Memcached by TAA agent 2'
+      name: 'Memcached by TAA agent 2'
       description: |
-        Get Memcached metrics from plugin for the New Zabbix Agent (zabbix-agent2).
+        Get Memcached metrics from plugin for the New TAA agent (zabbix-agent2).
         
         You can discuss this template or leave feedback on our forum https://www.zabbix.com/forum/zabbix-suggestions-and-feedback/398623-discussion-thread-for-official-zabbix-template-memcached
         
@@ -134,7 +134,7 @@ zabbix_export:
               value: connections
           triggers:
             - uuid: 922a59008cd94e0688db8528be296f89
-              expression: 'min(/Memcached by Zabbix agent 2/memcached.connections.queued.rate,5m)>{$MEMCACHED.CONN.QUEUED.MAX.WARN}'
+              expression: 'min(/Memcached by TAA agent 2/memcached.connections.queued.rate,5m)>{$MEMCACHED.CONN.QUEUED.MAX.WARN}'
               name: 'Memcached: Too many queued connections'
               event_name: 'Memcached: Too many queued connections (over {$MEMCACHED.CONN.QUEUED.MAX.WARN} in 5m)'
               priority: WARNING
@@ -190,7 +190,7 @@ zabbix_export:
               value: connections
           triggers:
             - uuid: 33c9b918d21343dea3bcd2c3e3505fc5
-              expression: 'min(/Memcached by Zabbix agent 2/memcached.connections.throttled.rate,5m)>{$MEMCACHED.CONN.THROTTLED.MAX.WARN}'
+              expression: 'min(/Memcached by TAA agent 2/memcached.connections.throttled.rate,5m)>{$MEMCACHED.CONN.THROTTLED.MAX.WARN}'
               name: 'Memcached: Too many throttled connections'
               event_name: 'Memcached: Too many throttled connections (over {$MEMCACHED.CONN.THROTTLED.MAX.WARN} in 5m)'
               priority: WARNING
@@ -218,7 +218,7 @@ zabbix_export:
               value: cpu
           triggers:
             - uuid: a30bb4344e714b7f984e86046797b9b1
-              expression: 'nodata(/Memcached by Zabbix agent 2/memcached.cpu.sys,30m)=1'
+              expression: 'nodata(/Memcached by TAA agent 2/memcached.cpu.sys,30m)=1'
               name: 'Memcached: Failed to fetch info data'
               event_name: 'Memcached: Failed to fetch info data (or no data for 30m)'
               priority: WARNING
@@ -226,7 +226,7 @@ zabbix_export:
               manual_close: 'YES'
               dependencies:
                 - name: 'Memcached: Service is down'
-                  expression: 'last(/Memcached by Zabbix agent 2/memcached.ping["{$MEMCACHED.CONN.URI}"])=0'
+                  expression: 'last(/Memcached by TAA agent 2/memcached.ping["{$MEMCACHED.CONN.URI}"])=0'
               tags:
                 - tag: scope
                   value: notice
@@ -260,7 +260,7 @@ zabbix_export:
               value: health
           triggers:
             - uuid: c6184e4c3cc54e199244dc8efb3cacf8
-              expression: 'last(/Memcached by Zabbix agent 2/memcached.ping["{$MEMCACHED.CONN.URI}"])=0'
+              expression: 'last(/Memcached by TAA agent 2/memcached.ping["{$MEMCACHED.CONN.URI}"])=0'
               name: 'Memcached: Service is down'
               priority: AVERAGE
               manual_close: 'YES'
@@ -450,7 +450,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: c53a2d7b861b41458976bfa03ab1a105
-              expression: 'last(/Memcached by Zabbix agent 2/memcached.uptime)<10m'
+              expression: 'last(/Memcached by TAA agent 2/memcached.uptime)<10m'
               name: 'Memcached: Service has been restarted'
               event_name: 'Memcached: Service has been restarted (uptime < 10m)'
               priority: INFO
@@ -479,7 +479,7 @@ zabbix_export:
               value: application
           triggers:
             - uuid: 086e757b4a2048eabd5e91b4a0ccc07b
-              expression: 'last(/Memcached by Zabbix agent 2/memcached.version,#1)<>last(/Memcached by Zabbix agent 2/memcached.version,#2) and length(last(/Memcached by Zabbix agent 2/memcached.version))>0'
+              expression: 'last(/Memcached by TAA agent 2/memcached.version,#1)<>last(/Memcached by TAA agent 2/memcached.version,#2) and length(last(/Memcached by TAA agent 2/memcached.version))>0'
               name: 'Memcached: Version has changed'
               event_name: 'Memcached: Version has changed (new version: {ITEM.VALUE})'
               priority: INFO
@@ -522,7 +522,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Memcached by Zabbix agent 2'
+                        host: 'Memcached by TAA agent 2'
                         name: 'Memcached: Commands'
                     - type: STRING
                       name: reference
@@ -535,7 +535,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Memcached by Zabbix agent 2'
+                        host: 'Memcached by TAA agent 2'
                         name: 'Memcached: Connections'
                     - type: STRING
                       name: reference
@@ -548,7 +548,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Memcached by Zabbix agent 2'
+                        host: 'Memcached by TAA agent 2'
                         name: 'Memcached: Network'
                     - type: STRING
                       name: reference
@@ -561,7 +561,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Memcached by Zabbix agent 2'
+                        host: 'Memcached by TAA agent 2'
                         name: 'Memcached: Keyspace'
                     - type: STRING
                       name: reference
@@ -575,7 +575,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Memcached by Zabbix agent 2'
+                        host: 'Memcached by TAA agent 2'
                         name: 'Memcached: Connections rate'
                     - type: STRING
                       name: reference
@@ -589,7 +589,7 @@ zabbix_export:
                     - type: GRAPH
                       name: graphid.0
                       value:
-                        host: 'Memcached by Zabbix agent 2'
+                        host: 'Memcached by TAA agent 2'
                         name: 'Memcached: Uptime'
                     - type: STRING
                       name: reference
@@ -604,7 +604,7 @@ zabbix_export:
               newvalue: Up
   triggers:
     - uuid: e6129a8ace1945fa9020c6c0008cb19c
-      expression: 'min(/Memcached by Zabbix agent 2/memcached.stats.bytes,5m)/last(/Memcached by Zabbix agent 2/memcached.config.limit_maxbytes)*100>{$MEMCACHED.MEM.PUSED.MAX.WARN}'
+      expression: 'min(/Memcached by TAA agent 2/memcached.stats.bytes,5m)/last(/Memcached by TAA agent 2/memcached.config.limit_maxbytes)*100>{$MEMCACHED.MEM.PUSED.MAX.WARN}'
       name: 'Memcached: Memory usage is too high'
       event_name: 'Memcached: Memory usage is too high (over {$MEMCACHED.MEM.PUSED.MAX.WARN} in 5m)'
       priority: WARNING
@@ -612,7 +612,7 @@ zabbix_export:
         - tag: scope
           value: capacity
     - uuid: 61021d383c9f41b990292bab2738356d
-      expression: 'min(/Memcached by Zabbix agent 2/memcached.connections.current,5m)/last(/Memcached by Zabbix agent 2/memcached.connections.max)*100>{$MEMCACHED.CONN.PRC.MAX.WARN}'
+      expression: 'min(/Memcached by TAA agent 2/memcached.connections.current,5m)/last(/Memcached by TAA agent 2/memcached.connections.max)*100>{$MEMCACHED.CONN.PRC.MAX.WARN}'
       name: 'Memcached: Total number of connected clients is too high'
       event_name: 'Memcached: Total number of connected clients is too high (over {$MEMCACHED.CONN.PRC.MAX.WARN}% in 5m)'
       priority: WARNING
@@ -626,17 +626,17 @@ zabbix_export:
       graph_items:
         - color: 199C0D
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.commands.flush.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.commands.set.rate
         - sortorder: '2'
           color: 00611C
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.commands.get.rate
     - uuid: 3d738b083ce04ffa8d4bd9bf2e394f6a
       name: 'Memcached: Connections'
@@ -644,19 +644,19 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.connections.max
         - sortorder: '1'
           drawtype: GRADIENT_LINE
           color: F63100
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.connections.current
         - sortorder: '2'
           drawtype: GRADIENT_LINE
           color: 00611C
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.connections.structures
     - uuid: 195f209046ba426c9e57c6a317c76ef4
       name: 'Memcached: Connections rate'
@@ -664,31 +664,31 @@ zabbix_export:
         - drawtype: BOLD_LINE
           color: 199C0D
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.connections.rate
         - sortorder: '1'
           drawtype: BOLD_LINE
           color: F63100
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.connections.throttled.rate
         - sortorder: '2'
           drawtype: BOLD_LINE
           color: 00611C
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.connections.queued.rate
     - uuid: 8ace604110bf4a4d9eb7a4b6add0492d
       name: 'Memcached: Keyspace'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.stats.hits.rate
         - sortorder: '1'
           color: F63100
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.stats.misses.rate
     - uuid: bb6305e9a84749669433e53cd2b7b8b8
       name: 'Memcached: Network'
@@ -696,18 +696,18 @@ zabbix_export:
         - drawtype: GRADIENT_LINE
           color: 199C0D
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.stats.bytes_read.rate
         - sortorder: '1'
           drawtype: GRADIENT_LINE
           color: F63100
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.stats.bytes_written.rate
     - uuid: 599a96c18e214610a41afadef8f11e11
       name: 'Memcached: Uptime'
       graph_items:
         - color: 199C0D
           item:
-            host: 'Memcached by Zabbix agent 2'
+            host: 'Memcached by TAA agent 2'
             key: memcached.uptime
