@@ -200,7 +200,7 @@ class WidgetForm extends CWidgetForm {
 			)
 			->addField(
 				(new CWidgetFieldTextArea('description', _('Description')))
-					->setDefault('{ITEM.NAME}')
+					->setDefault('Har sekunddagi qiymatlar')
 					->setFlags(CWidgetField::FLAG_NOT_EMPTY | CWidgetField::FLAG_LABEL_ASTERISK)
 			)
 			->addField(
