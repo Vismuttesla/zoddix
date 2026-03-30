@@ -9,6 +9,8 @@ services:
       - "5433:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./taa_database_backup_utf8.sql:/docker-entrypoint-initdb.d/01-restore.sql
+      - ./02-rebrand-taa.sql:/docker-entrypoint-initdb.d/02-rebrand-taa.sql
     networks:
       - zabbix-network
 

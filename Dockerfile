@@ -31,7 +31,10 @@ RUN ln -sf uz_UZ /usr/share/locale/uz_UZ.UTF-8
 # uz_UZ locale fayl yaratish (Alpine da manual)
 RUN mkdir -p /usr/share/locale/uz_UZ/LC_MESSAGES
 COPY ui/locale/uz_UZ/LC_MESSAGES/frontend.po /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.po
-COPY ui/locale/uz_UZ/LC_MESSAGES/frontend.mo /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.mo
+
+# PO dan MO kompilatsiya qilish (Docker ichida)
+RUN msgfmt /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.po \
+    -o /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.mo
 
 RUN cp /usr/share/zabbix/locale/uz_UZ/LC_MESSAGES/frontend.mo /usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo
 # Create branding directories
