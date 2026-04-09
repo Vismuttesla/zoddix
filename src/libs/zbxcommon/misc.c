@@ -21,6 +21,10 @@
 
 #include "zbxcommon.h"
 #include "zbxtypes.h"
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <assert.h>
+#include <wchar.h>
 
 #if defined(_WINDOWS) || defined(__MINGW32__)
 #	include "zbxstr.h"

@@ -16,6 +16,7 @@
 #define ZABBIX_TYPES_H
 
 #include "zbxsysinc.h"
+#include <sys/stat.h>
 
 #if defined(_WINDOWS)
 #	define ZBX_THREAD_LOCAL __declspec(thread)

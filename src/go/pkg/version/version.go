@@ -1,18 +1,12 @@
 /*
-** Copyright (C) 2001-2025 Zabbix SIA
+** Copyright (C) 2001-2026 TAA Project
+** Based on TAA Agent 2 source code.
 **
 ** This program is free software: you can redistribute it and/or modify it under the terms of
 ** the GNU Affero General Public License as published by the Free Software Foundation, version 3.
-**
-** This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-** without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-** See the GNU Affero General Public License for more details.
-**
-** You should have received a copy of the GNU Affero General Public License along with this program.
-** If not, see <https://www.gnu.org/licenses/>.
 **/
 
-// Package version provides zabbix release version
+// Package version provides TAA agent release version
 package version
 
 import (
@@ -28,8 +22,11 @@ const (
 	ZABBIX_VERSION_PATCH    = 0
 	ZABBIX_VERSION_RC       = "rc2"
 	ZABBIX_VERSION_RC_NUM   = "{ZABBIX_RC_NUM}"
-	ZABBIX_VERSION_REVISION = "{ZABBIX_REVISION}"
-	copyrightMessage        = "Copyright (C) 2025 Zabbix SIA\n" +
+	ZABBIX_VERSION_REVISION = "1.0"
+
+	// TAA uchun o'zgartirilgan mualliflik xabari
+	copyrightMessage = "Copyright (C) 2026 TAA Project\n" +
+		"Based on TAA Agent 2 source code.\n" +
 		"License AGPLv3: GNU Affero General Public License version 3 <https://www.gnu.org/licenses/>.\n" +
 		"This is free software: you are free to change and redistribute it according to\n" +
 		"the license. There is NO WARRANTY, to the extent permitted by law."
@@ -140,18 +137,21 @@ func TitleMessage() string {
 	return title
 }
 
-// Display shows program version.
-// Program version includes Zabbix revision and it's time and date, compilation time and date, Go compiler tree's
-// version string, copyright message, and additionalMessages provided by the caller function.
+// Display funksiyasi -V komandasi berilganda ekranga chiqariladi.
+// (Zabbix) yozuvi (TAA Agent 2) ga o'zgartirildi.
 func Display(additionalMessages []string) {
-	fmt.Printf("%s (Zabbix) %s\n", TitleMessage(), Long())
+	// (Zabbix) so'zi olib tashlandi, faqat TAA Agent 2 qoldi
+	fmt.Printf("%s TAA Agent 2 %s\n", TitleMessage(), Long())
+
+	// Revision qatoridagi Zabbix so'zini ham olib tashlaymiz
 	fmt.Printf(
 		"Revision %s %s, compilation time: %s %s, built with: %s\n",
 		Revision(), RevDate(), CompileDate(), CompileTime(), runtime.Version(),
 	)
 
 	for _, msg := range additionalMessages {
-		fmt.Println(msg)
+		// Agar qo'shimcha xabarlarda Zabbix bo'lsa, ularni almashtiramiz
+		fmt.Println(strings.ReplaceAll(msg, "Zabbix", "TAA"))
 	}
 
 	fmt.Println()

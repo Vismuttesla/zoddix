@@ -3,6 +3,14 @@
 #include "resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
+#define VER_FILEVERSION 6,4,0,0
+#define VER_PRODUCTVERSION 6,4,0,0
+#define VER_COMPANYNAME_STR "TAA Software"
+#define VER_PRODUCTVERSION_STR "1.0.0"
+#define VER_FILEVERSION_STR "1.0.0"
+#define VER_PRODUCTNAME_STR "TAA Monitoring Agent"
+#define VER_FILEDESCRIPTION_STR "TAA Custom Agent for Windows"
+#define VER_LEGALCOPYRIGHT_STR "Copyright (C) 2026 TAA"
 /////////////////////////////////////////////////////////////////////////////
 //
 // Generated from the TEXTINCLUDE 2 resource.

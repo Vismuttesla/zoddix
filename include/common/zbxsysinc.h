@@ -16,6 +16,27 @@
 #define ZABBIX_SYSINC_H
 
 #include "config.h"
+#include <assert.h>
+#include <math.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <pcre2.h>
+#include <fcntl.h>
+#include <io.h>
+
+#ifndef O_RDONLY
+#  define O_RDONLY 0
+#endif
+
+#ifndef O_BINARY
+#  ifdef _O_BINARY
+#    define O_BINARY _O_BINARY
+#  else
+#    define O_BINARY 0
+#  endif
+#endif
+
 
 #ifdef HAVE_STDIO_H
 #	include <stdio.h>

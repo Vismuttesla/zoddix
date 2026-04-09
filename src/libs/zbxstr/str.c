@@ -13,6 +13,8 @@
 **/
 
 #include "zbxstr.h"
+#include <assert.h>
+#include <string.h>
 
 #ifdef HAVE_ICONV
 #	include <iconv.h>

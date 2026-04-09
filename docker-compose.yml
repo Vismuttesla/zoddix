@@ -59,6 +59,30 @@ services:
     privileged: true
     restart: unless-stopped
 
+  # Ikkinchi TAA Agent - Boshqa server yoki resurs uchun
+  taa-agent-2:
+    image: zabbix/zabbix-agent2:alpine-7.0-latest
+    container_name: taa-agent-2
+    environment:
+      ZBX_HOSTNAME: "Ikkinchi Server"
+      ZBX_SERVER_HOST: "taa-server"
+      ZBX_SERVER_PORT: "10051"
+      ZBX_PASSIVE_ALLOW: "true"
+      ZBX_ACTIVE_ALLOW: "true"
+      ZBX_DEBUGLEVEL: "3"
+    ports:
+      - "10052:10050"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    depends_on:
+      - taa-server
+    networks:
+      - zabbix-network
+    restart: unless-stopped
+
   taa-web:
     image: taa-web:custom
     build:

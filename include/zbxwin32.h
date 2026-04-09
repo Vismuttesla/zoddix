@@ -15,6 +15,11 @@
 #ifndef ZABBIX_WIN32_H
 #define ZABBIX_WIN32_H
 
+#include <windows.h>
+#include <pdh.h>
+#include <pdhmsg.h>
+#include <psapi.h>
+
 #include "config.h"
 #include "zbxsysinc.h"
 #include "zbxtypes.h"
