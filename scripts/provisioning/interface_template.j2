@@ -1,0 +1,39 @@
+{# ============================================================
+   TAA — Catalyst 3560G interfeysni port-security bilan
+   konfiguratsiya qilish uchun Jinja2 template.
+
+   Kutilgan o'zgaruvchilar (har bir port uchun):
+     interface  (majburiy)  - masalan "GigabitEthernet0/5"
+     description            - port tavsifi
+     vlan       (majburiy)  - access VLAN raqami
+     mac                    - sticky/MAC binding uchun MAC (aabb.ccdd.eeff)
+     max_mac                - port-security maximum (default: 1)
+     violation              - shutdown | restrict | protect (default: shutdown)
+     bpduguard              - true/false (default: true)
+     storm_control          - true/false (default: false)
+   ============================================================ #}
+interface {{ interface }}
+{%- if description %}
+ description {{ description }}
+{%- endif %}
+ switchport mode access
+ switchport access vlan {{ vlan }}
+ switchport port-security
+ switchport port-security maximum {{ max_mac | default(1) }}
+{%- if mac %}
+ switchport port-security mac-address {{ mac }}
+{%- else %}
+ switchport port-security mac-address sticky
+{%- endif %}
+ switchport port-security violation {{ violation | default('shutdown') }}
+{%- if bpduguard | default(true) %}
+ spanning-tree bpduguard enable
+{%- endif %}
+{%- if storm_control | default(false) %}
+ storm-control broadcast level 1.00
+ storm-control multicast level 1.00
+ storm-control action shutdown
+{%- endif %}
+ ip dhcp snooping limit rate 15
+ no shutdown
+!

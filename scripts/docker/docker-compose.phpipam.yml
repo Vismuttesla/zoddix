@@ -1,0 +1,106 @@
+# =============================================================================
+# phpIPAM qo'shimcha qatlam — TAA asosiy stackiga aralashtirilmaydi.
+# -----------------------------------------------------------------------------
+# Foydalanish (asosiy compose bilan birga ishga tushirish):
+#   docker compose \
+#     -f docker-compose.yml \
+#     -f scripts/docker/docker-compose.phpipam.yml \
+#     up -d
+#
+# Web UI:  http://<host>:8099/   (boshlang'ich sozlash sehrgari ochiladi)
+# DB:      MariaDB 10, ichki tarmoq orqali phpipam-mariadb:3306
+# Cron:    har 1 daqiqada IPAM ichki vazifalarini bajaradi
+#
+# .env fayli scripts/docker/.env.example dan nusxa olinadi:
+#   cp scripts/docker/.env.example scripts/docker/.env
+#   chmod 600 scripts/docker/.env
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # MariaDB — phpIPAM uchun ma'lumotlar bazasi (TAA Postgres'iga tegmaydi)
+  # ---------------------------------------------------------------------------
+  phpipam-mariadb:
+    image: mariadb:10
+    container_name: phpipam-mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "${PHPIPAM_DB_ROOT_PASS}"
+      MYSQL_DATABASE: "phpipam"
+      MYSQL_USER: "${IPAM_DATABASE_USER:-phpipam}"
+      MYSQL_PASSWORD: "${PHPIPAM_DB_PASS}"
+    command:
+      - mysqld
+      - --innodb-buffer-pool-size=128M
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - phpipam-db:/var/lib/mysql
+    networks:
+      - zabbix-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${PHPIPAM_DB_ROOT_PASS}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------------
+  # phpIPAM web — asosiy IPAM frontend (Apache + PHP)
+  # ---------------------------------------------------------------------------
+  phpipam-web:
+    image: phpipam/phpipam-www:latest
+    container_name: phpipam-web
+    restart: unless-stopped
+    depends_on:
+      phpipam-mariadb:
+        condition: service_healthy
+    environment:
+      TZ: "Asia/Tashkent"
+      IPAM_DATABASE_HOST: "${IPAM_DATABASE_HOST:-phpipam-mariadb}"
+      IPAM_DATABASE_USER: "${IPAM_DATABASE_USER:-phpipam}"
+      IPAM_DATABASE_PASS: "${IPAM_DATABASE_PASS:-${PHPIPAM_DB_PASS}}"
+      IPAM_DATABASE_NAME: "phpipam"
+      IPAM_DATABASE_WEBHOST: "%"
+      SCRIPT_NAME: "/"
+    ports:
+      - "8099:80"
+    volumes:
+      - phpipam-logo:/phpipam/css/images/logo
+    networks:
+      - zabbix-network
+
+  # ---------------------------------------------------------------------------
+  # phpIPAM cron — ichki vazifalar (scan, status update) har 1 daqiqada
+  # ---------------------------------------------------------------------------
+  phpipam-cron:
+    image: phpipam/phpipam-cron:latest
+    container_name: phpipam-cron
+    restart: unless-stopped
+    depends_on:
+      phpipam-mariadb:
+        condition: service_healthy
+    environment:
+      TZ: "Asia/Tashkent"
+      IPAM_DATABASE_HOST: "${IPAM_DATABASE_HOST:-phpipam-mariadb}"
+      IPAM_DATABASE_USER: "${IPAM_DATABASE_USER:-phpipam}"
+      IPAM_DATABASE_PASS: "${IPAM_DATABASE_PASS:-${PHPIPAM_DB_PASS}}"
+      IPAM_DATABASE_NAME: "phpipam"
+      SCAN_INTERVAL: "1m"
+    networks:
+      - zabbix-network
+
+# -----------------------------------------------------------------------------
+# Tarmoq: asosiy docker-compose.yml dagi "zabbix-network" ga ulanamiz.
+# external: true — bu compose tarmoq yaratmaydi, mavjudini topib ulanadi.
+# -----------------------------------------------------------------------------
+networks:
+  zabbix-network:
+    external: true
+
+# -----------------------------------------------------------------------------
+# Volumelar: phpIPAM ma'lumotlari va logotipi alohida saqlanadi.
+# -----------------------------------------------------------------------------
+volumes:
+  phpipam-db:
+  phpipam-logo:

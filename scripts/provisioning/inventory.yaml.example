@@ -1,0 +1,37 @@
+# ============================================================
+# TAA: Catalyst 3560G port-provisioning inventory misoli.
+#
+# Bu faylni `inventory.yaml` nomi bilan nusxalab, o'zingizning
+# tarmoq ma'lumotlaringizga moslab tahrirlang. Sekretlar
+# (parol/enable) bu faylga YOZILMAYDI — ular env orqali beriladi:
+#     export SW_USER=taa_auto
+#     export SW_PASS=...
+# Keyin: provision_ports.py --inventory inventory.yaml \
+#                            --switch 10.0.99.2 --dry-run
+# ============================================================
+
+ports:
+  - interface: GigabitEthernet0/5
+    description: "User: Aliyev A."
+    vlan: 30
+    mac: aabb.ccdd.eeff
+    max_mac: 1
+    violation: shutdown
+    bpduguard: true
+
+  - interface: GigabitEthernet0/6
+    description: "User: Karimova S."
+    vlan: 30
+    mac: 1122.3344.5566
+    max_mac: 1
+    violation: shutdown
+    bpduguard: true
+
+  - interface: GigabitEthernet0/25
+    description: "Uplink_TP-Link_1024D (unmanaged - high risk)"
+    vlan: 30
+    # MAC berilmagan -> sticky rejim ishlaydi
+    max_mac: 24
+    violation: restrict
+    bpduguard: true
+    storm_control: true
