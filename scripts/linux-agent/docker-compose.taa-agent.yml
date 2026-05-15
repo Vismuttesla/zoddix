@@ -1,0 +1,34 @@
+# =============================================================================
+# TAA Agent 2 — docker-compose overlay
+# -----------------------------------------------------------------------------
+# Asosiy docker-compose.yml ustiga qo'shimcha (overlay) sifatida ishlatiladi.
+# Foydalanish:
+#   docker compose \
+#     -f docker-compose.yml \
+#     -f scripts/linux-agent/docker-compose.taa-agent.yml \
+#     up -d
+# =============================================================================
+
+services:
+  taa-agent-linux:
+    build:
+      context: ../..
+      dockerfile: scripts/linux-agent/Dockerfile
+    image: taa/agent2:linux-latest
+    container_name: taa-agent-linux
+    environment:
+      # Konteyner ichidagi agent uchun atrof-muhit o'zgaruvchilari
+      # (kerak bo'lsa, configga env-substitution orqali bog'lanadi)
+      TAA_HOSTNAME: "taa-linux-agent-01"
+      TAA_SERVER: "taa-server"
+    ports:
+      # Hostda 10053 -> konteynerda 10050 (Windows agenti bilan to'qnashmaslik uchun)
+      - "10053:10050"
+    networks:
+      - zabbix-network
+    restart: unless-stopped
+
+networks:
+  # Asosiy compose faylida e'lon qilingan tarmoqdan foydalanish
+  zabbix-network:
+    external: true

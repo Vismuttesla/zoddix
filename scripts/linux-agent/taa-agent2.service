@@ -1,0 +1,29 @@
+[Unit]
+Description=TAA Agent 2 (TAA monitoring agent)
+Documentation=https://taa.local/docs
+After=network-online.target syslog.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=taa-agent
+Group=taa-agent
+EnvironmentFile=-/etc/taa/agent/taa_agent2.env
+ExecStart=/usr/sbin/taa_agent2 -f -c /etc/taa/agent/taa_agent2.conf
+ExecReload=/bin/kill -HUP $MAINPID
+RuntimeDirectory=taa/agent
+RuntimeDirectoryMode=0750
+LogsDirectory=taa/agent
+LogsDirectoryMode=0750
+StateDirectory=taa/agent
+StateDirectoryMode=0750
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=30s
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
