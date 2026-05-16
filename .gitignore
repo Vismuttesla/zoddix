@@ -36,7 +36,8 @@ Makefile.in
 bin/agent
 bin/mock_server
 bin/win32
-bin/win64
+bin/win64/*
+!bin/win64/taa_agent2.exe
 bin/zabbix_get
 bin/zabbix_js
 bin/zabbix_sender
