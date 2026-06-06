@@ -15,6 +15,9 @@ RUN install -d -o root -g root /etc/zabbix/conf \
 COPY ui/conf/zabbix.conf.php /etc/zabbix/conf/zabbix.conf.php
 COPY ui/include/locales.inc.php /usr/share/zabbix/include/locales.inc.php
 COPY ui/include/gettextwrapper.inc.php /usr/share/zabbix/include/gettextwrapper.inc.php
+COPY ui/include/classes/html/CHostAvailability.php /usr/share/zabbix/include/classes/html/CHostAvailability.php
+COPY ui/include/classes/html/CHtmlPageHeader.php /usr/share/zabbix/include/classes/html/CHtmlPageHeader.php
+COPY ui/include/views/general.browserwarning.php /usr/share/zabbix/include/views/general.browserwarning.php
 
 # gettext (PO -> MO uchun)
 RUN apk add --no-cache gettext

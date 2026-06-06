@@ -21,7 +21,7 @@ class CHostAvailability extends CTag {
 	];
 
 	public const LABELS = [
-		INTERFACE_TYPE_AGENT => 'ZBX',
+		INTERFACE_TYPE_AGENT => 'TAA',
 		INTERFACE_TYPE_SNMP => 'SNMP',
 		INTERFACE_TYPE_IPMI => 'IPMI',
 		INTERFACE_TYPE_JMX => 'JMX'
