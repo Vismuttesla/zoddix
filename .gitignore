@@ -1,4 +1,9 @@
 !/src/modules/dummy/Makefile
+
+# TAA — sekretlar (faqat .env.example git'da bo'ladi)
+.env
+scripts/docker/.env
+
 *.a
 *.o
 *.gcda
