@@ -132,6 +132,7 @@ services:
       - ./ui/include/locales.inc.php:/usr/share/zabbix/include/locales.inc.php:ro
       - ./ui/include/classes/html/CHostAvailability.php:/usr/share/zabbix/include/classes/html/CHostAvailability.php:ro
       - ./ui/include/classes/html/CHtmlPageHeader.php:/usr/share/zabbix/include/classes/html/CHtmlPageHeader.php:ro
+      - ./ui/include/classes/helpers/CMediatypeHelper.php:/usr/share/zabbix/include/classes/helpers/CMediatypeHelper.php:ro
       - ./ui/include/views/general.browserwarning.php:/usr/share/zabbix/include/views/general.browserwarning.php:ro
       - ./ui/local/img/favicon.ico:/usr/share/zabbix/favicon.ico:ro
 #      - ./ui/locale/uz/LC_MESSAGES/frontend.mo:/usr/share/zabbix/locale/uz/LC_MESSAGES/frontend.mo:ro

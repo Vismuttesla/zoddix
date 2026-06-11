@@ -56,8 +56,8 @@ class CMediatypeHelper {
 		$providers = [
 			self::EMAIL_PROVIDER_SMTP => [
 				'name' => 'Generic SMTP',
-				'smtp_server' => 'mail.example.com',
-				'smtp_email' => 'zabbix@example.com',
+				'smtp_server' => 'mail.taa.local',
+				'smtp_email' => 'taa@example.com',
 				'smtp_port' => 25,
 				'smtp_security' => SMTP_SECURITY_NONE,
 				'smtp_authentication' => SMTP_AUTHENTICATION_NONE,
@@ -68,7 +68,7 @@ class CMediatypeHelper {
 			self::EMAIL_PROVIDER_GMAIL => [
 				'name' => 'Gmail',
 				'smtp_server' => 'smtp.gmail.com',
-				'smtp_email' => 'zabbix@example.com',
+				'smtp_email' => 'taa@example.com',
 				'smtp_port' => 587,
 				'smtp_security' => SMTP_SECURITY_STARTTLS,
 				'smtp_authentication' => SMTP_AUTHENTICATION_PASSWORD,
@@ -79,7 +79,7 @@ class CMediatypeHelper {
 			self::EMAIL_PROVIDER_GMAIL_RELAY => [
 				'name' => 'Gmail relay',
 				'smtp_server' => 'smtp-relay.gmail.com',
-				'smtp_email' => 'zabbix@example.com',
+				'smtp_email' => 'taa@example.com',
 				'smtp_port' => 587,
 				'smtp_security' => SMTP_SECURITY_STARTTLS,
 				'smtp_authentication' => SMTP_AUTHENTICATION_NONE,
@@ -90,7 +90,7 @@ class CMediatypeHelper {
 			self::EMAIL_PROVIDER_OFFICE365 => [
 				'name' => 'Office365',
 				'smtp_server' => 'smtp.office365.com',
-				'smtp_email' => 'zabbix@example.com',
+				'smtp_email' => 'taa@example.com',
 				'smtp_port' => 587,
 				'smtp_security' => SMTP_SECURITY_STARTTLS,
 				'smtp_authentication' => SMTP_AUTHENTICATION_PASSWORD,
@@ -101,7 +101,7 @@ class CMediatypeHelper {
 			self::EMAIL_PROVIDER_OFFICE365_RELAY => [
 				'name' => 'Office365 relay',
 				'smtp_server' => '.mail.protection.outlook.com',
-				'smtp_email' => 'zabbix@example.com',
+				'smtp_email' => 'taa@example.com',
 				'smtp_port' => 25,
 				'smtp_security' => SMTP_SECURITY_STARTTLS,
 				'smtp_authentication' => SMTP_AUTHENTICATION_NONE,
