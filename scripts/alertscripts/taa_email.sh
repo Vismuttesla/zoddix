@@ -60,6 +60,18 @@ encode_subject() {
 
 ENC_SUBJECT="$(encode_subject "${SUBJECT}")"
 
+# --- Envelope sender (faqat email manzili, display name'siz) ----------------
+# msmtp ning "from" direktivasi RFC 5321 envelope sender'ini olishi shart —
+# "Display Name <email>" formatini Gmail kabi serverlar rad etadi.
+# FROM_ADDR ichida "<...>" bo'lsa, ichidagi email'ni ajratamiz; aks holda
+# FROM_ADDR ni o'zini ishlatamiz. "From:" HEADER'ida esa to'liq FROM_ADDR
+# qoladi (display name ko'rinishi uchun).
+if [[ "${FROM_ADDR}" =~ \<([^>]+)\> ]]; then
+    ENVELOPE_FROM="${BASH_REMATCH[1]}"
+else
+    ENVELOPE_FROM="${FROM_ADDR}"
+fi
+
 # --- Vaqtinchalik msmtp konfiguratsiyasini tuzish ----------------------------
 # Sekretlarni argv orqali emas, balki cheklangan huquqli faylda saqlaymiz.
 # TLS rejimi portga qarab tanlanadi:
@@ -86,7 +98,7 @@ logfile        /var/log/taa/msmtp.log
 account taa
 host     ${SMTP_HOST}
 port     ${SMTP_PORT}
-from     ${FROM_ADDR}
+from     ${ENVELOPE_FROM}
 user     ${SMTP_USER}
 password ${SMTP_PASS}
 
