@@ -1,8 +1,8 @@
 !/src/modules/dummy/Makefile
 
-# TAA — sekretlar (faqat .env.example git'da bo'ladi)
-.env
-scripts/docker/.env
+# TAA — .env git'da (faqat placeholderlar bilan). Haqiqiy sekretlarni
+# kiritganingizdan keyin `git update-index --skip-worktree .env` ishlatib,
+# o'zgarishlarni accident bilan commit qilmaslik tavsiya etiladi.
 
 *.a
 *.o
