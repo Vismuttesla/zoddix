@@ -81,7 +81,7 @@ auth           on
 tls            on
 tls_starttls   ${TLS_STARTTLS}
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
-logfile        /var/log/zabbix/msmtp.log
+logfile        /var/log/taa/msmtp.log
 
 account taa
 host     ${SMTP_HOST}
