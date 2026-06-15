@@ -8,6 +8,9 @@ Vazifasi:
 
 Foydalanish:
     auto_remediation.py --switch 10.0.99.2 --port Gi0/5 --reason "PSEC_VIOLATION"
+    auto_remediation.py --switch 10.0.99.2 \
+        --trap-text "TAA-PSEC port=Gi0/5 mac=aabb.ccdd.eeff" \
+        --reason "PSEC_VIOLATION"
 
 Muhit o'zgaruvchilari (env):
     SW_USER     - kommutator foydalanuvchi nomi (majburiy)
@@ -29,6 +32,7 @@ import argparse
 import datetime as dt
 import logging
 import os
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -56,6 +60,18 @@ log = logging.getLogger("auto_remediation")
 
 DEFAULT_DB_PATH = "/var/lib/taa/audit.db"
 
+PORT_RE = re.compile(
+    r"\b("
+    r"GigabitEthernet\d+(?:/\d+){1,2}|"
+    r"FastEthernet\d+(?:/\d+){1,2}|"
+    r"TenGigabitEthernet\d+(?:/\d+){1,2}|"
+    r"Gi\d+(?:/\d+){1,2}|"
+    r"Fa\d+(?:/\d+){1,2}|"
+    r"Te\d+(?:/\d+){1,2}"
+    r")\b",
+    re.IGNORECASE,
+)
+
 
 def parse_args() -> argparse.Namespace:
     """CLI argumentlarni o'qiydi."""
@@ -67,10 +83,14 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Kommutator IP manzili (masalan, 10.0.99.2)",
     )
-    parser.add_argument(
+    port_group = parser.add_mutually_exclusive_group(required=True)
+    port_group.add_argument(
         "--port",
-        required=True,
         help="Port nomi (masalan, Gi0/5 yoki GigabitEthernet0/5)",
+    )
+    port_group.add_argument(
+        "--trap-text",
+        help="TAA trap/log matni; port nomi shu matndan avtomatik ajratiladi",
     )
     parser.add_argument(
         "--reason",
@@ -83,6 +103,19 @@ def parse_args() -> argparse.Namespace:
         help="Audit jurnalida operator nomi (default: TAA-AUTO)",
     )
     return parser.parse_args()
+
+
+def extract_port_from_text(text: str) -> str:
+    """Trap/log matnidan Cisco interfeys nomini ajratadi."""
+    match = PORT_RE.search(text)
+    if not match:
+        log.error(
+            "Trap matnidan port nomini ajratib bo'lmadi. "
+            "Kutilgan format: Gi0/5, Fa0/24, Te1/0/1 yoki to'liq interfeys nomi."
+        )
+        sys.exit(2)
+
+    return match.group(1)
 
 
 def get_credentials() -> tuple[str, str, Optional[str]]:
@@ -223,12 +256,13 @@ def main() -> int:
     """Asosiy kirish nuqtasi."""
     args = parse_args()
     db_path = os.environ.get("AUDIT_DB", DEFAULT_DB_PATH)
+    port = args.port if args.port else extract_port_from_text(args.trap_text)
 
     user, password, enable_secret = get_credentials()
 
     shutdown_port(
         switch_ip=args.switch,
-        port=args.port,
+        port=port,
         reason=args.reason,
         username=user,
         password=password,
@@ -238,13 +272,13 @@ def main() -> int:
     write_audit(
         db_path=db_path,
         switch_ip=args.switch,
-        port=args.port,
+        port=port,
         reason=args.reason,
         operator=args.operator,
     )
 
     # TAA Action uchun qisqa muvaffaqiyat xabari (stdout)
-    print(f"OK: {args.switch} {args.port} shutdown ({args.reason})")
+    print(f"OK: {args.switch} {port} shutdown ({args.reason})")
     return 0
 
 

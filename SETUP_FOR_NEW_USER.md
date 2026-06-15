@@ -8,7 +8,7 @@ Ushbu qo'llanma TAA loyihasini boshqa kompyuterda `git clone` qilib tekshirish u
 - Port Security va STP triggerlari;
 - WAN brute-force triggeri;
 - email actionlari;
-- xavfsizlik uchun o'chirilgan auto-remediation action.
+- port-security uchun real auto-remediation action.
 
 Real qurilmalar keyin ulanganda foydalanuvchi faqat IP, SNMP credential, email va script credentiallarini o'z muhitiga moslaydi.
 
@@ -29,7 +29,7 @@ DB dump ichida quyidagilar oldindan yaratilgan:
 | Trigger | `core-sw01: STP topologiya o'zgarishi aniqlandi` |
 | Action | `core-sw01 Port Security xabari` |
 | Action | `core-sw01 STP xabari` |
-| Disabled action | `DISABLED - core-sw01 Port Security auto-remediation` |
+| Auto-remediation action | `core-sw01 Port Security auto-remediation` |
 | Host | `edge-rt01` |
 | Placeholder IP | `192.168.99.1` |
 | SNMP port | `161` |
@@ -37,7 +37,7 @@ DB dump ichida quyidagilar oldindan yaratilgan:
 | Trigger | `edge-rt01: WAN brute-force urinishlari aniqlandi` |
 | Action | `edge-rt01 WAN brute xabari` |
 
-Auto-remediation action ataylab o'chirilgan. U real switch portini `shutdown` qilishi mumkin, shuning uchun real port parsing va credentiallar tekshirilmaguncha yoqilmaydi.
+Auto-remediation action real rejimda yoqilgan. U `Port Security Violation Trap` qiymatidan port nomini ajratadi va `auto_remediation.py` orqali shu portni `shutdown` qiladi. Shuning uchun real muhitda `SW_USER`, `SW_PASS`, `SW_ENABLE` va script pathlari to'g'ri sozlangan bo'lishi shart.
 
 ## 2. Talablar
 
@@ -161,7 +161,7 @@ Status qiymati:
 - `0` - yoqilgan;
 - `1` - o'chirilgan.
 
-Auto-remediation action `1` bo'lishi kerak.
+Auto-remediation action real rejimda `0` bo'lishi kerak.
 
 ## 7. UI ichida tekshirish
 
@@ -355,14 +355,14 @@ Bu scriptlar uchun quyidagi yo'llarni tayyorlaydi:
 /usr/lib/zabbix/externalscripts/
 ```
 
-Docker test muhitida script action hozir o'chirilgan. Uni yoqishdan oldin scriptlar container ichida ham shu pathlarda mavjudligini tekshiring.
+Docker test muhitida ham DB ichida script action yoqilgan. Real trap kelganda script ishga tushishi uchun scriptlar container yoki server ichida aynan shu pathlarda mavjud bo'lishi kerak.
 
-## 13. Auto-remediation action nima uchun o'chirilgan
+## 13. Auto-remediation action qanday ishlaydi
 
-Quyidagi action tayyor, lekin o'chirilgan:
+Quyidagi action real rejimda yoqilgan:
 
 ```text
-DISABLED - core-sw01 Port Security auto-remediation
+core-sw01 Port Security auto-remediation
 ```
 
 U quyidagi global scriptni chaqiradi:
@@ -374,12 +374,12 @@ TAA auto-remediation port shutdown
 Command:
 
 ```bash
-/usr/lib/zabbix/alertscripts/auto_remediation.py --switch {HOST.IP} --port MANUAL_REVIEW --reason "{EVENT.NAME}" --operator "TAA-ACTION"
+/usr/lib/zabbix/alertscripts/auto_remediation.py --switch {HOST.IP} --trap-text "{ITEM.LASTVALUE}" --reason "{EVENT.NAME}" --operator "TAA-ACTION"
 ```
 
-`MANUAL_REVIEW` ataylab qo'yilgan. Real qurilmada trapdan port nomi aniq ajratilishi tekshirilmaguncha bu action yoqilmaydi.
+`auto_remediation.py` trap matnidan `Gi0/5`, `Fa0/24`, `Te1/0/1` yoki to'liq `GigabitEthernet0/5` kabi port nomini avtomatik ajratadi. Port topilmasa, script `exit 2` bilan to'xtaydi va hech qanday shutdown qilmaydi.
 
-Yoqishdan oldin:
+Real ishlashi uchun:
 
 1. `auto_remediation.py` serverda mavjudligini tekshiring.
 2. `netmiko` o'rnatilganligini tekshiring.
@@ -392,9 +392,14 @@ SW_ENABLE
 AUDIT_DB
 ```
 
-4. Trap ichida real port nomi kelayotganini tekshiring.
-5. Commanddagi `--port MANUAL_REVIEW` qismini real parsing mexanizmiga almashtiring.
-6. Faqat shundan keyin actionni `Enabled` qiling.
+4. Trap ichida real port nomi kelayotganini tekshiring, masalan:
+
+```text
+TAA-PSEC port=Gi0/5 mac=aabb.ccdd.eeff host=core-sw01
+```
+
+5. Switchda `taa_auto` user faqat kerakli buyruqlarni bajaradigan cheklangan privilege bilan yaratilgan bo'lsin.
+6. `/var/lib/taa/audit.db` yoziladigan bo'lsin.
 
 ## 14. Qurilmasiz tekshiruv nimani isbotlaydi
 
@@ -413,7 +418,7 @@ Qurilmasiz quyidagilar tekshirilmaydi:
 - real SNMP polling;
 - real SNMP trap kelishi;
 - EEM applet ishlashi;
-- port shutdown remediation;
+- port shutdown remediation, agar real trap va credentiallar sozlanmagan bo'lsa;
 - SMTP/Telegram real yuborish.
 
 ## 15. Real qurilma ulangandan keyingi final checklist
@@ -429,5 +434,6 @@ Qurilmasiz quyidagilar tekshirilmaydi:
 - [ ] STP topology/root change trap test qilindi.
 - [ ] WAN brute-force / authentication failure trap test qilindi.
 - [ ] Email action real manzilga xabar yubordi.
-- [ ] Auto-remediation hali o'chirilgan.
-- [ ] Auto-remediation faqat real port parsing tasdiqlangandan keyin yoqildi.
+- [ ] Auto-remediation action enabled holatda.
+- [ ] Port security trap qiymatida port nomi bor.
+- [ ] Auto-remediation portni shutdown qildi va `/var/lib/taa/audit.db` ichiga yozuv qo'shdi.
